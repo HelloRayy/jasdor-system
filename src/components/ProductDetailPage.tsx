@@ -90,17 +90,17 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
   const handleConfirmAddToCart = () => {
     onAddToCart(createCartItem());
-    onBack(); // Otomatis fallback ke Home
+    onBack();
   };
 
   return (
-    <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
-      {/* Fixed Top Bar tanpa BG Container */}
+    <div className="min-h-screen bg-gallery-white text-ink pb-28 font-sans antialiased">
+      {/* Fixed Top Bar */}
       <div className="fixed top-0 inset-x-0 z-50 max-w-md mx-auto px-4 py-2.5 flex items-center justify-between pointer-events-none">
         <button
           type="button"
           onClick={onBack}
-          className="w-11 h-11 flex items-center justify-center text-stone-900 active:opacity-60 transition-opacity pointer-events-auto"
+          className="w-11 h-11 flex items-center justify-center text-ink active:opacity-60 transition-opacity pointer-events-auto"
           aria-label="Kembali"
         >
           <IconArrowLeft size={22} stroke={2.25} />
@@ -110,18 +110,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           <button
             type="button"
             onClick={() => onToggleFavorite(item.id)}
-            className="w-11 h-11 flex items-center justify-center text-stone-900 active:opacity-60 transition-opacity"
+            className="w-11 h-11 flex items-center justify-center text-ink active:opacity-60 transition-opacity"
             aria-label="Favorit"
           >
             <IconHeart
               size={22}
-              className={isFavorite ? 'fill-rose-500 text-rose-500' : ''}
+              className={isFavorite ? 'fill-pricing-blue text-pricing-blue' : 'text-ink'}
               stroke={2}
             />
           </button>
           <button
             type="button"
-            className="w-11 h-11 flex items-center justify-center text-stone-900 active:opacity-60 transition-opacity"
+            className="w-11 h-11 flex items-center justify-center text-ink active:opacity-60 transition-opacity"
             aria-label="Bagikan"
           >
             <IconShare size={20} stroke={2} />
@@ -131,8 +131,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
       <div className="max-w-md mx-auto px-4 pt-14 flex flex-col justify-between min-h-screen">
         <div>
-          {/* Large Hero Product Image Container: Bersih Putih Tanpa BG Abu-abu */}
-          <div className="relative aspect-square w-full rounded-3xl bg-white border border-stone-200/80 flex items-center justify-center p-4 overflow-hidden mb-3">
+          {/* Large Hero Product Image: Gallery White (#ffffff) & Hairline Silver (#d6d6d6) */}
+          <div className="relative aspect-square w-full rounded-3xl bg-gallery-white border border-hairline flex items-center justify-center p-4 overflow-hidden mb-3">
             <img
               src={item.imageUrl || '/images/kopi-kenangan-cup.png'}
               alt={item.name}
@@ -142,42 +142,42 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               className="w-full h-full object-contain"
             />
 
-            <div className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-stone-900/60 backdrop-blur-md flex items-center justify-center text-white">
+            <div className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-ink/70 backdrop-blur-md flex items-center justify-center text-gallery-white">
               <IconMaximize size={16} stroke={2} />
             </div>
           </div>
 
           {/* Indicator Slider Dots */}
           <div className="flex items-center justify-center gap-1.5 mb-4">
-            <span className="w-5 h-1.5 rounded-full bg-stone-900" />
-            <span className="w-1.5 h-1.5 rounded-full bg-stone-300" />
-            <span className="w-1.5 h-1.5 rounded-full bg-stone-300" />
+            <span className="w-5 h-1.5 rounded-full bg-ink" />
+            <span className="w-1.5 h-1.5 rounded-full bg-control-gray" />
+            <span className="w-1.5 h-1.5 rounded-full bg-control-gray" />
           </div>
 
-          {/* Title & Price: WCAG Compliant Font Hierarchy */}
+          {/* Title & Price */}
           <div className="space-y-1 mb-2.5">
             <div className="flex items-start justify-between gap-3">
-              <h1 className="text-2xl font-bold tracking-tight text-stone-900 leading-snug">
+              <h1 className="text-2xl font-bold tracking-tight text-ink leading-snug">
                 {item.name}
               </h1>
-              <span className="text-2xl font-bold text-stone-900 shrink-0">
+              <span className="text-2xl font-bold text-ink shrink-0">
                 {formatRupiah(unitPrice)}
               </span>
             </div>
           </div>
 
-          {/* HeroUI v3 Chips */}
+          {/* Badges: Selection with Launch Orange & Studio Mist */}
           <div className="flex items-center gap-2 mb-3">
-            <Chip size="sm" variant="primary" color="default" className="text-xs font-semibold px-2.5 py-0.5 bg-stone-900 text-white">
-              Selection 97%
+            <Chip size="sm" variant="primary" className="text-xs font-semibold px-2.5 py-0.5 bg-launch-orange text-gallery-white">
+              Pilihan 97%
             </Chip>
-            <Chip size="sm" variant="secondary" className="text-xs font-medium text-stone-700 bg-stone-100">
-              Best product
+            <Chip size="sm" variant="secondary" className="text-xs font-medium text-slate bg-studio-mist border border-hairline">
+              Produk terlaris
             </Chip>
           </div>
 
-          {/* Description: Standard WCAG AA Body Text (14px / text-sm, high contrast) */}
-          <p className="text-sm text-stone-700 leading-relaxed mb-3">
+          {/* Description */}
+          <p className="text-sm text-slate leading-relaxed mb-3">
             {isExpanded
               ? item.description + ' Dibuat dengan bahan pilihan terbaik langsung dari racikan barista andalan.'
               : item.description}
@@ -185,16 +185,16 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="font-bold text-stone-900 underline inline-block ml-1"
+              className="font-semibold text-apple-blue hover:underline inline-block ml-1"
             >
-              {isExpanded ? 'Tutup' : 'Read more'}
+              {isExpanded ? 'Tutup' : 'Selengkapnya'}
             </button>
           </p>
 
-          {/* Ratings: Clear Contrast */}
+          {/* Ratings */}
           <div className="flex items-center gap-1.5 mb-6">
-            <span className="font-bold text-sm text-stone-900">4.9</span>
-            <span className="text-xs text-stone-500 font-medium">(332)</span>
+            <span className="font-semibold text-sm text-ink">4.9</span>
+            <span className="text-xs text-steel font-medium">(332)</span>
             <div className="flex items-center gap-0.5 text-amber-500 ml-1">
               <IconStarFilled size={14} />
               <IconStarFilled size={14} />
@@ -204,26 +204,26 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
           </div>
 
-          {/* OPSI VARIAN: List Vertikal Bersih dengan Radio Minimalis (GrabFood/GoFood Style) */}
+          {/* Opsi Varian: Studio Mist Backdrop, Hairline Divider */}
           {item.optionGroups && item.optionGroups.length > 0 && (
-            <div className="space-y-5 mb-6 pt-4 border-t border-stone-100">
+            <div className="space-y-5 mb-6 pt-4 border-t border-hairline">
               {item.optionGroups.map((group) => (
                 <div key={group.id} className="space-y-2">
                   <div className="flex items-center justify-between px-0.5">
-                    <span className="text-sm font-bold text-stone-900">
+                    <span className="text-sm font-semibold text-ink">
                       {group.name}
                     </span>
                     {group.required ? (
-                      <Chip size="sm" variant="secondary" className="text-[10px] font-semibold text-stone-600 bg-stone-100 h-5">
+                      <Chip size="sm" variant="secondary" className="text-[10px] font-semibold text-slate bg-studio-mist border border-hairline h-5">
                         Wajib (Pilih 1)
                       </Chip>
                     ) : (
-                      <span className="text-[10px] text-stone-400">Opsional</span>
+                      <span className="text-[10px] text-steel">Opsional</span>
                     )}
                   </div>
 
                   {/* List Vertikal Pilihan Opsi */}
-                  <div className="bg-stone-50/70 rounded-2xl border border-stone-200/70 overflow-hidden divide-y divide-stone-100/90">
+                  <div className="bg-studio-mist rounded-2xl border border-hairline overflow-hidden divide-y divide-hairline">
                     {group.options.map((opt) => {
                       const isSelected = selectedOptions[group.id]?.optionId === opt.id;
                       return (
@@ -241,31 +241,31 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                           }
                           className={`w-full flex items-center justify-between px-4 py-3 text-left transition-colors ${
                             isSelected
-                              ? 'bg-white font-medium shadow-2xs'
-                              : 'hover:bg-white/50 text-stone-700'
+                              ? 'bg-gallery-white font-medium shadow-2xs'
+                              : 'hover:bg-gallery-white/50 text-ink'
                           }`}
                         >
                           <div className="flex flex-col pr-2">
-                            <span className={`text-xs sm:text-sm ${isSelected ? 'font-bold text-stone-900' : 'text-stone-700'}`}>
+                            <span className={`text-xs sm:text-sm ${isSelected ? 'font-semibold text-ink' : 'text-slate'}`}>
                               {opt.name}
                             </span>
                             {opt.priceDelta > 0 && (
-                              <span className="text-[11px] font-semibold text-stone-500 mt-0.5">
+                              <span className="text-[11px] font-semibold text-apple-blue mt-0.5">
                                 +{formatRupiah(opt.priceDelta)}
                               </span>
                             )}
                           </div>
 
-                          {/* Minimalist Radio Indicator */}
+                          {/* Apple-styled Radio Indicator */}
                           <div
                             className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all ${
                               isSelected
-                                ? 'border-2 border-stone-900 bg-stone-900'
-                                : 'border-2 border-stone-300 bg-white'
+                                ? 'border-2 border-pricing-blue bg-pricing-blue'
+                                : 'border-2 border-steel bg-gallery-white'
                             }`}
                           >
                             {isSelected && (
-                              <div className="w-2 h-2 rounded-full bg-white" />
+                              <div className="w-2 h-2 rounded-full bg-gallery-white" />
                             )}
                           </div>
                         </button>
@@ -276,12 +276,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               ))}
 
               {/* Catatan untuk Barista: HeroUI v3 TextArea */}
-              <div className="space-y-1.5 pt-3 border-t border-stone-100">
+              <div className="space-y-1.5 pt-3 border-t border-hairline">
                 <div className="flex items-center justify-between px-0.5">
-                  <Label className="text-sm font-bold text-stone-800 block">
+                  <Label className="text-sm font-semibold text-ink block">
                     Catatan untuk Barista
                   </Label>
-                  <span className="text-xs text-stone-500">Opsional</span>
+                  <span className="text-xs text-slate">Opsional</span>
                 </div>
                 <TextArea
                   rows={2}
@@ -290,7 +290,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Contoh: Kurangi es, tanpa sedotan, minta pisah es..."
-                  className="w-full text-sm rounded-2xl bg-stone-50/70 border border-stone-200/70 focus:bg-white"
+                  className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                   aria-label="Catatan untuk Barista"
                 />
               </div>
@@ -298,37 +298,37 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           )}
         </div>
 
-        {/* Floating Bottom Action: Stepper + Tombol Tambah ke Keranjang Langsung */}
+        {/* Floating Bottom Action: Stepper + Tombol Tambah ke Keranjang */}
         <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
-          <div className="bg-white/95 backdrop-blur-md rounded-[24px] p-2 border border-stone-200/80 shadow-lg flex items-center gap-2">
+          <div className="bg-gallery-white/95 backdrop-blur-md rounded-[24px] p-2 border border-hairline shadow-lg flex items-center gap-2">
             {/* Quantity Stepper Ringkas */}
-            <div className="flex items-center bg-stone-100 rounded-2xl p-1 shrink-0">
+            <div className="flex items-center bg-control-gray rounded-2xl p-1 shrink-0">
               <button
                 type="button"
                 disabled={quantity <= 1}
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-stone-800 disabled:opacity-30"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-ink disabled:opacity-30"
                 aria-label="Kurangi"
               >
                 <IconMinus size={16} stroke={2} />
               </button>
-              <span className="w-7 text-center text-sm font-bold text-stone-900">
+              <span className="w-7 text-center text-sm font-semibold text-ink">
                 {quantity}
               </span>
               <button
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-stone-800"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-ink"
                 aria-label="Tambah"
               >
                 <IconPlus size={16} stroke={2} />
               </button>
             </div>
 
-            {/* Tombol Utama: Masukkan ke Keranjang -> Fallback ke Home */}
+            {/* Tombol Utama: Pricing Blue (#0071e3) */}
             <Button
               variant="primary"
-              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-sm flex items-center justify-between px-5 shadow-xs"
+              className="flex-1 h-12 rounded-2xl bg-pricing-blue text-gallery-white font-semibold text-sm flex items-center justify-between px-5 shadow-xs"
               onPress={handleConfirmAddToCart}
             >
               <span>Tambah ke Keranjang</span>
