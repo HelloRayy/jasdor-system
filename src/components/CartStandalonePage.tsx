@@ -342,7 +342,9 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   <IconBuildingStore size={18} stroke={1.75} />
                 </div>
                 <input
-                  type="text"
+                  type="search"
+                  name="store-search-query"
+                  id="store-search-query"
                   value={customBranchName}
                   onChange={(e) => {
                     setCustomBranchName(e.target.value);
@@ -350,10 +352,12 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   }}
                   onFocus={() => setIsDropdownOpen(true)}
                   placeholder="Ketik cabang/mall (contoh: anjasmoro, ciputra)..."
-                  autoComplete="off"
+                  autoComplete="one-time-code"
                   autoCorrect="off"
-                  autoCapitalize="words"
+                  autoCapitalize="none"
                   spellCheck={false}
+                  data-form-type="other"
+                  data-lpignore="true"
                   className="w-full pl-10 pr-4 py-3 text-sm bg-paper-frost rounded-2xl border border-hairline focus:outline-none focus:bg-gallery-white focus:border-pricing-blue text-ink font-medium placeholder:text-steel transition-colors"
                 />
 
@@ -474,15 +478,18 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                 <Input
                   fullWidth
                   variant="secondary"
+                  name="customer-nickname"
                   value={profile.name}
                   onChange={(e) => handleProfileChange('name', e.target.value)}
                   placeholder="Contoh: Rina Sari"
                   className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                   aria-label="Nama Pemesan"
-                  autoComplete="off"
+                  autoComplete="one-time-code"
                   autoCorrect="off"
                   autoCapitalize="words"
                   spellCheck={false}
+                  data-form-type="other"
+                  data-lpignore="true"
                 />
               </div>
 
@@ -497,13 +504,15 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   variant="secondary"
                   type="tel"
                   inputMode="numeric"
-                  pattern="[0-9]*"
+                  name="customer-wa-digits"
                   value={profile.phone}
                   onChange={(e) => handleProfileChange('phone', e.target.value)}
                   placeholder="Contoh: 08123456789"
                   className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                   aria-label="Nomor WhatsApp"
-                  autoComplete="off"
+                  autoComplete="one-time-code"
+                  data-form-type="other"
+                  data-lpignore="true"
                 />
               </div>
 
