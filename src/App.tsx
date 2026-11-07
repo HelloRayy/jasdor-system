@@ -169,7 +169,7 @@ export default function App() {
                 type="button"
                 className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors shrink-0 ${
                   sortBy !== 'default'
-                    ? 'bg-[#0a2e1f] text-[#2fdc8f]'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-stone-100 text-stone-700'
                 }`}
                 aria-label="Filter dan sortir menu"
@@ -182,19 +182,19 @@ export default function App() {
                 <Dropdown.Item id="default" textValue="Default">
                   <div className="flex items-center justify-between w-full py-0.5 text-xs">
                     <Label className="font-medium text-stone-900">Rekomendasi</Label>
-                    {sortBy === 'default' && <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />}
+                    {sortBy === 'default' && <IconCheck size={14} className="text-blue-600" stroke={2.5} />}
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Item id="price-asc" textValue="Termurah">
                   <div className="flex items-center justify-between w-full py-0.5 text-xs">
                     <Label className="font-medium text-stone-900">Harga Terendah</Label>
-                    {sortBy === 'price-asc' && <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />}
+                    {sortBy === 'price-asc' && <IconCheck size={14} className="text-blue-600" stroke={2.5} />}
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Item id="price-desc" textValue="Termahal">
                   <div className="flex items-center justify-between w-full py-0.5 text-xs">
                     <Label className="font-medium text-stone-900">Harga Tertinggi</Label>
-                    {sortBy === 'price-desc' && <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />}
+                    {sortBy === 'price-desc' && <IconCheck size={14} className="text-blue-600" stroke={2.5} />}
                   </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -212,7 +212,7 @@ export default function App() {
         {/* 4. Minimalist Highlight Card (Konsisten & Senada dengan Sistem Desain) */}
         <div className="rounded-2xl bg-stone-50 border border-stone-200/80 p-3.5 flex items-center justify-between gap-3 shadow-2xs">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-stone-900 text-[#2fdc8f] flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
               <IconBrandWhatsapp size={20} stroke={2} />
             </div>
             <div className="min-w-0">
@@ -269,9 +269,9 @@ export default function App() {
       {/* Toast Feedback Instan */}
       {toastMessage && (
         <div className="fixed top-4 inset-x-4 max-w-sm mx-auto z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="bg-[#0a2e1f] text-[#2fdc8f] px-4 py-2.5 rounded-2xl shadow-lg border border-[#144732] flex items-center justify-between text-xs font-semibold">
+          <div className="bg-stone-900 text-white px-4 py-2.5 rounded-2xl shadow-lg border border-stone-800 flex items-center justify-between text-xs font-semibold">
             <span>{toastMessage}</span>
-            <span className="w-2 h-2 rounded-full bg-[#2fdc8f]" />
+            <span className="w-2 h-2 rounded-full bg-blue-500" />
           </div>
         </div>
       )}
@@ -282,13 +282,13 @@ export default function App() {
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="group relative flex items-center gap-3 bg-stone-900 text-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl border border-stone-800 hover:bg-stone-950 transition-transform active:scale-95"
+            className="group relative flex items-center gap-3 bg-stone-900 text-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl border border-stone-800 hover:bg-stone-950 transition-transform active:scale-95 cursor-pointer"
             aria-label="Buka keranjang belanja"
           >
             {/* Bag Icon dengan Badge Counter */}
             <div className="relative">
               <IconShoppingBag size={22} stroke={2} />
-              <span className="absolute -top-2 -right-2.5 min-w-[20px] h-5 rounded-full bg-[#2fdc8f] text-[#0a2e1f] text-[11px] font-extrabold flex items-center justify-center px-1">
+              <span className="absolute -top-2 -right-2.5 min-w-[20px] h-5 rounded-full bg-blue-600 text-white text-[11px] font-extrabold flex items-center justify-center px-1 shadow-xs">
                 {totalQuantity}
               </span>
             </div>

@@ -35,7 +35,7 @@ export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
             <span className="text-xs text-stone-500 font-medium">
               {ownerName}
             </span>
-            <Chip size="sm" variant="secondary" className="h-4.5 px-2 text-[10px] font-semibold text-emerald-800 bg-emerald-50">
+            <Chip size="sm" variant="secondary" className="h-4.5 px-2 text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-200/60">
               Buka
             </Chip>
           </div>
