@@ -49,10 +49,16 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
   onClearCart,
 }) => {
   const [selectedOutlet, setSelectedOutlet] = useState<Outlet>(outlet);
-  const [customBranchName, setCustomBranchName] = useState<string>(outlet.name);
+  // Default kosong (zero) agar tidak terisi otomatis
+  const [customBranchName, setCustomBranchName] = useState<string>('');
   const [debouncedQuery, setDebouncedQuery] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Scroll ke paling atas saat halaman checkout dibuka
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, []);
 
   // Debounce input pencarian cabang (300ms)
   useEffect(() => {
@@ -132,6 +138,10 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
     }
     if (!profile.deliveryMethod) {
       setErrorMessage('Silakan pilih metode penerimaan: Diantar atau Ambil Sendiri');
+      return false;
+    }
+    if (!customBranchName.trim()) {
+      setErrorMessage('Cabang pemesanan wajib diisi');
       return false;
     }
     if (profile.deliveryMethod === 'delivery' && !profile.address?.trim()) {
@@ -340,6 +350,10 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   }}
                   onFocus={() => setIsDropdownOpen(true)}
                   placeholder="Ketik cabang/mall (contoh: anjasmoro, ciputra)..."
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="words"
+                  spellCheck={false}
                   className="w-full pl-10 pr-4 py-3 text-sm bg-paper-frost rounded-2xl border border-hairline focus:outline-none focus:bg-gallery-white focus:border-pricing-blue text-ink font-medium placeholder:text-steel transition-colors"
                 />
 
@@ -465,6 +479,10 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   placeholder="Contoh: Rina Sari"
                   className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                   aria-label="Nama Pemesan"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="words"
+                  spellCheck={false}
                 />
               </div>
 
@@ -478,11 +496,14 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   fullWidth
                   variant="secondary"
                   type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={profile.phone}
                   onChange={(e) => handleProfileChange('phone', e.target.value)}
                   placeholder="Contoh: 08123456789"
                   className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                   aria-label="Nomor WhatsApp"
+                  autoComplete="off"
                 />
               </div>
 
@@ -503,6 +524,10 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                       placeholder="Jalan, nomor rumah/kantor, RT/RW, kelurahan..."
                       className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                       aria-label="Alamat Pengantaran Lengkap"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="sentences"
+                      spellCheck={false}
                     />
                   </div>
 
@@ -518,6 +543,10 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                       placeholder="Contoh: Depan pos satpam pagar hitam"
                       className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                       aria-label="Patokan Lokasi"
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="sentences"
+                      spellCheck={false}
                     />
                   </div>
                 </>
