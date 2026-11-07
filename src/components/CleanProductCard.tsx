@@ -23,8 +23,8 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
       onClick={() => onSelect(item)}
       className="group cursor-pointer flex flex-col focus:outline-none"
     >
-      {/* Container Gambar Abu-Abu Bersih (Soft Gray Background) */}
-      <div className="relative aspect-square w-full rounded-3xl bg-stone-100 flex items-center justify-center p-3 overflow-hidden">
+      {/* Container Gambar Abu-Abu Bersih (Tampak Jelas dengan Border Halus) */}
+      <div className="relative aspect-square w-full rounded-3xl bg-stone-100/90 border border-stone-200/70 flex items-center justify-center p-3 overflow-hidden">
         {/* Foto Produk */}
         <img
           src={item.imageUrl}
