@@ -313,12 +313,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <IconMapPin size={14} className="text-stone-500" />
                         <span>Alamat Lengkap</span>
                       </Label>
-                      <Input
-                        fullWidth
-                        variant="secondary"
+                      <textarea
+                        rows={2}
                         value={profile.address || ''}
                         onChange={(e) => handleProfileChange('address', e.target.value)}
-                        placeholder="Jalan, nomor rumah/kantor, RT/RW..."
+                        placeholder="Jalan, nomor rumah/kantor, RT/RW, kelurahan..."
+                        className="w-full px-3.5 py-2.5 text-xs bg-stone-50 rounded-xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900 resize-none leading-relaxed"
                         aria-label="Alamat Lengkap"
                       />
                     </div>

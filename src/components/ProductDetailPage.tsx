@@ -275,7 +275,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 </div>
               ))}
 
-              {/* Catatan untuk Barista */}
+              {/* Catatan untuk Barista: Multi-line Textarea */}
               <div className="space-y-1.5 pt-3 border-t border-stone-100">
                 <div className="flex items-center justify-between px-0.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
@@ -283,12 +283,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   </label>
                   <span className="text-xs text-stone-500">Opsional</span>
                 </div>
-                <input
-                  type="text"
+                <textarea
+                  rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Contoh: Kurangi es, tanpa sedotan..."
-                  className="w-full px-4 py-3 text-sm bg-stone-50/70 rounded-2xl border border-stone-200/70 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900"
+                  placeholder="Contoh: Kurangi es, tanpa sedotan, minta pisah es..."
+                  className="w-full px-4 py-3 text-sm bg-stone-50/70 rounded-2xl border border-stone-200/70 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900 resize-none leading-relaxed"
                 />
               </div>
             </div>
