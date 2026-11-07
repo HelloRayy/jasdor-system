@@ -3,6 +3,8 @@ import {
   Button,
   Card,
   Chip,
+  Dropdown,
+  Label,
   Modal,
 } from '@heroui/react';
 import {
@@ -12,6 +14,7 @@ import {
   IconMapPin,
   IconCheck,
   IconSparkles,
+  IconChevronDown,
 } from '@tabler/icons-react';
 import { mockOutlets } from './data/mockOutlets';
 import type { Outlet, MenuItem } from './types/catalog';
@@ -31,7 +34,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeTab, setActiveTab] = useState<string>('home');
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc'>('default');
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   // Modal & Drawer States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -135,7 +137,7 @@ export default function App() {
           onOpenOutletPicker={() => setIsOutletPickerOpen(true)}
         />
 
-        {/* 2. Search Bar Bersih dengan Tombol Filter & Sortir */}
+        {/* 2. Search Bar Bersih dengan Dropdown Filter Popover (Bukan Popup Modal) */}
         <div className="relative flex items-center gap-2">
           <div className="relative flex-1">
             <IconSearch
@@ -151,18 +153,43 @@ export default function App() {
             />
           </div>
 
-          <button
-            type="button"
-            onClick={() => setIsFilterModalOpen(true)}
-            className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors shrink-0 ${
-              sortBy !== 'default'
-                ? 'bg-stone-900 text-white'
-                : 'bg-stone-100 text-stone-700'
-            }`}
-            aria-label="Filter dan sortir menu"
-          >
-            <IconAdjustmentsHorizontal size={18} stroke={1.75} />
-          </button>
+          <Dropdown>
+            <Dropdown.Trigger>
+              <button
+                type="button"
+                className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors shrink-0 ${
+                  sortBy !== 'default'
+                    ? 'bg-[#0a2e1f] text-[#2fdc8f]'
+                    : 'bg-stone-100 text-stone-700'
+                }`}
+                aria-label="Filter dan sortir menu"
+              >
+                <IconAdjustmentsHorizontal size={18} stroke={1.75} />
+              </button>
+            </Dropdown.Trigger>
+            <Dropdown.Popover placement="bottom end">
+              <Dropdown.Menu onAction={(key) => setSortBy(key as any)}>
+                <Dropdown.Item id="default" textValue="Default">
+                  <div className="flex items-center justify-between w-full py-0.5 text-xs">
+                    <Label className="font-medium text-stone-900">Rekomendasi</Label>
+                    {sortBy === 'default' && <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />}
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item id="price-asc" textValue="Termurah">
+                  <div className="flex items-center justify-between w-full py-0.5 text-xs">
+                    <Label className="font-medium text-stone-900">Harga Terendah</Label>
+                    {sortBy === 'price-asc' && <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />}
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item id="price-desc" textValue="Termahal">
+                  <div className="flex items-center justify-between w-full py-0.5 text-xs">
+                    <Label className="font-medium text-stone-900">Harga Tertinggi</Label>
+                    {sortBy === 'price-desc' && <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />}
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown.Popover>
+          </Dropdown>
         </div>
 
         {/* 3. Horizontal Scrollable Outlet Logo Placeholders (Width > Height) */}
@@ -191,8 +218,37 @@ export default function App() {
           </div>
         </div>
 
-        {/* 5. Sub-filter Tab ("For you", "Best Seller", Kategori Menu) */}
+        {/* 5. Sub-filter Dropdown & Category Pills */}
         <div className="flex items-center justify-between pt-1 overflow-x-auto no-scrollbar gap-2">
+          {/* Dropdown Kategori Menu (Bukan Popup Modal) */}
+          <Dropdown>
+            <Dropdown.Trigger>
+              <button
+                type="button"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#0a2e1f] text-[#2fdc8f] text-xs font-semibold shrink-0"
+              >
+                <span>{selectedCategory === 'All' ? 'Semua Kategori' : selectedCategory}</span>
+                <IconChevronDown size={14} stroke={2} />
+              </button>
+            </Dropdown.Trigger>
+            <Dropdown.Popover placement="bottom start">
+              <Dropdown.Menu onAction={(key) => setSelectedCategory(key as string)}>
+                {categories.map((cat) => (
+                  <Dropdown.Item key={cat} id={cat} textValue={cat}>
+                    <div className="flex items-center justify-between w-full py-0.5 text-xs">
+                      <Label className="font-medium text-stone-900">
+                        {cat === 'All' ? 'Semua Menu' : cat}
+                      </Label>
+                      {selectedCategory === cat && (
+                        <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />
+                      )}
+                    </div>
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown.Popover>
+          </Dropdown>
+
           <div className="flex items-center gap-2 shrink-0 py-0.5">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
@@ -201,13 +257,13 @@ export default function App() {
                   key={cat}
                   type="button"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2.5 rounded-full text-xs transition-all duration-200 cursor-pointer min-h-[38px] flex items-center justify-center ${
+                  className={`px-3.5 py-2 rounded-full text-xs font-medium ${
                     isActive
                       ? 'bg-stone-900 text-white font-semibold shadow-xs'
-                      : 'bg-stone-100/90 text-stone-600 font-medium hover:bg-stone-200 hover:text-stone-900'
+                      : 'bg-stone-100 text-stone-600'
                   }`}
                 >
-                  {cat === 'All' ? 'Semua Menu' : cat}
+                  {cat === 'All' ? 'Semua' : cat}
                 </button>
               );
             })}
@@ -265,64 +321,6 @@ export default function App() {
         onSelectTab={setActiveTab}
         onOpenCart={() => setIsCartOpen(true)}
       />
-
-      {/* HeroUI Filter & Sort Modal */}
-      <Modal isOpen={isFilterModalOpen} onOpenChange={setIsFilterModalOpen}>
-        <Modal.Backdrop variant="blur">
-          <Modal.Container size="sm">
-            <Modal.Dialog className="w-full">
-              <Modal.Header>
-                <Modal.Heading>Urutkan & Filter Menu</Modal.Heading>
-                <Modal.CloseTrigger />
-              </Modal.Header>
-
-              <Modal.Body className="space-y-4 pt-1">
-                <div className="space-y-2">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-                    Urutan Harga
-                  </span>
-                  <div className="grid grid-cols-1 gap-2">
-                    <Button
-                      variant={sortBy === 'default' ? 'primary' : 'outline'}
-                      className="justify-between"
-                      onPress={() => setSortBy('default')}
-                    >
-                      <span>Rekomendasi (Default)</span>
-                      {sortBy === 'default' && <IconCheck size={16} stroke={2.5} />}
-                    </Button>
-                    <Button
-                      variant={sortBy === 'price-asc' ? 'primary' : 'outline'}
-                      className="justify-between"
-                      onPress={() => setSortBy('price-asc')}
-                    >
-                      <span>Harga Terendah &rarr; Tertinggi</span>
-                      {sortBy === 'price-asc' && <IconCheck size={16} stroke={2.5} />}
-                    </Button>
-                    <Button
-                      variant={sortBy === 'price-desc' ? 'primary' : 'outline'}
-                      className="justify-between"
-                      onPress={() => setSortBy('price-desc')}
-                    >
-                      <span>Harga Tertinggi &rarr; Terendah</span>
-                      {sortBy === 'price-desc' && <IconCheck size={16} stroke={2.5} />}
-                    </Button>
-                  </div>
-                </div>
-              </Modal.Body>
-
-              <Modal.Footer>
-                <Button
-                  variant="primary"
-                  fullWidth
-                  onPress={() => setIsFilterModalOpen(false)}
-                >
-                  Terapkan
-                </Button>
-              </Modal.Footer>
-            </Modal.Dialog>
-          </Modal.Container>
-        </Modal.Backdrop>
-      </Modal>
 
       {/* HeroUI Outlet Picker Modal */}
       <Modal isOpen={isOutletPickerOpen} onOpenChange={setIsOutletPickerOpen}>
