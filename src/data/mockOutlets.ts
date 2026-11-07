@@ -1,6 +1,7 @@
 import type { Outlet } from '../types/catalog';
 
 export const mockOutlets: Outlet[] = [
+  // --- Kopi Kenangan ---
   {
     id: 'kopken-01',
     slug: 'kopi-kenangan',
@@ -11,6 +12,11 @@ export const mockOutlets: Outlet[] = [
     bannerUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop&q=80',
     whatsappNumber: '6281234567890',
     address: 'Jl. Kertajaya Indah No. 45, Surabaya',
+    location: {
+      lat: -7.2758,
+      lng: 112.7845,
+      city: 'Surabaya',
+    },
     openingHours: '08:00 - 21:00',
     isActive: true,
     qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580016ID.CO.QRIS.WWW01189360052300000000005204581253033605802ID5913KOPI_KENANGAN6008SURABAYA6304C1B5',
@@ -92,6 +98,39 @@ export const mockOutlets: Outlet[] = [
     ],
   },
   {
+    id: 'kopken-02',
+    slug: 'kopi-kenangan',
+    name: 'Kopi Kenangan - Tunjungan Plaza 3',
+    brand: 'Kopi Kenangan',
+    tagline: 'Kopi Mantan Paling Pas di Lidah',
+    logoUrl: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=150&auto=format&fit=crop&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop&q=80',
+    whatsappNumber: '6281234567891',
+    address: 'Mall Tunjungan Plaza 3 Lt. LG, Surabaya',
+    location: {
+      lat: -7.2625,
+      lng: 112.7394,
+      city: 'Surabaya',
+    },
+    openingHours: '10:00 - 22:00',
+    isActive: true,
+    qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580016ID.CO.QRIS.WWW01189360052300000000005204581253033605802ID5913KOPI_KENANGAN6008SURABAYA6304C1B5',
+    categories: ['Coffee', 'Non-Coffee', 'Snacks'],
+    menus: [
+      {
+        id: 'kk-01',
+        name: 'Kopi Kenangan Mantan',
+        description: 'Espresso dengan susu segar dan gula aren asli pilihan nusantara.',
+        basePrice: 19000,
+        imageUrl: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&auto=format&fit=crop&q=80',
+        category: 'Coffee',
+        isAvailable: true,
+      },
+    ],
+  },
+
+  // --- Fore Coffee ---
+  {
     id: 'fore-01',
     slug: 'fore-coffee',
     name: 'Fore Coffee - Darmo Square',
@@ -101,6 +140,11 @@ export const mockOutlets: Outlet[] = [
     bannerUrl: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&auto=format&fit=crop&q=80',
     whatsappNumber: '6289876543210',
     address: 'Jl. Raya Darmo No. 88, Surabaya',
+    location: {
+      lat: -7.2848,
+      lng: 112.7388,
+      city: 'Surabaya',
+    },
     openingHours: '07:00 - 22:00',
     isActive: true,
     qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580016ID.CO.QRIS.WWW01189360052300000000005204581253033605802ID5911FORE_COFFEE6008SURABAYA6304D2E1',
@@ -149,6 +193,39 @@ export const mockOutlets: Outlet[] = [
     ],
   },
   {
+    id: 'fore-02',
+    slug: 'fore-coffee',
+    name: 'Fore Coffee - Pakuwon Mall',
+    brand: 'Fore Coffee',
+    tagline: 'Grind the Essentials, Brew the Future',
+    logoUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=150&auto=format&fit=crop&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&auto=format&fit=crop&q=80',
+    whatsappNumber: '6289876543211',
+    address: 'Pakuwon Mall Lt. 1, Surabaya Barat',
+    location: {
+      lat: -7.2891,
+      lng: 112.6756,
+      city: 'Surabaya',
+    },
+    openingHours: '10:00 - 22:00',
+    isActive: true,
+    qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580016ID.CO.QRIS.WWW01189360052300000000005204581253033605802ID5911FORE_COFFEE6008SURABAYA6304D2E1',
+    categories: ['Coffee', 'Signature Buttercream', 'Tea & Refreshers'],
+    menus: [
+      {
+        id: 'fore-01',
+        name: 'Buttercream Aren Latte',
+        description: 'Signature espresso dengan busa buttercream lembut dan gula aren karamel.',
+        basePrice: 32000,
+        imageUrl: 'https://images.unsplash.com/photo-1572442388796-11668ba67e53?w=400&auto=format&fit=crop&q=80',
+        category: 'Signature Buttercream',
+        isAvailable: true,
+      },
+    ],
+  },
+
+  // --- Tomoro Coffee ---
+  {
     id: 'tomoro-01',
     slug: 'tomoro-coffee',
     name: 'Tomoro Coffee - Manyar Kertoarjo',
@@ -158,6 +235,11 @@ export const mockOutlets: Outlet[] = [
     bannerUrl: 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=800&auto=format&fit=crop&q=80',
     whatsappNumber: '6281122334455',
     address: 'Jl. Manyar Kertoarjo No. 110, Surabaya',
+    location: {
+      lat: -7.2789,
+      lng: 112.7663,
+      city: 'Surabaya',
+    },
     openingHours: '07:30 - 21:30',
     isActive: true,
     qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580016ID.CO.QRIS.WWW01189360052300000000005204581253033605802ID5913TOMORO_COFFEE6008SURABAYA6304E3F2',
@@ -191,6 +273,37 @@ export const mockOutlets: Outlet[] = [
         basePrice: 26000,
         imageUrl: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400&auto=format&fit=crop&q=80',
         category: 'Oat Series',
+        isAvailable: true,
+      },
+    ],
+  },
+  {
+    id: 'tomoro-02',
+    slug: 'tomoro-coffee',
+    name: 'Tomoro Coffee - Rungkut Madya',
+    brand: 'Tomoro Coffee',
+    tagline: '100% Arabica Master Blend',
+    logoUrl: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=150&auto=format&fit=crop&q=80',
+    bannerUrl: 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=800&auto=format&fit=crop&q=80',
+    whatsappNumber: '6281122334456',
+    address: 'Jl. Rungkut Madya No. 32, Surabaya',
+    location: {
+      lat: -7.3228,
+      lng: 112.7758,
+      city: 'Surabaya',
+    },
+    openingHours: '07:30 - 22:00',
+    isActive: true,
+    qrisImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020101021126580016ID.CO.QRIS.WWW01189360052300000000005204581253033605802ID5913TOMORO_COFFEE6008SURABAYA6304E3F2',
+    categories: ['Coffee', 'Oat Series', 'Frappe'],
+    menus: [
+      {
+        id: 'tmr-01',
+        name: 'Tomoro Coconut Latte',
+        description: 'Paduan kelapa gurih alami dengan espresso double shot 100% Arabica.',
+        basePrice: 22000,
+        imageUrl: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&auto=format&fit=crop&q=80',
+        category: 'Coffee',
         isAvailable: true,
       },
     ],

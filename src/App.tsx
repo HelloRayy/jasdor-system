@@ -26,6 +26,7 @@ import { ProductDetailPage } from './components/ProductDetailPage';
 import { VariantModal } from './components/VariantModal';
 import { CartDrawer } from './components/CartDrawer';
 import { BottomNavBar } from './components/BottomNavBar';
+import { OutletMapStandalonePage } from './components/OutletMapStandalonePage';
 import { formatRupiah } from './utils/whatsapp';
 
 export default function App() {
@@ -113,6 +114,17 @@ export default function App() {
       }
     }
   };
+
+  if (isOutletPickerOpen) {
+    return (
+      <OutletMapStandalonePage
+        outlets={mockOutlets}
+        currentOutlet={currentOutlet}
+        onSelectOutlet={handleChangeOutlet}
+        onBack={() => setIsOutletPickerOpen(false)}
+      />
+    );
+  }
 
   if (detailProduct) {
     return (
