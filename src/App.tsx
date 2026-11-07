@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import {
-  IconSearch,
+  Button,
+  Card,
+  Input,
+  Chip,
+} from '@heroui/react';
+import {
   IconShoppingCart,
   IconCoffee,
   IconSparkles,
@@ -56,7 +61,6 @@ export default function App() {
       setCurrentOutlet(newOutlet);
       setSelectedCategory('All');
       setSearchMenuQuery('');
-      // Jika ganti outlet dan ada cart, bisa ditanyakan atau reset
       if (cartItems.length > 0) {
         setCartItems([]);
       }
@@ -64,104 +68,99 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-900 pb-28">
+    <div className="min-h-screen bg-background text-foreground pb-28">
       {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200/80">
+      <header className="sticky top-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-amber-800 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-              <IconCoffee size={18} stroke={1.75} />
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-accent text-accent-foreground flex items-center justify-center font-bold text-sm shadow-xs">
+              <IconCoffee size={20} stroke={1.75} />
             </div>
             <div>
-              <span className="font-bold text-base tracking-tight text-stone-900 block leading-tight">
+              <span className="font-bold text-base tracking-tight text-foreground block leading-tight">
                 Jasdor
               </span>
-              <span className="text-[10px] text-stone-400 font-medium">
+              <span className="text-[10px] text-muted font-medium">
                 Pesan Cepat via WhatsApp
               </span>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setIsCartOpen(true)}
-            className="relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-colors"
+          <Button
+            variant="secondary"
+            size="sm"
+            onPress={() => setIsCartOpen(true)}
+            className="relative gap-2"
           >
             <IconShoppingCart size={16} stroke={2} />
             <span>Keranjang</span>
             {totalQuantity > 0 && (
-              <span className="w-5 h-5 rounded-full bg-amber-800 text-white flex items-center justify-center text-[10px] font-bold">
+              <Chip size="sm" variant="primary" color="accent" className="h-5 min-w-5 px-1 text-[11px] font-bold">
                 {totalQuantity}
-              </span>
+              </Chip>
             )}
-          </button>
+          </Button>
         </div>
       </header>
 
       {/* Main Container */}
       <main className="max-w-4xl mx-auto px-4 pt-4 space-y-4">
-        {/* Outlet Selector Card di Paling Atas */}
+        {/* Outlet Selector Card */}
         <OutletSelector
           outlets={mockOutlets}
           currentOutlet={currentOutlet}
           onSelectOutlet={handleChangeOutlet}
         />
 
-        {/* Banner Gerai Singkat */}
-        <div className="relative rounded-2xl overflow-hidden bg-stone-900 text-white p-4 sm:p-6">
+        {/* Banner Gerai */}
+        <Card variant="tertiary" className="relative overflow-hidden p-5 sm:p-6 text-white bg-black">
           <img
             src={currentOutlet.bannerUrl}
             alt={currentOutlet.name}
-            className="absolute inset-0 w-full h-full object-cover opacity-25"
+            className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
           />
           <div className="relative z-10 max-w-lg">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-200 border border-amber-500/30 mb-2">
+            <Chip size="sm" variant="soft" color="accent" className="mb-2 gap-1">
               <IconSparkles size={12} />
-              {currentOutlet.brand}
-            </span>
+              <span>{currentOutlet.brand}</span>
+            </Chip>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
               {currentOutlet.tagline}
             </h1>
-            <p className="text-xs text-stone-300 mt-1 line-clamp-1">
+            <p className="text-xs text-snow/80 mt-1 line-clamp-1">
               {currentOutlet.address} • Jam: {currentOutlet.openingHours}
             </p>
           </div>
-        </div>
+        </Card>
 
         {/* Search & Category Filter Section */}
         <div className="space-y-3 pt-2">
-          {/* Menu Search Input */}
-          <div className="relative">
-            <IconSearch
-              size={18}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400"
-            />
-            <input
-              type="text"
-              value={searchMenuQuery}
-              onChange={(e) => setSearchMenuQuery(e.target.value)}
-              placeholder={`Cari menu di ${currentOutlet.brand}...`}
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-stone-200/80 rounded-2xl focus:outline-none focus:border-amber-700 shadow-xs"
-            />
-          </div>
+          {/* Input Search HeroUI */}
+          <Input
+            fullWidth
+            variant="secondary"
+            value={searchMenuQuery}
+            onChange={(e) => setSearchMenuQuery(e.target.value)}
+            placeholder={`Cari menu di ${currentOutlet.brand}...`}
+            aria-label="Cari menu"
+          />
 
-          {/* Category Pills */}
+          {/* Category Filter Chips */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
-                <button
+                <Button
                   key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
-                    isActive
-                      ? 'bg-stone-900 text-white shadow-xs'
-                      : 'bg-white border border-stone-200/80 text-stone-600 hover:bg-stone-100'
+                  size="sm"
+                  variant={isActive ? 'primary' : 'outline'}
+                  onPress={() => setSelectedCategory(cat)}
+                  className={`rounded-full whitespace-nowrap text-xs ${
+                    isActive ? '' : 'border-border'
                   }`}
                 >
                   {cat === 'All' ? 'Semua Menu' : cat}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -170,19 +169,19 @@ export default function App() {
         {/* Product Cards Grid */}
         <div className="pt-2">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wider">
+            <h2 className="text-xs font-bold text-muted uppercase tracking-wider">
               {selectedCategory === 'All' ? 'Daftar Menu' : selectedCategory}
             </h2>
-            <span className="text-xs text-stone-400">
+            <span className="text-xs text-muted">
               {filteredMenus.length} item ditemukan
             </span>
           </div>
 
           {filteredMenus.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-2xl border border-stone-200/60 p-6">
-              <p className="text-sm text-stone-500">Menu tidak ditemukan.</p>
-              <p className="text-xs text-stone-400 mt-1">Coba kata kunci pencarian lain.</p>
-            </div>
+            <Card variant="secondary" className="text-center py-12 p-6">
+              <p className="text-sm text-foreground">Menu tidak ditemukan.</p>
+              <p className="text-xs text-muted mt-1">Coba kata kunci pencarian lain.</p>
+            </Card>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {filteredMenus.map((item) => (
@@ -197,20 +196,22 @@ export default function App() {
         </div>
       </main>
 
-      {/* Floating Bottom Cart Bar (Muncul saat keranjang terisi) */}
+      {/* Floating Bottom Cart Bar (HeroUI Button/Card) */}
       {cartItems.length > 0 && (
         <div className="fixed bottom-4 inset-x-4 max-w-lg mx-auto z-40">
-          <button
-            type="button"
-            onClick={() => setIsCartOpen(true)}
-            className="w-full bg-stone-950 text-white p-3.5 rounded-2xl shadow-xl flex items-center justify-between hover:bg-amber-900 transition-colors animate-in slide-in-from-bottom duration-200"
+          <Button
+            variant="primary"
+            fullWidth
+            size="lg"
+            className="p-3.5 h-auto justify-between shadow-xl"
+            onPress={() => setIsCartOpen(true)}
           >
             <div className="flex items-center gap-2.5">
-              <span className="w-6 h-6 rounded-lg bg-amber-500 text-stone-950 font-bold text-xs flex items-center justify-center">
+              <Chip size="sm" variant="primary" color="default" className="font-bold text-xs">
                 {totalQuantity}
-              </span>
+              </Chip>
               <div className="text-left">
-                <span className="text-xs text-stone-400 block font-normal leading-tight">
+                <span className="text-[11px] opacity-80 block font-normal leading-tight">
                   Total Pesanan
                 </span>
                 <span className="text-sm font-bold leading-tight">
@@ -219,22 +220,22 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-300">
+            <div className="flex items-center gap-1.5 text-xs font-semibold">
               <span>Lihat Pesanan</span>
               <IconShoppingCart size={16} stroke={2} />
             </div>
-          </button>
+          </Button>
         </div>
       )}
 
-      {/* Modal Pilihan Varian */}
+      {/* HeroUI Variant Modal */}
       <VariantModal
         item={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddToCart}
       />
 
-      {/* Drawer Keranjang & Checkout WhatsApp */}
+      {/* HeroUI Cart Drawer */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}

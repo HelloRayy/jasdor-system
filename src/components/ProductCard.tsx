@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Button, Chip } from '@heroui/react';
 import { IconPlus } from '@tabler/icons-react';
 import type { MenuItem } from '../types/catalog';
 import { formatRupiah } from '../utils/whatsapp';
@@ -10,52 +11,55 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ item, onSelect }) => {
   return (
-    <div
+    <Card
+      variant="default"
+      className="cursor-pointer transition-transform hover:-translate-y-0.5"
       onClick={() => onSelect(item)}
-      className="group cursor-pointer bg-white rounded-2xl border border-stone-200/80 p-3 sm:p-3.5 flex flex-col justify-between hover:border-amber-700/50 hover:shadow-xs transition-all"
     >
-      <div>
-        <div className="relative aspect-4/3 w-full rounded-xl overflow-hidden bg-stone-100 mb-3">
-          <img
-            src={item.imageUrl}
-            alt={item.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            loading="lazy"
-          />
-          {!item.isAvailable && (
-            <div className="absolute inset-0 bg-stone-950/60 flex items-center justify-center">
-              <span className="text-white text-xs font-semibold px-2 py-1 rounded-md bg-stone-800">
-                Habis
-              </span>
-            </div>
-          )}
-        </div>
-
-        <h4 className="font-semibold text-stone-900 text-sm leading-snug line-clamp-1 group-hover:text-amber-800 transition-colors">
-          {item.name}
-        </h4>
-        <p className="text-xs text-stone-500 line-clamp-2 mt-1 leading-relaxed">
-          {item.description}
-        </p>
+      <div className="relative aspect-4/3 w-full overflow-hidden rounded-t-xl bg-default">
+        <img
+          src={item.imageUrl}
+          alt={item.name}
+          className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+        />
+        {!item.isAvailable && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+            <Chip color="danger" variant="primary" size="sm">
+              Habis
+            </Chip>
+          </div>
+        )}
       </div>
 
-      <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-stone-100">
+      <Card.Header className="p-3 pb-1">
+        <Card.Title className="text-sm font-semibold line-clamp-1">
+          {item.name}
+        </Card.Title>
+        <Card.Description className="text-xs line-clamp-2 mt-0.5">
+          {item.description}
+        </Card.Description>
+      </Card.Header>
+
+      <Card.Footer className="p-3 pt-2 flex items-center justify-between border-t border-separator mt-auto">
         <div>
-          <span className="text-xs text-stone-400 block font-normal">Mulai dari</span>
-          <span className="font-bold text-stone-900 text-sm">
+          <span className="text-[11px] text-muted block leading-none">Mulai</span>
+          <span className="text-sm font-bold text-foreground">
             {formatRupiah(item.basePrice)}
           </span>
         </div>
 
-        <button
-          type="button"
-          disabled={!item.isAvailable}
-          className="w-8 h-8 rounded-full bg-stone-900 text-white flex items-center justify-center hover:bg-amber-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        <Button
+          isIconOnly
+          size="sm"
+          variant="primary"
+          isDisabled={!item.isAvailable}
           aria-label={`Tambah ${item.name}`}
+          onPress={() => onSelect(item)}
         >
           <IconPlus size={16} stroke={2} />
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Card.Footer>
+    </Card>
   );
 };
