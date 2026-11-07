@@ -330,8 +330,9 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                     setIsDropdownOpen(true);
                   }}
                   onFocus={() => setIsDropdownOpen(true)}
-                  placeholder="Ketik cabang/mall (contoh: anjasmoro, ciputra)..."
+                  placeholder="Ketik nama kota, mall, atau cabang terdekat..."
                   className="w-full pl-10 pr-4 py-3 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/40 text-stone-900 font-medium placeholder:text-stone-400 transition-colors"
+                  aria-label="Nama Cabang Pemesanan"
                 />
 
                 {/* Live Dropdown Hasil Debounce */}
@@ -383,7 +384,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
               </div>
 
               <p className="text-[11px] text-stone-400 px-0.5">
-                Bisa pilih dari saran di atas atau ketik bebas nama gerai terdekatmu.
+                Cari berdasarkan kota atau nama gedung, lalu pilih gerai yang sesuai.
               </p>
             </div>
 
