@@ -2,42 +2,48 @@ import { useState } from 'react';
 import {
   Button,
   Card,
-  Input,
   Chip,
+  Modal,
 } from '@heroui/react';
 import {
-  IconShoppingCart,
-  IconCoffee,
+  IconSearch,
+  IconScan,
+  IconClock,
+  IconMapPin,
+  IconCheck,
   IconSparkles,
 } from '@tabler/icons-react';
 import { mockOutlets } from './data/mockOutlets';
 import type { Outlet, MenuItem } from './types/catalog';
 import type { CartItem } from './types/cart';
-import { OutletSelector } from './components/OutletSelector';
-import { ProductCard } from './components/ProductCard';
+import { DeliveryHeader } from './components/DeliveryHeader';
+import { CleanProductCard } from './components/CleanProductCard';
 import { VariantModal } from './components/VariantModal';
 import { CartDrawer } from './components/CartDrawer';
+import { BottomNavBar } from './components/BottomNavBar';
 import { formatRupiah } from './utils/whatsapp';
 
 export default function App() {
   const [currentOutlet, setCurrentOutlet] = useState<Outlet>(mockOutlets[0]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchMenuQuery, setSearchMenuQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<string>('home');
 
-  // Cart & Modal States
+  // Modal & Drawer States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<MenuItem | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
-  // Filter Categories
   const categories = ['All', ...currentOutlet.categories];
 
   const filteredMenus = currentOutlet.menus.filter((item) => {
     const matchCategory =
       selectedCategory === 'All' || item.category === selectedCategory;
     const matchSearch =
-      item.name.toLowerCase().includes(searchMenuQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchMenuQuery.toLowerCase());
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCategory && matchSearch;
   });
 
@@ -46,6 +52,28 @@ export default function App() {
 
   const handleAddToCart = (item: CartItem) => {
     setCartItems((prev) => [...prev, item]);
+  };
+
+  const handleQuickAdd = (menuItem: MenuItem) => {
+    if (menuItem.optionGroups && menuItem.optionGroups.length > 0) {
+      setSelectedProduct(menuItem);
+      return;
+    }
+    const cartItem: CartItem = {
+      id: `${menuItem.id}-${Date.now()}`,
+      menuItem,
+      quantity: 1,
+      selectedOptions: [],
+      unitPrice: menuItem.basePrice,
+      totalPrice: menuItem.basePrice,
+    };
+    handleAddToCart(cartItem);
+  };
+
+  const handleToggleFavorite = (id: string) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
+    );
   };
 
   const handleRemoveItem = (id: string) => {
@@ -60,7 +88,7 @@ export default function App() {
     if (newOutlet.id !== currentOutlet.id) {
       setCurrentOutlet(newOutlet);
       setSelectedCategory('All');
-      setSearchMenuQuery('');
+      setSearchQuery('');
       if (cartItems.length > 0) {
         setCartItems([]);
       }
@@ -68,150 +96,145 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-28">
-      {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-accent text-accent-foreground flex items-center justify-center font-bold text-sm shadow-xs">
-              <IconCoffee size={20} stroke={1.75} />
-            </div>
-            <div>
-              <span className="font-bold text-base tracking-tight text-foreground block leading-tight">
-                Jasdor
-              </span>
-              <span className="text-[10px] text-muted font-medium">
-                Pesan Cepat via WhatsApp
-              </span>
-            </div>
-          </div>
-
-          <Button
-            variant="secondary"
-            size="sm"
-            onPress={() => setIsCartOpen(true)}
-            className="relative gap-2"
-          >
-            <IconShoppingCart size={16} stroke={2} />
-            <span>Keranjang</span>
-            {totalQuantity > 0 && (
-              <Chip size="sm" variant="primary" color="accent" className="h-5 min-w-5 px-1 text-[11px] font-bold">
-                {totalQuantity}
-              </Chip>
-            )}
-          </Button>
-        </div>
-      </header>
-
-      {/* Main Container */}
-      <main className="max-w-4xl mx-auto px-4 pt-4 space-y-4">
-        {/* Outlet Selector Card */}
-        <OutletSelector
-          outlets={mockOutlets}
+    <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
+      {/* App Shell Container Maksimal Mobile-First seperti di Referensi */}
+      <div className="max-w-md mx-auto px-4 pt-3 space-y-4">
+        {/* 1. Header Lokasi & Notifikasi (Mirip iPhone Top Header) */}
+        <DeliveryHeader
           currentOutlet={currentOutlet}
-          onSelectOutlet={handleChangeOutlet}
+          onOpenOutletPicker={() => setIsOutletPickerOpen(true)}
         />
 
-        {/* Banner Gerai */}
-        <Card variant="tertiary" className="relative overflow-hidden p-5 sm:p-6 text-white bg-black">
-          <img
-            src={currentOutlet.bannerUrl}
-            alt={currentOutlet.name}
-            className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
-          />
-          <div className="relative z-10 max-w-lg">
-            <Chip size="sm" variant="soft" color="accent" className="mb-2 gap-1">
-              <IconSparkles size={12} />
-              <span>{currentOutlet.brand}</span>
-            </Chip>
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
-              {currentOutlet.tagline}
-            </h1>
-            <p className="text-xs text-snow/80 mt-1 line-clamp-1">
-              {currentOutlet.address} • Jam: {currentOutlet.openingHours}
-            </p>
+        {/* 2. Search Bar Bersih dengan Icon Scan QR / Filter */}
+        <div className="relative flex items-center gap-2">
+          <div className="relative flex-1">
+            <IconSearch
+              size={18}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400"
+            />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search coffee, tea, meals..."
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-stone-100 rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-stone-900/10 placeholder:text-stone-400"
+            />
           </div>
-        </Card>
 
-        {/* Search & Category Filter Section */}
-        <div className="space-y-3 pt-2">
-          {/* Input Search HeroUI */}
-          <Input
-            fullWidth
-            variant="secondary"
-            value={searchMenuQuery}
-            onChange={(e) => setSearchMenuQuery(e.target.value)}
-            placeholder={`Cari menu di ${currentOutlet.brand}...`}
-            aria-label="Cari menu"
-          />
+          <button
+            type="button"
+            className="w-10 h-10 rounded-2xl bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-700 transition-colors shrink-0"
+            aria-label="Scan barcode"
+          >
+            <IconScan size={18} stroke={1.75} />
+          </button>
+        </div>
 
-          {/* Category Filter Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-            {categories.map((cat) => {
-              const isActive = selectedCategory === cat;
-              return (
-                <Button
-                  key={cat}
-                  size="sm"
-                  variant={isActive ? 'primary' : 'outline'}
-                  onPress={() => setSelectedCategory(cat)}
-                  className={`rounded-full whitespace-nowrap text-xs ${
-                    isActive ? '' : 'border-border'
+        {/* 3. Baris Kategori Visual Story / Pill (Foto Bulat / Rounded Square) */}
+        <div className="flex items-center gap-3 overflow-x-auto pb-1 no-scrollbar pt-1">
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                className="flex flex-col items-center gap-1.5 shrink-0 group"
+              >
+                <div
+                  className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
+                    isActive
+                      ? 'bg-stone-900 text-white shadow-xs'
+                      : 'bg-stone-100 text-stone-700 group-hover:bg-stone-200'
                   }`}
                 >
-                  {cat === 'All' ? 'Semua Menu' : cat}
-                </Button>
-              );
-            })}
-          </div>
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    {cat.slice(0, 3)}
+                  </span>
+                </div>
+                <span
+                  className={`text-[11px] font-medium tracking-tight ${
+                    isActive ? 'text-stone-900 font-bold' : 'text-stone-500'
+                  }`}
+                >
+                  {cat === 'All' ? 'Semua' : cat}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Product Cards Grid */}
-        <div className="pt-2">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs font-bold text-muted uppercase tracking-wider">
-              {selectedCategory === 'All' ? 'Daftar Menu' : selectedCategory}
-            </h2>
-            <span className="text-xs text-muted">
-              {filteredMenus.length} item ditemukan
-            </span>
-          </div>
-
-          {filteredMenus.length === 0 ? (
-            <Card variant="secondary" className="text-center py-12 p-6">
-              <p className="text-sm text-foreground">Menu tidak ditemukan.</p>
-              <p className="text-xs text-muted mt-1">Coba kata kunci pencarian lain.</p>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-              {filteredMenus.map((item) => (
-                <ProductCard
-                  key={item.id}
-                  item={item}
-                  onSelect={(selected) => setSelectedProduct(selected)}
-                />
-              ))}
+        {/* 4. Promo Dark Banner (Contoh: Down payment 0% LokkeStore di Referensi) */}
+        <div className="relative rounded-3xl overflow-hidden bg-emerald-950 text-white p-4.5 flex items-center justify-between shadow-xs">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-1.5">
+              <span className="font-bold text-sm tracking-tight">Pesan Cepat via WhatsApp</span>
+              <IconSparkles size={14} className="text-amber-300" />
             </div>
-          )}
-        </div>
-      </main>
+            <p className="text-[11px] text-emerald-300/90 font-medium">
+              Otomatis rapi tanpa ngetik manual
+            </p>
+          </div>
 
-      {/* Floating Bottom Cart Bar (HeroUI Button/Card) */}
+          <div className="px-3 py-1.5 rounded-xl bg-white text-stone-950 text-xs font-bold tracking-tight">
+            {currentOutlet.brand}
+          </div>
+        </div>
+
+        {/* 5. Sub-filter Tab ("For you", "Best Seller", "View all") */}
+        <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="px-3 py-1 rounded-full bg-stone-900 text-white text-xs font-semibold shadow-xs"
+            >
+              Untuk Kamu
+            </button>
+            <button
+              type="button"
+              className="px-3 py-1 rounded-full bg-stone-100 text-stone-600 text-xs font-medium hover:bg-stone-200 transition-colors"
+            >
+              Menu Favorit
+            </button>
+          </div>
+
+          <button
+            type="button"
+            className="text-xs font-semibold text-stone-400 hover:text-stone-900 transition-colors"
+          >
+            Lihat semua &gt;
+          </button>
+        </div>
+
+        {/* 6. Grid Produk 2 Kolom Bersih (Mirip Phone 1 & 2 di Referensi Desain) */}
+        <div className="grid grid-cols-2 gap-3 pt-1">
+          {filteredMenus.map((item) => (
+            <CleanProductCard
+              key={item.id}
+              item={item}
+              isFavorite={favorites.includes(item.id)}
+              onToggleFavorite={handleToggleFavorite}
+              onSelect={(selected) => setSelectedProduct(selected)}
+              onQuickAdd={handleQuickAdd}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Floating Bottom Cart Bar */}
       {cartItems.length > 0 && (
-        <div className="fixed bottom-4 inset-x-4 max-w-lg mx-auto z-40">
-          <Button
-            variant="primary"
-            fullWidth
-            size="lg"
-            className="p-3.5 h-auto justify-between shadow-xl"
-            onPress={() => setIsCartOpen(true)}
+        <div className="fixed bottom-16 inset-x-4 max-w-md mx-auto z-40">
+          <button
+            type="button"
+            onClick={() => setIsCartOpen(true)}
+            className="w-full bg-stone-950 text-white p-3.5 rounded-2xl shadow-xl flex items-center justify-between hover:bg-stone-800 transition-colors"
           >
             <div className="flex items-center gap-2.5">
-              <Chip size="sm" variant="primary" color="default" className="font-bold text-xs">
+              <span className="w-6 h-6 rounded-lg bg-emerald-500 text-white font-bold text-xs flex items-center justify-center">
                 {totalQuantity}
-              </Chip>
+              </span>
               <div className="text-left">
-                <span className="text-[11px] opacity-80 block font-normal leading-tight">
+                <span className="text-[11px] text-stone-400 block font-normal leading-tight">
                   Total Pesanan
                 </span>
                 <span className="text-sm font-bold leading-tight">
@@ -220,13 +243,92 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs font-semibold">
-              <span>Lihat Pesanan</span>
-              <IconShoppingCart size={16} stroke={2} />
-            </div>
-          </Button>
+            <span className="text-xs font-semibold text-emerald-400">
+              Lihat Keranjang &gt;
+            </span>
+          </button>
         </div>
       )}
+
+      {/* 7. Bottom Navigation Bar Bersih (Mirip di Bagian Bawah Gambar Referensi) */}
+      <BottomNavBar
+        activeTab={activeTab}
+        cartCount={totalQuantity}
+        onSelectTab={setActiveTab}
+        onOpenCart={() => setIsCartOpen(true)}
+      />
+
+      {/* HeroUI Outlet Picker Modal */}
+      <Modal isOpen={isOutletPickerOpen} onOpenChange={setIsOutletPickerOpen}>
+        <Modal.Backdrop variant="blur">
+          <Modal.Container size="sm">
+            <Modal.Dialog className="w-full">
+              <Modal.Header>
+                <Modal.Heading>Pilih Gerai Outlet</Modal.Heading>
+                <Modal.CloseTrigger />
+              </Modal.Header>
+
+              <Modal.Body className="space-y-2 max-h-[60vh] overflow-y-auto">
+                {mockOutlets.map((outlet) => {
+                  const isSelected = outlet.id === currentOutlet.id;
+                  return (
+                    <Card
+                      key={outlet.id}
+                      variant={isSelected ? 'tertiary' : 'default'}
+                      className={`cursor-pointer transition-colors p-3 ${
+                        isSelected ? 'border-emerald-600' : ''
+                      }`}
+                      onClick={() => {
+                        handleChangeOutlet(outlet);
+                        setIsOutletPickerOpen(false);
+                      }}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-semibold text-sm text-foreground truncate">
+                              {outlet.name}
+                            </span>
+                            {isSelected && (
+                              <Chip size="sm" variant="primary" color="success" className="h-4.5 text-[10px]">
+                                Aktif
+                              </Chip>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-1.5 text-xs text-muted mb-1">
+                            <IconMapPin size={14} className="shrink-0" />
+                            <span className="truncate">{outlet.address}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5 text-xs text-muted">
+                            <IconClock size={14} className="shrink-0" />
+                            <span>{outlet.openingHours}</span>
+                          </div>
+                        </div>
+
+                        {isSelected && (
+                          <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-1">
+                            <IconCheck size={14} stroke={2.5} />
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  );
+                })}
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => setIsOutletPickerOpen(false)}
+                >
+                  Tutup
+                </Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
 
       {/* HeroUI Variant Modal */}
       <VariantModal
@@ -235,7 +337,7 @@ export default function App() {
         onAddToCart={handleAddToCart}
       />
 
-      {/* HeroUI Cart Drawer */}
+      {/* HeroUI Cart Drawer & WhatsApp Form */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
