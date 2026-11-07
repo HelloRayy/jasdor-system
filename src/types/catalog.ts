@@ -23,6 +23,12 @@ export interface MenuItem {
   optionGroups?: MenuOptionGroup[];
 }
 
+export interface OutletLocation {
+  lat: number;
+  lng: number;
+  city: string;
+}
+
 export interface Outlet {
   id: string;
   slug: string;
@@ -33,6 +39,8 @@ export interface Outlet {
   bannerUrl: string;
   whatsappNumber: string; // format internasional: 628xxxx
   address: string;
+  location: OutletLocation;
+  distanceKm?: number;
   openingHours: string;
   isActive: boolean;
   qrisImageUrl?: string;
