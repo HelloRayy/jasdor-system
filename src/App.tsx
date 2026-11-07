@@ -23,7 +23,7 @@ import { DeliveryHeader } from './components/DeliveryHeader';
 import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
 import { ProductDetailPage } from './components/ProductDetailPage';
-import { CartDrawer } from './components/CartDrawer';
+import { CartStandalonePage } from './components/CartStandalonePage';
 import { OutletComboboxModal } from './components/OutletComboboxModal';
 import { formatRupiah } from './utils/whatsapp';
 
@@ -111,6 +111,17 @@ export default function App() {
     }
   };
 
+  if (isCartOpen) {
+    return (
+      <CartStandalonePage
+        onBack={() => setIsCartOpen(false)}
+        cartItems={cartItems}
+        outlet={currentOutlet}
+        onRemoveItem={handleRemoveItem}
+        onClearCart={handleClearCart}
+      />
+    );
+  }
   if (detailProduct) {
     return (
       <ProductDetailPage
@@ -397,17 +408,6 @@ export default function App() {
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
-
-      {/* HeroUI Cart Drawer & WhatsApp Form */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        outlet={currentOutlet}
-        onRemoveItem={handleRemoveItem}
-        onClearCart={handleClearCart}
-      />
-
       {/* Modern Combobox Modal: Pilih Kota & Cabang Kopi Kenangan Se-Indonesia */}
       <OutletComboboxModal
         isOpen={isOutletPickerOpen}
