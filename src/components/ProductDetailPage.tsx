@@ -8,10 +8,6 @@ import {
   IconMaximize,
   IconPlus,
   IconMinus,
-  IconCup,
-  IconFlame,
-  IconSnowflake,
-  IconCheck,
 } from '@tabler/icons-react';
 import type { MenuItem } from '../types/catalog';
 import type { CartItem, SelectedOption } from '../types/cart';
@@ -94,14 +90,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     };
   };
 
-  // Helper untuk Icon Visual Tiap Kategori Varian
-  const getGroupIcon = (groupId: string) => {
-    if (groupId.includes('size')) return <IconCup size={16} className="text-[#2fdc8f]" />;
-    if (groupId.includes('sugar') || groupId.includes('sweet')) return <IconFlame size={16} className="text-amber-400" />;
-    if (groupId.includes('ice') || groupId.includes('temp')) return <IconSnowflake size={16} className="text-sky-400" />;
-    return <IconCup size={16} className="text-[#2fdc8f]" />;
-  };
-
   return (
     <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
       <div className="max-w-md mx-auto px-4 pt-3 flex flex-col justify-between min-h-screen">
@@ -166,18 +154,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               <h1 className="text-xl font-bold tracking-tight text-stone-900">
                 {item.name}
               </h1>
-              <span className="text-xl font-extrabold text-[#0a2e1f]">
+              <span className="text-xl font-bold text-stone-900">
                 {formatRupiah(unitPrice)}
               </span>
             </div>
           </div>
 
-          {/* Pill Tags */}
+          {/* Pill Tags: Monokrom Minimalis */}
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#0a2e1f] text-[#2fdc8f]">
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-900 text-white">
               Selection 97%
             </span>
-            <span className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-stone-700">
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-stone-600">
               Best product
             </span>
           </div>
@@ -210,21 +198,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
           </div>
 
-          {/* OPSI VARIAN VISUAL OPEN-LAYOUT (Tanpa Container Box Kaku) */}
+          {/* OPSI VARIAN: SUPER CLEAN TANPA ICON DEKORATIF */}
           {item.optionGroups && item.optionGroups.length > 0 && (
-            <div className="space-y-5 mb-6 pt-4 border-t border-stone-100">
+            <div className="space-y-4 mb-6 pt-4 border-t border-stone-100">
               {item.optionGroups.map((group) => (
-                <div key={group.id} className="space-y-2.5">
-                  {/* Header Grup dengan Icon Visual */}
+                <div key={group.id} className="space-y-2">
+                  {/* Header Bersih Tanpa Icon */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      {getGroupIcon(group.id)}
-                      <span className="text-xs font-bold uppercase tracking-wider text-stone-900">
-                        {group.name}
-                      </span>
-                    </div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-stone-900">
+                      {group.name}
+                    </span>
                     {group.required ? (
-                      <span className="text-[10px] font-semibold text-[#0a2e1f] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      <span className="text-[10px] font-semibold text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full">
                         Wajib
                       </span>
                     ) : (
@@ -232,7 +217,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     )}
                   </div>
 
-                  {/* Horizontal Visual Pills (Open Flow) */}
+                  {/* Horizontal Clean Pills: Hitam & Abu-Abu Netral */}
                   <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
                     {group.options.map((opt) => {
                       const isSelected = selectedOptions[group.id]?.optionId === opt.id;
@@ -249,19 +234,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                               opt.priceDelta
                             )
                           }
-                          className={`px-4 py-2.5 rounded-2xl text-xs font-medium shrink-0 flex items-center gap-2 border transition-all ${
+                          className={`px-4 py-2.5 rounded-full text-xs shrink-0 flex items-center gap-1.5 transition-colors ${
                             isSelected
-                              ? 'bg-[#0a2e1f] text-[#2fdc8f] border-[#0a2e1f] font-bold shadow-xs'
-                              : 'bg-stone-100 text-stone-700 border-transparent hover:border-stone-300'
+                              ? 'bg-stone-900 text-white font-semibold shadow-xs'
+                              : 'bg-stone-100 text-stone-700 font-medium'
                           }`}
                         >
                           <span>{opt.name}</span>
                           {opt.priceDelta > 0 && (
-                            <span className={`text-[11px] ${isSelected ? 'text-[#2fdc8f]/80' : 'text-stone-400'}`}>
+                            <span className={`text-[11px] ${isSelected ? 'text-stone-300' : 'text-stone-400'}`}>
                               +{formatRupiah(opt.priceDelta)}
                             </span>
                           )}
-                          {isSelected && <IconCheck size={14} stroke={2.5} />}
                         </button>
                       );
                     })}
@@ -269,8 +253,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 </div>
               ))}
 
-              {/* Catatan untuk Barista Open Input */}
-              <div className="space-y-1.5 pt-2 border-t border-stone-100">
+              {/* Catatan untuk Barista */}
+              <div className="space-y-1.5 pt-3 border-t border-stone-100">
                 <label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
                   Catatan untuk Barista
                 </label>
@@ -279,14 +263,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Contoh: Kurangi es, tanpa sedotan..."
-                  className="w-full px-4 py-3 text-xs bg-stone-100 rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-stone-900/10 placeholder:text-stone-400"
+                  className="w-full px-4 py-2.5 text-xs bg-stone-100 rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-stone-900/10 placeholder:text-stone-400"
                 />
               </div>
             </div>
           )}
         </div>
 
-        {/* Bottom Fixed Action Bar */}
+        {/* Bottom Fixed Action Bar: Hitam & Hijau Bersih Sesuai Desain Awal Referensi */}
         <div className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/60 p-4 pb-safe">
           <div className="max-w-md mx-auto flex items-center gap-2.5">
             {/* Quantity Stepper */}
@@ -313,7 +297,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </button>
             </div>
 
-            {/* Buy Now Button */}
+            {/* Buy Now Button (Hitam Solid) */}
             <Button
               variant="primary"
               className="flex-1 h-12 rounded-[20px] bg-stone-900 text-white font-semibold text-xs sm:text-sm shadow-xs"
@@ -322,10 +306,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               Buy now
             </Button>
 
-            {/* Add to Cart Button */}
+            {/* Add to Cart Button (Hijau Terang Bersih #00c853 Sesuai Foto Referensi) */}
             <Button
               variant="primary"
-              className="flex-1 h-12 rounded-[20px] bg-[#0a2e1f] text-[#2fdc8f] border border-[#144732] font-semibold text-xs sm:text-sm shadow-xs"
+              className="flex-1 h-12 rounded-[20px] bg-[#00c853] text-white font-semibold text-xs sm:text-sm shadow-xs"
               onPress={() => {
                 onAddToCart(createCartItem());
                 onBack();
