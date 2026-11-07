@@ -14,7 +14,6 @@ import {
   IconMapPin,
   IconCheck,
   IconSparkles,
-  IconChevronDown,
 } from '@tabler/icons-react';
 import { mockOutlets } from './data/mockOutlets';
 import type { Outlet, MenuItem } from './types/catalog';
@@ -230,56 +229,25 @@ export default function App() {
           </div>
         </div>
 
-        {/* 5. Sub-filter Dropdown & Category Pills */}
-        <div className="flex items-center justify-between pt-1 overflow-x-auto no-scrollbar gap-2">
-          {/* Dropdown Kategori Menu (Bukan Popup Modal) */}
-          <Dropdown>
-            <Dropdown.Trigger>
+        {/* 5. Clean Horizontal Scrollable Category Pills (Sesuai Referensi) */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4">
+          {categories.map((cat) => {
+            const isActive = selectedCategory === cat;
+            return (
               <button
+                key={cat}
                 type="button"
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#0a2e1f] text-[#2fdc8f] text-xs font-semibold shrink-0"
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold shrink-0 cursor-pointer ${
+                  isActive
+                    ? 'bg-stone-900 text-white shadow-xs'
+                    : 'bg-stone-100 text-stone-600'
+                }`}
               >
-                <span>{selectedCategory === 'All' ? 'Semua Kategori' : selectedCategory}</span>
-                <IconChevronDown size={14} stroke={2} />
+                {cat === 'All' ? 'Semua Menu' : cat}
               </button>
-            </Dropdown.Trigger>
-            <Dropdown.Popover placement="bottom start">
-              <Dropdown.Menu onAction={(key) => setSelectedCategory(key as string)}>
-                {categories.map((cat) => (
-                  <Dropdown.Item key={cat} id={cat} textValue={cat}>
-                    <div className="flex items-center justify-between w-full py-0.5 text-xs">
-                      <Label className="font-medium text-stone-900">
-                        {cat === 'All' ? 'Semua Menu' : cat}
-                      </Label>
-                      {selectedCategory === cat && (
-                        <IconCheck size={14} className="text-[#0a2e1f]" stroke={2.5} />
-                      )}
-                    </div>
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown.Popover>
-          </Dropdown>
-
-          <div className="flex items-center gap-2 shrink-0 py-0.5">
-            {categories.map((cat) => {
-              const isActive = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3.5 py-2 rounded-full text-xs font-medium ${
-                    isActive
-                      ? 'bg-stone-900 text-white font-semibold shadow-xs'
-                      : 'bg-stone-100 text-stone-600'
-                  }`}
-                >
-                  {cat === 'All' ? 'Semua' : cat}
-                </button>
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
 
         {/* 6. Grid Produk 2 Kolom Bersih (Mirip Phone 1 & 2 di Referensi Desain) */}
