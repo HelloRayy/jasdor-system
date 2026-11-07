@@ -76,6 +76,38 @@ export const OutletMapStandalonePage: React.FC<OutletMapStandalonePageProps> = (
   const [isLocating, setIsLocating] = useState(false);
   const [activeOutlet, setActiveOutlet] = useState<Outlet>(currentOutlet);
 
+  // Otomatis deteksi GPS saat halaman peta dibuka
+  React.useEffect(() => {
+    if (navigator.geolocation) {
+      setIsLocating(true);
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+          setUserCoords(coords);
+          setMapCenter(coords);
+          setZoom(14);
+          setIsLocating(false);
+
+          // Otomatis set active outlet ke gerai yang paling dekat dari koordinat user
+          let closest = currentOutlet;
+          let minDistance = Infinity;
+          outlets.forEach((o) => {
+            const d = calculateDistanceKm(coords[0], coords[1], o.location.lat, o.location.lng);
+            if (d < minDistance) {
+              minDistance = d;
+              closest = o;
+            }
+          });
+          setActiveOutlet(closest);
+        },
+        () => {
+          setIsLocating(false);
+        },
+        { enableHighAccuracy: true, timeout: 6000 }
+      );
+    }
+  }, [outlets, currentOutlet]);
+
   const handleDetectGPS = () => {
     if (!navigator.geolocation) {
       alert('Perangkat Anda tidak mendukung geolokasi.');
