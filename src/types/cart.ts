@@ -18,12 +18,12 @@ export interface CartItem {
   totalPrice: number; // unitPrice * quantity
 }
 
-export type DeliveryMethod = 'delivery' | 'pickup';
+export type DeliveryMethod = 'delivery' | 'pickup' | '';
 
 export interface CustomerProfile {
   name: string;
   phone: string;
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod?: DeliveryMethod;
   address?: string;
   landmark?: string;
   googleMapsUrl?: string;

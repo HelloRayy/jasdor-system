@@ -28,24 +28,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   isFavorite,
   onToggleFavorite,
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, SelectedOption>>(() => {
-    const initial: Record<string, SelectedOption> = {};
-    item.optionGroups?.forEach((group) => {
-      if (group.required && group.options.length > 0) {
-        const first = group.options[0];
-        initial[group.id] = {
-          groupId: group.id,
-          groupName: group.name,
-          optionId: first.id,
-          optionName: first.name,
-          priceDelta: first.priceDelta,
-        };
-      }
-    });
-    return initial;
-  });
+  // Default varian kosong (zero) agar tidak ada opsi yang terpilih otomatis
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, SelectedOption>>({});
 
-  const [quantity, setQuantity] = useState(1);
+  // Default kuantitas 0 (zero) untuk mencegah miss-click
+  const [quantity, setQuantity] = useState(0);
   const [notes, setNotes] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -55,6 +42,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   );
   const unitPrice = item.basePrice + optionsDelta;
   const totalPrice = unitPrice * quantity;
+
+  // Cek apakah semua grup opsi wajib sudah dipilih
+  const requiredGroups = item.optionGroups?.filter((g) => g.required) || [];
+  const missingRequired = requiredGroups.some((g) => !selectedOptions[g.id]);
+  const canAddToCart = quantity > 0 && !missingRequired;
 
   const handleSelectOption = (
     groupId: string,
@@ -301,18 +293,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         {/* Floating Bottom Action: Stepper + Tombol Tambah ke Keranjang */}
         <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
           <div className="bg-gallery-white/95 backdrop-blur-md rounded-[24px] p-2 border border-hairline shadow-lg flex items-center gap-2">
-            {/* Quantity Stepper Ringkas */}
+            {/* Quantity Stepper Ringkas (Bisa mulai dari 0) */}
             <div className="flex items-center bg-control-gray rounded-2xl p-1 shrink-0">
               <button
                 type="button"
-                disabled={quantity <= 1}
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                disabled={quantity <= 0}
+                onClick={() => setQuantity((q) => Math.max(0, q - 1))}
                 className="w-9 h-9 rounded-xl flex items-center justify-center text-ink disabled:opacity-30"
                 aria-label="Kurangi"
               >
                 <IconMinus size={16} stroke={2} />
               </button>
-              <span className="w-7 text-center text-sm font-semibold text-ink">
+              <span className={`w-7 text-center text-sm font-semibold ${quantity === 0 ? 'text-steel' : 'text-ink'}`}>
                 {quantity}
               </span>
               <button
@@ -325,13 +317,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </button>
             </div>
 
-            {/* Tombol Utama: Pricing Blue (#0071e3) */}
+            {/* Tombol Utama: Pricing Blue (#0071e3), Disable jika Kuantitas 0 atau Opsi Wajib Belum Dipilih */}
             <Button
               variant="primary"
-              className="flex-1 h-12 rounded-2xl bg-pricing-blue text-gallery-white font-semibold text-sm flex items-center justify-between px-5 shadow-xs"
+              isDisabled={!canAddToCart}
+              className={`flex-1 h-12 rounded-2xl font-semibold text-sm flex items-center justify-between px-5 shadow-xs transition-opacity ${
+                canAddToCart
+                  ? 'bg-pricing-blue text-gallery-white cursor-pointer active:scale-98'
+                  : 'bg-control-gray text-steel cursor-not-allowed opacity-60'
+              }`}
               onPress={handleConfirmAddToCart}
             >
-              <span>Tambah ke Keranjang</span>
+              <span>{quantity === 0 ? 'Pilih Jumlah (+)' : missingRequired ? 'Pilih Varian Wajib' : 'Tambah ke Keranjang'}</span>
               <span className="font-bold">{formatRupiah(totalPrice)}</span>
             </Button>
           </div>
