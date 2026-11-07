@@ -317,19 +317,21 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </button>
             </div>
 
-            {/* Tombol Utama: Pricing Blue (#0071e3), Disable jika Kuantitas 0 atau Opsi Wajib Belum Dipilih */}
+            {/* Tombol Utama: Ringkas & Responsif di Semua Ukuran Layar HP */}
             <Button
               variant="primary"
               isDisabled={!canAddToCart}
-              className={`flex-1 h-12 rounded-2xl font-semibold text-sm flex items-center justify-between px-5 shadow-xs transition-opacity ${
+              className={`flex-1 min-w-0 h-12 rounded-2xl font-semibold text-xs sm:text-sm flex items-center justify-between px-3 sm:px-4 shadow-xs transition-opacity ${
                 canAddToCart
                   ? 'bg-pricing-blue text-gallery-white cursor-pointer active:scale-98'
                   : 'bg-control-gray text-steel cursor-not-allowed opacity-60'
               }`}
               onPress={handleConfirmAddToCart}
             >
-              <span>{quantity === 0 ? 'Pilih Jumlah (+)' : missingRequired ? 'Pilih Varian Wajib' : 'Tambah ke Keranjang'}</span>
-              <span className="font-bold">{formatRupiah(totalPrice)}</span>
+              <span className="truncate">
+                {quantity === 0 ? 'Pilih Jumlah' : missingRequired ? 'Pilih Varian' : '+ Keranjang'}
+              </span>
+              <span className="font-bold shrink-0 ml-1.5">{formatRupiah(totalPrice)}</span>
             </Button>
           </div>
         </div>
