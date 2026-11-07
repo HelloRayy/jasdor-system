@@ -6,9 +6,9 @@ import {
   Dropdown,
   Label,
   Modal,
+  SearchField,
 } from '@heroui/react';
 import {
-  IconSearch,
   IconAdjustmentsHorizontal,
   IconClock,
   IconMapPin,
@@ -146,19 +146,22 @@ export default function App() {
 
         {/* 2. Search Bar Bersih dengan Dropdown Filter Popover (Bukan Popup Modal) */}
         <div className="relative flex items-center gap-2">
-          <div className="relative flex-1">
-            <IconSearch
-              size={18}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400"
-            />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search coffee, tea, meals..."
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-stone-100 rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-stone-900/10 placeholder:text-stone-400"
-            />
-          </div>
+          {/* HeroUI v3 Compound SearchField */}
+          <SearchField
+            value={searchQuery}
+            onChange={setSearchQuery}
+            className="flex-1"
+            aria-label="Cari menu kopi atau makanan"
+          >
+            <SearchField.Group className="bg-stone-100 rounded-2xl border-0 h-10 px-3 flex items-center">
+              <SearchField.SearchIcon className="text-stone-400 mr-2 shrink-0" />
+              <SearchField.Input
+                placeholder="Search coffee, tea, meals..."
+                className="text-sm bg-transparent border-0 placeholder:text-stone-400 focus:outline-none flex-1 w-full"
+              />
+              <SearchField.ClearButton className="text-stone-400 shrink-0" />
+            </SearchField.Group>
+          </SearchField>
 
           <Dropdown>
             <Dropdown.Trigger>

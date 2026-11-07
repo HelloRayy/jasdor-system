@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import {
   Button,
+  Input,
+  TextArea,
   Label,
+  Chip,
   Alert,
 } from '@heroui/react';
 import {
@@ -228,9 +231,9 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                     {/* Info Menu */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-stone-100 text-stone-800">
+                        <Chip size="sm" variant="secondary" className="text-[10px] font-bold px-1.5 py-0.5 bg-stone-100 text-stone-800">
                           {item.quantity}x
-                        </span>
+                        </Chip>
                         <h4 className="font-bold text-stone-900 text-sm truncate">
                           {item.menuItem.name}
                         </h4>
@@ -364,12 +367,14 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   <IconUser size={15} className="text-stone-500" />
                   <span>Nama Pemesan</span>
                 </Label>
-                <input
-                  type="text"
+                <Input
+                  fullWidth
+                  variant="secondary"
                   value={profile.name}
                   onChange={(e) => handleProfileChange('name', e.target.value)}
                   placeholder="Contoh: Rina Sari"
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900"
+                  className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
+                  aria-label="Nama Pemesan"
                 />
               </div>
 
@@ -379,12 +384,15 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   <IconPhone size={15} className="text-stone-500" />
                   <span>Nomor WhatsApp</span>
                 </Label>
-                <input
+                <Input
+                  fullWidth
+                  variant="secondary"
                   type="tel"
                   value={profile.phone}
                   onChange={(e) => handleProfileChange('phone', e.target.value)}
                   placeholder="Contoh: 08123456789"
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900"
+                  className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
+                  aria-label="Nomor WhatsApp"
                 />
               </div>
 
@@ -396,12 +404,15 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                       <IconMapPin size={15} className="text-stone-500" />
                       <span>Alamat Pengantaran Lengkap</span>
                     </Label>
-                    <textarea
+                    <TextArea
                       rows={2}
+                      fullWidth
+                      variant="secondary"
                       value={profile.address || ''}
                       onChange={(e) => handleProfileChange('address', e.target.value)}
                       placeholder="Jalan, nomor rumah/kantor, RT/RW, kelurahan..."
-                      className="w-full px-3.5 py-2.5 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900 resize-none leading-relaxed"
+                      className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
+                      aria-label="Alamat Pengantaran Lengkap"
                     />
                   </div>
 
@@ -409,12 +420,14 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                     <Label className="text-xs font-semibold text-stone-600 block">
                       Patokan Lokasi (Opsional)
                     </Label>
-                    <input
-                      type="text"
+                    <Input
+                      fullWidth
+                      variant="secondary"
                       value={profile.landmark || ''}
                       onChange={(e) => handleProfileChange('landmark', e.target.value)}
                       placeholder="Contoh: Depan pos satpam pagar hitam"
-                      className="w-full px-3.5 py-2.5 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900"
+                      className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
+                      aria-label="Patokan Lokasi"
                     />
                   </div>
                 </>
