@@ -35,10 +35,10 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
             >
               {/* Box Image Placeholder: Width lebih panjang dari Height (aspect-4/3 atau w-28 h-20) */}
               <div
-                className={`relative w-28 h-20 rounded-2xl overflow-hidden bg-stone-200/80 flex items-center justify-center border-2 transition-all duration-200 ${
+                className={`relative w-28 h-20 rounded-2xl overflow-hidden bg-stone-200/80 flex items-center justify-center border-2 ${
                   isSelected
                     ? 'border-stone-900 bg-stone-300 shadow-sm'
-                    : 'border-transparent hover:border-stone-300'
+                    : 'border-transparent'
                 }`}
               >
                 {/* Fallback Icon Placeholder */}
@@ -56,8 +56,8 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
               {/* Label Outlet di Bawah Container */}
               <div className="max-w-[112px]">
                 <p
-                  className={`text-xs font-semibold truncate leading-tight transition-colors ${
-                    isSelected ? 'text-stone-900 font-bold' : 'text-stone-600 group-hover:text-stone-900'
+                  className={`text-xs font-semibold truncate leading-tight ${
+                    isSelected ? 'text-stone-900 font-bold' : 'text-stone-600'
                   }`}
                 >
                   {outlet.brand}

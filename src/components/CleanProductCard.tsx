@@ -24,7 +24,7 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
       className="group cursor-pointer flex flex-col focus:outline-none"
     >
       {/* Container Gambar Abu-Abu Bersih (Soft Gray Background) */}
-      <div className="relative aspect-square w-full rounded-3xl bg-stone-100 flex items-center justify-center p-3 overflow-hidden transition-transform duration-200 group-hover:scale-[1.02]">
+      <div className="relative aspect-square w-full rounded-3xl bg-stone-100 flex items-center justify-center p-3 overflow-hidden">
         {/* Foto Produk */}
         <img
           src={item.imageUrl}
@@ -40,7 +40,7 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
             e.stopPropagation();
             onToggleFavorite?.(item.id);
           }}
-          className="absolute top-2.5 right-2.5 w-7 h-7 flex items-center justify-center text-stone-600 hover:text-rose-500 transition-colors"
+          className="absolute top-2.5 right-2.5 w-7 h-7 flex items-center justify-center text-stone-600"
           aria-label="Favorit"
         >
           <IconHeart
