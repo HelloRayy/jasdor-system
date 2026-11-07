@@ -45,16 +45,11 @@ export const BrandSelector: React.FC<BrandSelectorProps> = ({
                 />
               </div>
 
-              {/* Status Badge & Nama Brand */}
-              <div className="flex items-center justify-between w-full pt-1 border-t border-hairline/60">
-                <p className="text-[11px] font-semibold truncate text-ink">
+              {/* Nama Brand Bersih Tanpa Badge */}
+              <div className="w-full pt-1.5 border-t border-hairline/60 text-center">
+                <p className={`text-xs font-semibold truncate ${isSelected ? 'text-ink' : 'text-slate'}`}>
                   {b.name}
                 </p>
-                {isSelected && (
-                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-pricing-blue text-gallery-white shrink-0">
-                    Aktif
-                  </span>
-                )}
               </div>
             </button>
           );
