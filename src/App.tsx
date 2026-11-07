@@ -19,6 +19,7 @@ import type { CartItem } from './types/cart';
 import { DeliveryHeader } from './components/DeliveryHeader';
 import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
+import { ProductDetailPage } from './components/ProductDetailPage';
 import { VariantModal } from './components/VariantModal';
 import { CartDrawer } from './components/CartDrawer';
 import { BottomNavBar } from './components/BottomNavBar';
@@ -35,6 +36,7 @@ export default function App() {
   // Modal & Drawer States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<MenuItem | null>(null);
+  const [detailProduct, setDetailProduct] = useState<MenuItem | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -79,6 +81,12 @@ export default function App() {
     handleAddToCart(cartItem);
   };
 
+  const handleBuyNow = (cartItem: CartItem) => {
+    handleAddToCart(cartItem);
+    setDetailProduct(null);
+    setIsCartOpen(true);
+  };
+
   const handleToggleFavorite = (id: string) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
@@ -103,6 +111,19 @@ export default function App() {
       }
     }
   };
+
+  if (detailProduct) {
+    return (
+      <ProductDetailPage
+        item={detailProduct}
+        onBack={() => setDetailProduct(null)}
+        onAddToCart={handleAddToCart}
+        onBuyNow={handleBuyNow}
+        isFavorite={favorites.includes(detailProduct.id)}
+        onToggleFavorite={handleToggleFavorite}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
@@ -201,7 +222,7 @@ export default function App() {
               item={item}
               isFavorite={favorites.includes(item.id)}
               onToggleFavorite={handleToggleFavorite}
-              onSelect={(selected) => setSelectedProduct(selected)}
+              onSelect={(selected) => setDetailProduct(selected)}
               onQuickAdd={handleQuickAdd}
             />
           ))}
