@@ -24,7 +24,6 @@ import { CleanProductCard } from './components/CleanProductCard';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { VariantModal } from './components/VariantModal';
 import { CartDrawer } from './components/CartDrawer';
-import { BottomNavBar } from './components/BottomNavBar';
 import { OutletMapStandalonePage } from './components/OutletMapStandalonePage';
 import { formatRupiah } from './utils/whatsapp';
 
@@ -32,7 +31,6 @@ export default function App() {
   const [currentOutlet, setCurrentOutlet] = useState<Outlet>(mockOutlets[0]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeTab, setActiveTab] = useState<string>('home');
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc'>('default');
 
   // Modal & Drawer States
@@ -139,7 +137,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
+    <div className="min-h-screen bg-white text-stone-900 pb-20 font-sans antialiased">
       {/* App Shell Container Maksimal Mobile-First seperti di Referensi */}
       <div className="max-w-md mx-auto px-4 pt-3 space-y-4">
         {/* 1. Header Lokasi & Notifikasi (Mirip iPhone Top Header) */}
@@ -265,42 +263,34 @@ export default function App() {
         </div>
       </div>
 
-      {/* Floating Bottom Cart Bar */}
+      {/* Floating Bottom Cart Bar (Muncul pas ada item di keranjang) */}
       {cartItems.length > 0 && (
-        <div className="fixed bottom-16 inset-x-4 max-w-md mx-auto z-40">
+        <div className="fixed bottom-4 inset-x-4 max-w-md mx-auto z-40">
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="w-full bg-stone-950 text-white p-3.5 rounded-2xl shadow-xl flex items-center justify-between hover:bg-stone-800 transition-colors"
+            className="w-full bg-[#0a2e1f] text-white p-3.5 rounded-2xl shadow-xl flex items-center justify-between border border-[#144732]/60"
           >
             <div className="flex items-center gap-2.5">
-              <span className="w-6 h-6 rounded-lg bg-emerald-500 text-white font-bold text-xs flex items-center justify-center">
+              <span className="w-6 h-6 rounded-lg bg-[#2fdc8f] text-[#0a2e1f] font-bold text-xs flex items-center justify-center">
                 {totalQuantity}
               </span>
               <div className="text-left">
-                <span className="text-[11px] text-stone-400 block font-normal leading-tight">
+                <span className="text-[11px] text-[#2fdc8f]/80 block font-normal leading-tight">
                   Total Pesanan
                 </span>
-                <span className="text-sm font-bold leading-tight">
+                <span className="text-sm font-bold leading-tight text-white">
                   {formatRupiah(subtotal)}
                 </span>
               </div>
             </div>
 
-            <span className="text-xs font-semibold text-emerald-400">
+            <span className="text-xs font-semibold text-[#2fdc8f]">
               Lihat Keranjang &gt;
             </span>
           </button>
         </div>
       )}
-
-      {/* 7. Bottom Navigation Bar Bersih (Mirip di Bagian Bawah Gambar Referensi) */}
-      <BottomNavBar
-        activeTab={activeTab}
-        cartCount={totalQuantity}
-        onSelectTab={setActiveTab}
-        onOpenCart={() => setIsCartOpen(true)}
-      />
 
       {/* HeroUI Outlet Picker Modal */}
       <Modal isOpen={isOutletPickerOpen} onOpenChange={setIsOutletPickerOpen}>
