@@ -8,6 +8,7 @@ import {
   IconMaximize,
   IconPlus,
   IconMinus,
+  IconShoppingBag,
 } from '@tabler/icons-react';
 import type { MenuItem } from '../types/catalog';
 import type { CartItem, SelectedOption } from '../types/cart';
@@ -91,7 +92,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
+    <div className="min-h-screen bg-white text-stone-900 pb-24 font-sans antialiased">
       <div className="max-w-md mx-auto px-4 pt-3 flex flex-col justify-between min-h-screen">
         <div>
           {/* Top Bar */}
@@ -198,12 +199,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
           </div>
 
-          {/* OPSI VARIAN: SUPER CLEAN TANPA ICON DEKORATIF */}
+          {/* OPSI VARIAN */}
           {item.optionGroups && item.optionGroups.length > 0 && (
             <div className="space-y-4 mb-6 pt-4 border-t border-stone-100">
               {item.optionGroups.map((group) => (
                 <div key={group.id} className="space-y-2">
-                  {/* Header Bersih Tanpa Icon */}
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold uppercase tracking-wider text-stone-900">
                       {group.name}
@@ -217,7 +217,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     )}
                   </div>
 
-                  {/* Horizontal Clean Pills: Hitam & Abu-Abu Netral */}
                   <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
                     {group.options.map((opt) => {
                       const isSelected = selectedOptions[group.id]?.optionId === opt.id;
@@ -270,10 +269,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           )}
         </div>
 
-        {/* Bottom Fixed Action Bar: Hitam & Hijau Bersih Sesuai Desain Awal Referensi */}
-        <div className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/60 p-4 pb-safe">
-          <div className="max-w-md mx-auto flex items-center gap-2.5">
-            {/* Quantity Stepper */}
+        {/* Floating Bottom Action Dock: Ringan, Tanpa Container Tebal Memenuhi Layar */}
+        <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
+          <div className="bg-white/95 backdrop-blur-md rounded-[24px] p-2 border border-stone-200/80 shadow-lg flex items-center gap-2">
+            {/* Quantity Stepper Ringkas */}
             <div className="flex items-center bg-stone-100 rounded-2xl p-1 shrink-0">
               <button
                 type="button"
@@ -282,9 +281,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 className="w-8 h-8 rounded-xl flex items-center justify-center text-stone-700 disabled:opacity-30"
                 aria-label="Kurangi"
               >
-                <IconMinus size={15} stroke={2} />
+                <IconMinus size={14} stroke={2} />
               </button>
-              <span className="w-7 text-center text-xs font-bold text-stone-900">
+              <span className="w-6 text-center text-xs font-bold text-stone-900">
                 {quantity}
               </span>
               <button
@@ -293,29 +292,32 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 className="w-8 h-8 rounded-xl flex items-center justify-center text-stone-700"
                 aria-label="Tambah"
               >
-                <IconPlus size={15} stroke={2} />
+                <IconPlus size={14} stroke={2} />
               </button>
             </div>
 
-            {/* Buy Now Button (Hitam Solid) */}
-            <Button
-              variant="primary"
-              className="flex-1 h-12 rounded-[20px] bg-stone-900 text-white font-semibold text-xs sm:text-sm shadow-xs"
-              onPress={() => onBuyNow(createCartItem())}
-            >
-              Buy now
-            </Button>
-
-            {/* Add to Cart Button (Hijau Terang Bersih #00c853 Sesuai Foto Referensi) */}
-            <Button
-              variant="primary"
-              className="flex-1 h-12 rounded-[20px] bg-[#00c853] text-white font-semibold text-xs sm:text-sm shadow-xs"
-              onPress={() => {
+            {/* Icon Button: Tambah ke Keranjang Saja (Less is more) */}
+            <button
+              type="button"
+              onClick={() => {
                 onAddToCart(createCartItem());
                 onBack();
               }}
+              className="w-12 h-12 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-800 flex items-center justify-center shrink-0 transition-colors"
+              aria-label="Tambah ke keranjang"
+              title="Tambah ke keranjang"
             >
-              Add to cart
+              <IconShoppingBag size={20} stroke={1.75} />
+            </button>
+
+            {/* Primary Action Button: Beli / Pesan Sekarang */}
+            <Button
+              variant="primary"
+              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-xs sm:text-sm flex items-center justify-between px-4 shadow-xs"
+              onPress={() => onBuyNow(createCartItem())}
+            >
+              <span>Pesan Sekarang</span>
+              <span className="font-bold">{formatRupiah(totalPrice)}</span>
             </Button>
           </div>
         </div>
