@@ -490,28 +490,26 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
         )}
       </div>
 
-      {/* Floating Bottom Action: Seragam Persis Seperti di Product Detail Page */}
+      {/* Bilah Bawah Minimalis: Flat Edge-to-Edge Menempel di Dasar Layar */}
       {cartItems.length > 0 && (
-        <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
-          <div className="bg-white/95 backdrop-blur-md rounded-[24px] p-2 border border-stone-200/80 shadow-lg flex items-center gap-2">
-            {/* Total Item Counter Badge Ringkas */}
-            <div className="flex items-center justify-center bg-stone-100 rounded-2xl h-12 px-3.5 shrink-0">
-              <span className="text-xs font-bold text-stone-800">
-                {cartItems.reduce((acc, item) => acc + item.quantity, 0)} Item
+        <div className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/70 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg">
+          <div className="max-w-md mx-auto flex items-center justify-between gap-4">
+            <div className="min-w-0">
+              <span className="text-xs text-stone-500 block leading-tight">
+                Total
+              </span>
+              <span className="text-lg font-bold text-stone-900 leading-tight block mt-0.5">
+                {formatRupiah(total)}
               </span>
             </div>
 
-            {/* Tombol Utama: Pesan WhatsApp dengan Total Harga di Sisi Kanan */}
             <Button
               variant="primary"
-              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-sm flex items-center justify-between px-4 shadow-xs active:scale-98 transition-transform cursor-pointer"
+              className="h-12 px-6 rounded-2xl bg-stone-900 text-white font-semibold text-sm flex items-center gap-2 shadow-xs active:scale-95 transition-transform cursor-pointer"
               onPress={handleSendWhatsApp}
             >
-              <div className="flex items-center gap-2">
-                <IconBrandWhatsapp size={19} stroke={2} className="text-[#2fdc8f]" />
-                <span>Pesan via WhatsApp</span>
-              </div>
-              <span className="font-bold">{formatRupiah(total)}</span>
+              <IconBrandWhatsapp size={19} stroke={2} className="text-[#2fdc8f]" />
+              <span>Pesan via WhatsApp</span>
             </Button>
           </div>
         </div>
