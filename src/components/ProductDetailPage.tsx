@@ -94,43 +94,43 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-white text-stone-900 pb-24 font-sans antialiased">
-      <div className="max-w-md mx-auto px-4 pt-3 flex flex-col justify-between min-h-screen">
+    <div className="min-h-screen bg-white text-stone-900 pb-28 font-sans antialiased">
+      {/* Fixed Top Bar tanpa BG Container */}
+      <div className="fixed top-0 inset-x-0 z-50 max-w-md mx-auto px-4 py-2.5 flex items-center justify-between pointer-events-none">
+        <button
+          type="button"
+          onClick={onBack}
+          className="w-11 h-11 flex items-center justify-center text-stone-900 active:opacity-60 transition-opacity pointer-events-auto"
+          aria-label="Kembali"
+        >
+          <IconArrowLeft size={22} stroke={2.25} />
+        </button>
+
+        <div className="flex items-center gap-1 pointer-events-auto">
+          <button
+            type="button"
+            onClick={() => onToggleFavorite(item.id)}
+            className="w-11 h-11 flex items-center justify-center text-stone-900 active:opacity-60 transition-opacity"
+            aria-label="Favorit"
+          >
+            <IconHeart
+              size={22}
+              className={isFavorite ? 'fill-rose-500 text-rose-500' : ''}
+              stroke={2}
+            />
+          </button>
+          <button
+            type="button"
+            className="w-11 h-11 flex items-center justify-center text-stone-900 active:opacity-60 transition-opacity"
+            aria-label="Bagikan"
+          >
+            <IconShare size={20} stroke={2} />
+          </button>
+        </div>
+      </div>
+
+      <div className="max-w-md mx-auto px-4 pt-14 flex flex-col justify-between min-h-screen">
         <div>
-          {/* Top Bar */}
-          <div className="flex items-center justify-between py-2 mb-2">
-            <button
-              type="button"
-              onClick={onBack}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-stone-800 bg-stone-100"
-              aria-label="Kembali"
-            >
-              <IconArrowLeft size={20} stroke={2} />
-            </button>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => onToggleFavorite(item.id)}
-                className="w-10 h-10 rounded-full flex items-center justify-center text-stone-800 bg-stone-100"
-                aria-label="Favorit"
-              >
-                <IconHeart
-                  size={20}
-                  className={isFavorite ? 'fill-rose-500 text-rose-500' : ''}
-                  stroke={1.75}
-                />
-              </button>
-              <button
-                type="button"
-                className="w-10 h-10 rounded-full flex items-center justify-center text-stone-800 bg-stone-100"
-                aria-label="Bagikan"
-              >
-                <IconShare size={18} stroke={1.75} />
-              </button>
-            </div>
-          </div>
-
           {/* Large Hero Product Image Container */}
           <div className="relative aspect-square w-full rounded-3xl bg-stone-100 border border-stone-200/80 flex items-center justify-center p-6 overflow-hidden mb-3">
             <img
@@ -139,25 +139,25 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               className="w-full h-full object-contain mix-blend-multiply"
             />
 
-            <div className="absolute bottom-3 right-3 w-7 h-7 rounded-full bg-stone-900/60 backdrop-blur-md flex items-center justify-center text-white">
-              <IconMaximize size={15} stroke={2} />
+            <div className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-stone-900/60 backdrop-blur-md flex items-center justify-center text-white">
+              <IconMaximize size={16} stroke={2} />
             </div>
           </div>
 
           {/* Indicator Slider Dots */}
           <div className="flex items-center justify-center gap-1.5 mb-4">
-            <span className="w-5 h-1 rounded-full bg-stone-900" />
-            <span className="w-1.5 h-1 rounded-full bg-stone-300" />
-            <span className="w-1.5 h-1 rounded-full bg-stone-300" />
+            <span className="w-5 h-1.5 rounded-full bg-stone-900" />
+            <span className="w-1.5 h-1.5 rounded-full bg-stone-300" />
+            <span className="w-1.5 h-1.5 rounded-full bg-stone-300" />
           </div>
 
-          {/* Title & Price */}
-          <div className="space-y-1 mb-2">
-            <div className="flex items-center justify-between">
-              <h1 className="text-xl font-bold tracking-tight text-stone-900">
+          {/* Title & Price: WCAG Compliant Font Hierarchy */}
+          <div className="space-y-1 mb-2.5">
+            <div className="flex items-start justify-between gap-3">
+              <h1 className="text-2xl font-bold tracking-tight text-stone-900 leading-snug">
                 {item.name}
               </h1>
-              <span className="text-xl font-bold text-stone-900">
+              <span className="text-2xl font-bold text-stone-900 shrink-0">
                 {formatRupiah(unitPrice)}
               </span>
             </div>
@@ -168,13 +168,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-900 text-white">
               Selection 97%
             </span>
-            <span className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-stone-600">
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-stone-700">
               Best product
             </span>
           </div>
 
-          {/* Description */}
-          <p className="text-xs text-stone-600 leading-relaxed mb-3">
+          {/* Description: Standard WCAG AA Body Text (14px / text-sm, high contrast) */}
+          <p className="text-sm text-stone-700 leading-relaxed mb-3">
             {isExpanded
               ? item.description + ' Dibuat dengan bahan pilihan terbaik langsung dari racikan barista andalan.'
               : item.description}
@@ -182,22 +182,22 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="font-bold text-stone-900 underline inline-block"
+              className="font-bold text-stone-900 underline inline-block ml-1"
             >
               {isExpanded ? 'Tutup' : 'Read more'}
             </button>
           </p>
 
-          {/* Ratings */}
+          {/* Ratings: Clear Contrast */}
           <div className="flex items-center gap-1.5 mb-6">
-            <span className="font-bold text-xs text-stone-900">4.9</span>
-            <span className="text-[11px] text-stone-400">(332)</span>
-            <div className="flex items-center gap-0.5 text-amber-400 ml-1">
-              <IconStarFilled size={13} />
-              <IconStarFilled size={13} />
-              <IconStarFilled size={13} />
-              <IconStarFilled size={13} />
-              <IconStarFilled size={13} />
+            <span className="font-bold text-sm text-stone-900">4.9</span>
+            <span className="text-xs text-stone-500 font-medium">(332)</span>
+            <div className="flex items-center gap-0.5 text-amber-500 ml-1">
+              <IconStarFilled size={14} />
+              <IconStarFilled size={14} />
+              <IconStarFilled size={14} />
+              <IconStarFilled size={14} />
+              <IconStarFilled size={14} />
             </div>
           </div>
 
@@ -278,14 +278,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
                     Catatan untuk Barista
                   </label>
-                  <span className="text-[10px] text-stone-400">Opsional</span>
+                  <span className="text-xs text-stone-500">Opsional</span>
                 </div>
                 <input
                   type="text"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Contoh: Kurangi es, tanpa sedotan..."
-                  className="w-full px-4 py-3 text-xs bg-stone-50/70 rounded-2xl border border-stone-200/70 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-800"
+                  className="w-full px-4 py-3 text-sm bg-stone-50/70 rounded-2xl border border-stone-200/70 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900"
                 />
               </div>
             </div>
@@ -301,28 +301,28 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 type="button"
                 disabled={quantity <= 1}
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="w-8 h-8 rounded-xl flex items-center justify-center text-stone-700 disabled:opacity-30"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-stone-800 disabled:opacity-30"
                 aria-label="Kurangi"
               >
-                <IconMinus size={14} stroke={2} />
+                <IconMinus size={16} stroke={2} />
               </button>
-              <span className="w-6 text-center text-xs font-bold text-stone-900">
+              <span className="w-7 text-center text-sm font-bold text-stone-900">
                 {quantity}
               </span>
               <button
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
-                className="w-8 h-8 rounded-xl flex items-center justify-center text-stone-700"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-stone-800"
                 aria-label="Tambah"
               >
-                <IconPlus size={14} stroke={2} />
+                <IconPlus size={16} stroke={2} />
               </button>
             </div>
 
             {/* Tombol Utama: Masukkan ke Keranjang -> Fallback ke Home */}
             <Button
               variant="primary"
-              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-xs sm:text-sm flex items-center justify-between px-5 shadow-xs"
+              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-sm flex items-center justify-between px-5 shadow-xs"
               onPress={handleConfirmAddToCart}
             >
               <span>Tambah ke Keranjang</span>
