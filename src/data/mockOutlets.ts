@@ -123,7 +123,7 @@ export const mockOutlets: Outlet[] = (kopiKenanganRaw as Array<{
   tagline: 'Kopi Mantan Paling Pas di Lidah',
   logoUrl: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=150&auto=format&fit=crop&q=80',
   bannerUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop&q=80',
-  whatsappNumber: '6281234567890',
+  whatsappNumber: '6285799799857',
   address: item.address,
   location: {
     lat: item.lat,
