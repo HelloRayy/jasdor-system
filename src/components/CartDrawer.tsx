@@ -317,7 +317,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     variant="secondary"
                     value={profile.name}
                     onChange={(e) => handleProfileChange('name', e.target.value)}
-                    placeholder="Contoh: Rina Sari"
+                    placeholder="Masukkan nama lengkapmu"
                     aria-label="Nama Lengkap"
                   />
                 </div>
@@ -326,7 +326,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="space-y-1">
                   <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
                     <IconPhone size={14} className="text-stone-500" />
-                    <span>Nomor WhatsApp</span>
+                    <span>Nomor WhatsApp Aktif</span>
                   </Label>
                   <Input
                     fullWidth
@@ -334,8 +334,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     type="tel"
                     value={profile.phone}
                     onChange={(e) => handleProfileChange('phone', e.target.value)}
-                    placeholder="Contoh: 08123456789"
-                    aria-label="Nomor WhatsApp"
+                    placeholder="Contoh: 081234567890"
+                    aria-label="Nomor WhatsApp Aktif"
                   />
                 </div>
 
@@ -345,29 +345,32 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <div className="space-y-1">
                       <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
                         <IconMapPin size={14} className="text-stone-500" />
-                        <span>Alamat Lengkap</span>
+                        <span>Alamat Tujuan Pengiriman</span>
                       </Label>
                       <textarea
                         rows={2}
                         value={profile.address || ''}
                         onChange={(e) => handleProfileChange('address', e.target.value)}
-                        placeholder="Jalan, nomor rumah/kantor, RT/RW, kelurahan..."
+                        placeholder="Tuliskan nama jalan, nomor rumah/kantor, RT/RW, dan patokan..."
                         className="w-full px-3.5 py-2.5 text-xs bg-stone-50 rounded-xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900 resize-none leading-relaxed"
-                        aria-label="Alamat Lengkap"
+                        aria-label="Alamat Tujuan Pengiriman"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <Label className="text-xs font-semibold text-stone-600 block">
-                        Patokan Lokasi (Opsional)
-                      </Label>
+                      <div className="flex items-center justify-between">
+                        <Label className="text-xs font-semibold text-stone-600 block">
+                          Catatan Lokasi
+                        </Label>
+                        <span className="text-[11px] text-stone-400">Opsional</span>
+                      </div>
                       <Input
                         fullWidth
                         variant="secondary"
                         value={profile.landmark || ''}
                         onChange={(e) => handleProfileChange('landmark', e.target.value)}
-                        placeholder="Contoh: Depan pos satpam pagar hitam"
-                        aria-label="Patokan Lokasi"
+                        placeholder="Contoh: Pagar hitam samping minimarket / titip pos satpam"
+                        aria-label="Catatan Lokasi Tambahan"
                       />
                     </div>
                   </>
