@@ -26,17 +26,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Soft UI utility classes */
-.soft-card {
-  background: #ffffff;
-  border-radius: 28px;
-  box-shadow: var(--shadow-soft-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.soft-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft-lg);
+/* Disable all transitions and hover animations globally for ultra-fast response */
+*, *::before, *::after {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
 }
 
 .soft-panel {
