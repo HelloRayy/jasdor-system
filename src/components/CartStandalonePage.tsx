@@ -571,11 +571,11 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
             <Button
               variant="primary"
-              className="h-12 px-6 rounded-2xl bg-pricing-blue text-gallery-white font-semibold text-sm flex items-center gap-2 shadow-xs active:scale-95 transition-transform cursor-pointer"
+              className="h-12 px-4 sm:px-6 rounded-2xl bg-pricing-blue text-gallery-white font-semibold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 shadow-xs active:scale-95 transition-transform cursor-pointer shrink-0"
               onPress={handleSendWhatsApp}
             >
-              <IconBrandWhatsapp size={19} stroke={2} className="text-gallery-white" />
-              <span>Pesan via WhatsApp</span>
+              <IconBrandWhatsapp size={18} stroke={2} className="text-gallery-white shrink-0" />
+              <span>Pesan via WA</span>
             </Button>
           </div>
         </div>
