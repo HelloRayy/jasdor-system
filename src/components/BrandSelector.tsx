@@ -21,7 +21,7 @@ export const BrandSelector: React.FC<BrandSelectorProps> = ({
         <span className="text-xs text-slate">Ganti menu & gerai</span>
       </div>
 
-      {/* Grid 3 Brand Card Bersih (Sesuai Desain Card Gerai Minimalis) */}
+      {/* Grid 3 Brand Card Full-Fill Image */}
       <div className="grid grid-cols-3 gap-2.5">
         {brands.map((b) => {
           const isSelected = b.id === currentBrand.id;
@@ -30,41 +30,31 @@ export const BrandSelector: React.FC<BrandSelectorProps> = ({
               key={b.id}
               type="button"
               onClick={() => onSelectBrand(b)}
-              className={`text-left cursor-pointer transition-all rounded-2xl p-2.5 border flex flex-col justify-between h-24 ${
+              className={`relative text-left cursor-pointer transition-all rounded-2xl overflow-hidden border h-24 p-2.5 flex flex-col justify-between bg-white ${
                 isSelected
-                  ? 'bg-ink text-gallery-white border-ink shadow-xs'
-                  : 'bg-gallery-white text-ink border-hairline hover:bg-studio-mist'
+                  ? 'border-ink ring-2 ring-ink shadow-xs'
+                  : 'border-hairline hover:border-slate'
               }`}
             >
-              {/* Logo Brand Container */}
-              <div className="flex items-center justify-between w-full">
-                <div
-                  className={`w-9 h-9 rounded-xl p-1.5 flex items-center justify-center shrink-0 ${
-                    isSelected ? 'bg-gallery-white' : 'bg-studio-mist border border-hairline'
-                  }`}
-                >
-                  <img
-                    src={b.logoUrl}
-                    alt={b.name}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+              {/* Full-Fill Image Container tanpa background abu/kotak */}
+              <div className="w-full flex-1 flex items-center justify-center p-1 overflow-hidden">
+                <img
+                  src={b.logoUrl}
+                  alt={b.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
 
+              {/* Status Badge & Nama Brand */}
+              <div className="flex items-center justify-between w-full pt-1 border-t border-hairline/60">
+                <p className="text-[11px] font-semibold truncate text-ink">
+                  {b.name}
+                </p>
                 {isSelected && (
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-pricing-blue text-gallery-white shadow-2xs">
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-pricing-blue text-gallery-white shrink-0">
                     Aktif
                   </span>
                 )}
-              </div>
-
-              {/* Nama Brand */}
-              <div>
-                <p className={`text-xs font-semibold truncate leading-tight ${isSelected ? 'text-gallery-white' : 'text-ink'}`}>
-                  {b.name}
-                </p>
-                <p className={`text-[10px] truncate mt-0.5 ${isSelected ? 'text-control-gray' : 'text-slate'}`}>
-                  {b.menus.length} Menu
-                </p>
               </div>
             </button>
           );
