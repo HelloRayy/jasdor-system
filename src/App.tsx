@@ -13,8 +13,8 @@ import {
   IconClock,
   IconMapPin,
   IconCheck,
-  IconSparkles,
   IconShoppingBag,
+  IconBrandWhatsapp,
 } from '@tabler/icons-react';
 import { mockOutlets } from './data/mockOutlets';
 import type { Outlet, MenuItem } from './types/catalog';
@@ -209,23 +209,25 @@ export default function App() {
           onSelectOutlet={handleChangeOutlet}
         />
 
-        {/* 4. Promo Dark Banner (Presisi Banner di Gambar Referensi: Hijau Tua Elegan #0d3826 + Pill Button) */}
-        <div className="relative rounded-[20px] overflow-hidden bg-[#0a2e1f] text-white px-5 py-4 flex items-center justify-between border border-[#144732]/40 shadow-xs">
-          <div className="space-y-1">
-            <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[15px] tracking-tight text-white">
-                Pesan Cepat via WhatsApp
-              </span>
-              <IconSparkles size={15} className="text-amber-300 shrink-0" />
+        {/* 4. Minimalist Highlight Card (Konsisten & Senada dengan Sistem Desain) */}
+        <div className="rounded-2xl bg-stone-50 border border-stone-200/80 p-3.5 flex items-center justify-between gap-3 shadow-2xs">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-stone-900 text-[#2fdc8f] flex items-center justify-center shrink-0">
+              <IconBrandWhatsapp size={20} stroke={2} />
             </div>
-            <p className="text-xs text-[#2fdc8f] font-normal tracking-tight">
-              Otomatis rapi tanpa ngetik manual
-            </p>
+            <div className="min-w-0">
+              <h4 className="text-xs font-bold text-stone-900 truncate">
+                Pesan Cepat via WhatsApp
+              </h4>
+              <p className="text-[11px] text-stone-500 truncate mt-0.5">
+                Format otomatis terisi rapi ke kasir resmi
+              </p>
+            </div>
           </div>
 
-          <div className="px-4 py-2 rounded-full bg-white text-stone-900 text-xs font-semibold tracking-tight shadow-xs shrink-0 ml-3">
+          <Chip size="sm" variant="secondary" className="text-[10px] font-semibold text-stone-700 bg-white border border-stone-200/70 shrink-0">
             {currentOutlet.brand}
-          </div>
+          </Chip>
         </div>
 
         {/* 5. Clean Horizontal Scrollable Category Pills (Sesuai Referensi) */}

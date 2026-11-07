@@ -1,50 +1,58 @@
 import React from 'react';
 import { Chip } from '@heroui/react';
-import { IconCoffee, IconBell } from '@tabler/icons-react';
+import { IconBuildingStore } from '@tabler/icons-react';
 import type { Outlet } from '../types/catalog';
 
 interface DeliveryHeaderProps {
   currentOutlet?: Outlet;
   ownerName?: string;
   storeName?: string;
+  onOpenOutletPicker?: () => void;
 }
 
 export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
   currentOutlet,
   ownerName = 'Jasdor Partner',
   storeName,
+  onOpenOutletPicker,
 }) => {
   const displayName = storeName || currentOutlet?.brand || 'Kopi Kenangan';
 
   return (
-    <div className="flex items-center justify-between py-2">
-      <div className="flex items-center gap-3 text-left">
-        {/* Avatar / Brand Icon */}
-        <div className="w-10 h-10 rounded-2xl bg-stone-900 text-white flex items-center justify-center shrink-0 shadow-xs">
-          <IconCoffee size={20} stroke={2} />
+    <div className="flex items-center justify-between py-1.5">
+      <div className="flex items-center gap-3 text-left min-w-0">
+        {/* Brand Icon / Avatar Minimalis */}
+        <div className="w-11 h-11 rounded-2xl bg-white border border-stone-200/80 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+          <img
+            src="/images/kopi-kenangan-cup.png"
+            alt={displayName}
+            className="w-full h-full object-contain"
+          />
         </div>
-        <div>
+
+        <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-medium text-stone-400 uppercase tracking-wider">
+            <span className="text-xs text-stone-500 font-medium">
               {ownerName}
             </span>
-            <Chip size="sm" variant="soft" color="success" className="h-4 px-1.5 text-[9px] font-semibold">
+            <Chip size="sm" variant="secondary" className="h-4.5 px-2 text-[10px] font-semibold text-emerald-800 bg-emerald-50">
               Buka
             </Chip>
           </div>
-          <h2 className="font-extrabold text-stone-900 text-base tracking-tight truncate max-w-[230px] leading-tight">
+          <h2 className="font-bold text-stone-900 text-lg tracking-tight truncate leading-tight mt-0.5">
             {displayName}
           </h2>
         </div>
       </div>
 
-      {/* Notifikasi Icon */}
+      {/* Notifikasi Icon Minimalis */}
       <button
         type="button"
-        className="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-700 transition-colors cursor-pointer"
-        aria-label="Notifikasi"
+        onClick={onOpenOutletPicker}
+        className="w-10 h-10 rounded-2xl bg-white border border-stone-200/80 hover:bg-stone-50 flex items-center justify-center text-stone-800 transition-colors cursor-pointer shrink-0 shadow-2xs"
+        aria-label="Pilih cabang gerai"
       >
-        <IconBell size={18} stroke={1.75} />
+        <IconBuildingStore size={19} stroke={1.75} />
       </button>
     </div>
   );
