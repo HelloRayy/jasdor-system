@@ -16,14 +16,14 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between px-0.5">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500">
-          Pilih Brand & Gerai
+        <h3 className="text-xs font-bold uppercase tracking-wider text-stone-900">
+          Pilihan Gerai
         </h3>
         <span className="text-[11px] text-stone-400">Geser untuk pilih</span>
       </div>
 
       {/* Container horizontal scroll */}
-      <div className="flex items-center gap-3 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
+      <div className="flex items-center gap-2.5 overflow-x-auto pb-1 -mx-4 px-4 no-scrollbar">
         {outlets.map((outlet) => {
           const isSelected = outlet.id === currentOutlet.id;
           return (
@@ -31,40 +31,49 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
               key={outlet.id}
               type="button"
               onClick={() => onSelectOutlet(outlet)}
-              className="flex flex-col items-center gap-1.5 shrink-0 text-center group cursor-pointer focus:outline-none"
+              className="relative shrink-0 text-left cursor-pointer focus:outline-none"
             >
-              {/* Box Image Placeholder: Width lebih panjang dari Height (aspect-4/3 atau w-28 h-20) */}
+              {/* Card Container Landscape (Rasio 16:10 Lebar > Tinggi) */}
               <div
-                className={`relative w-28 h-20 rounded-2xl overflow-hidden bg-stone-200/80 flex items-center justify-center border-2 ${
+                className={`relative w-32 h-20 rounded-2xl overflow-hidden bg-stone-100 flex items-center justify-center border-2 transition-all ${
                   isSelected
-                    ? 'border-stone-900 bg-stone-300 shadow-sm'
-                    : 'border-transparent'
+                    ? 'border-stone-900 shadow-xs'
+                    : 'border-stone-200/80 hover:border-stone-300'
                 }`}
               >
-                {/* Fallback Icon Placeholder */}
-                <div className="flex items-center justify-center text-stone-400">
-                  <IconPhoto size={26} stroke={1.5} />
-                </div>
-
-                {isSelected && (
-                  <div className="absolute top-1.5 right-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white block" />
+                {/* Logo Image atau Placeholder Abu-Abu Netral */}
+                {outlet.bannerUrl || outlet.logoUrl ? (
+                  <img
+                    src={outlet.bannerUrl || outlet.logoUrl}
+                    alt={outlet.brand}
+                    className="w-full h-full object-cover opacity-75"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center text-stone-400">
+                    <IconPhoto size={24} stroke={1.5} />
                   </div>
                 )}
-              </div>
 
-              {/* Label Outlet di Bawah Container */}
-              <div className="max-w-[112px]">
-                <p
-                  className={`text-xs font-semibold truncate leading-tight ${
-                    isSelected ? 'text-stone-900 font-bold' : 'text-stone-600'
-                  }`}
-                >
-                  {outlet.brand}
-                </p>
-                <span className="text-[10px] text-stone-400 truncate block mt-0.5">
-                  {outlet.name.split('-')[1]?.trim() || 'Cabang'}
-                </span>
+                {/* Gradient Shading agar Teks Terbaca Jelas */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                {/* Dot Indikator Hijau Saat Terpilih di Kanan Atas */}
+                {isSelected && (
+                  <div className="absolute top-2 right-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#2fdc8f] ring-2 ring-white block" />
+                  </div>
+                )}
+
+                {/* Label Brand Overlay di Dalam Kartu (Pill Bersih di Kiri Bawah) */}
+                <div className="absolute bottom-2 left-2 right-2">
+                  <p className="text-[11px] font-bold text-white tracking-tight leading-tight truncate drop-shadow-xs">
+                    {outlet.brand}
+                  </p>
+                  <p className="text-[9px] text-stone-300 font-medium tracking-tight leading-tight truncate mt-0.5 opacity-90">
+                    {outlet.name.split('-')[1]?.trim() || 'Cabang'}
+                  </p>
+                </div>
               </div>
             </button>
           );
