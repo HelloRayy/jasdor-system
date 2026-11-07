@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@heroui/react';
+import { Button, TextArea, Chip, Label } from '@heroui/react';
 import {
   IconArrowLeft,
   IconHeart,
@@ -166,14 +166,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
           </div>
 
-          {/* Pill Tags: Monokrom Minimalis */}
+          {/* HeroUI v3 Chips */}
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-900 text-white">
+            <Chip size="sm" variant="primary" color="default" className="text-xs font-semibold px-2.5 py-0.5 bg-stone-900 text-white">
               Selection 97%
-            </span>
-            <span className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-stone-700">
+            </Chip>
+            <Chip size="sm" variant="secondary" className="text-xs font-medium text-stone-700 bg-stone-100">
               Best product
-            </span>
+            </Chip>
           </div>
 
           {/* Description: Standard WCAG AA Body Text (14px / text-sm, high contrast) */}
@@ -214,9 +214,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       {group.name}
                     </span>
                     {group.required ? (
-                      <span className="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded-full">
+                      <Chip size="sm" variant="secondary" className="text-[10px] font-semibold text-stone-600 bg-stone-100 h-5">
                         Wajib (Pilih 1)
-                      </span>
+                      </Chip>
                     ) : (
                       <span className="text-[10px] text-stone-400">Opsional</span>
                     )}
@@ -275,20 +275,23 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 </div>
               ))}
 
-              {/* Catatan untuk Barista: Multi-line Textarea */}
+              {/* Catatan untuk Barista: HeroUI v3 TextArea */}
               <div className="space-y-1.5 pt-3 border-t border-stone-100">
                 <div className="flex items-center justify-between px-0.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
+                  <Label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
                     Catatan untuk Barista
-                  </label>
+                  </Label>
                   <span className="text-xs text-stone-500">Opsional</span>
                 </div>
-                <textarea
+                <TextArea
                   rows={2}
+                  fullWidth
+                  variant="secondary"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Contoh: Kurangi es, tanpa sedotan, minta pisah es..."
-                  className="w-full px-4 py-3 text-sm bg-stone-50/70 rounded-2xl border border-stone-200/70 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-900 resize-none leading-relaxed"
+                  className="w-full text-sm rounded-2xl bg-stone-50/70 border border-stone-200/70 focus:bg-white"
+                  aria-label="Catatan untuk Barista"
                 />
               </div>
             </div>
