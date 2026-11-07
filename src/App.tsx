@@ -17,6 +17,7 @@ import { mockOutlets } from './data/mockOutlets';
 import type { Outlet, MenuItem } from './types/catalog';
 import type { CartItem } from './types/cart';
 import { DeliveryHeader } from './components/DeliveryHeader';
+import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
 import { VariantModal } from './components/VariantModal';
 import { CartDrawer } from './components/CartDrawer';
@@ -130,39 +131,12 @@ export default function App() {
           </button>
         </div>
 
-        {/* 3. Baris Kategori Visual Story / Pill (Foto Bulat / Rounded Square) */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-1 no-scrollbar pt-1">
-          {categories.map((cat) => {
-            const isActive = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className="flex flex-col items-center gap-1.5 shrink-0 group"
-              >
-                <div
-                  className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
-                    isActive
-                      ? 'bg-stone-900 text-white shadow-xs'
-                      : 'bg-stone-100 text-stone-700 group-hover:bg-stone-200'
-                  }`}
-                >
-                  <span className="text-xs font-bold uppercase tracking-wider">
-                    {cat.slice(0, 3)}
-                  </span>
-                </div>
-                <span
-                  className={`text-[11px] font-medium tracking-tight ${
-                    isActive ? 'text-stone-900 font-bold' : 'text-stone-500'
-                  }`}
-                >
-                  {cat === 'All' ? 'Semua' : cat}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        {/* 3. Horizontal Scrollable Outlet Logo Placeholders (Width > Height) */}
+        <OutletScrollList
+          outlets={mockOutlets}
+          currentOutlet={currentOutlet}
+          onSelectOutlet={handleChangeOutlet}
+        />
 
         {/* 4. Promo Dark Banner (Contoh: Down payment 0% LokkeStore di Referensi) */}
         <div className="relative rounded-3xl overflow-hidden bg-emerald-950 text-white p-4.5 flex items-center justify-between shadow-xs">
@@ -181,29 +155,27 @@ export default function App() {
           </div>
         </div>
 
-        {/* 5. Sub-filter Tab ("For you", "Best Seller", "View all") */}
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              className="px-3 py-1 rounded-full bg-stone-900 text-white text-xs font-semibold shadow-xs"
-            >
-              Untuk Kamu
-            </button>
-            <button
-              type="button"
-              className="px-3 py-1 rounded-full bg-stone-100 text-stone-600 text-xs font-medium hover:bg-stone-200 transition-colors"
-            >
-              Menu Favorit
-            </button>
+        {/* 5. Sub-filter Tab ("For you", "Best Seller", Kategori Menu) */}
+        <div className="flex items-center justify-between pt-1 overflow-x-auto no-scrollbar gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3 py-1 rounded-full text-xs transition-colors ${
+                    isActive
+                      ? 'bg-stone-900 text-white font-semibold shadow-xs'
+                      : 'bg-stone-100 text-stone-600 font-medium hover:bg-stone-200'
+                  }`}
+                >
+                  {cat === 'All' ? 'Semua Menu' : cat}
+                </button>
+              );
+            })}
           </div>
-
-          <button
-            type="button"
-            className="text-xs font-semibold text-stone-400 hover:text-stone-900 transition-colors"
-          >
-            Lihat semua &gt;
-          </button>
         </div>
 
         {/* 6. Grid Produk 2 Kolom Bersih (Mirip Phone 1 & 2 di Referensi Desain) */}
