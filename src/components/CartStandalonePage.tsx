@@ -462,26 +462,28 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
         )}
       </div>
 
-      {/* Fixed Sticky Bottom Dock: Langsung Pesan via WhatsApp */}
+      {/* Floating Bottom Action: Seragam Persis Seperti di Product Detail Page */}
       {cartItems.length > 0 && (
-        <div className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/80 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg">
-          <div className="max-w-md mx-auto flex items-center gap-3">
-            <div className="min-w-0 flex-1">
-              <span className="text-[11px] text-stone-500 block leading-tight">
-                Total Tagihan ({cartItems.length} menu)
-              </span>
-              <span className="text-lg font-bold text-stone-900 leading-tight">
-                {formatRupiah(total)}
+        <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
+          <div className="bg-white/95 backdrop-blur-md rounded-[24px] p-2 border border-stone-200/80 shadow-lg flex items-center gap-2">
+            {/* Total Item Counter Badge Ringkas */}
+            <div className="flex items-center justify-center bg-stone-100 rounded-2xl h-12 px-3.5 shrink-0">
+              <span className="text-xs font-bold text-stone-800">
+                {cartItems.reduce((acc, item) => acc + item.quantity, 0)} Item
               </span>
             </div>
 
+            {/* Tombol Utama: Pesan WhatsApp dengan Total Harga di Sisi Kanan */}
             <Button
               variant="primary"
-              className="h-12 px-6 rounded-2xl bg-[#0a2e1f] text-white font-bold text-sm flex items-center gap-2 shadow-xs active:scale-95 transition-transform cursor-pointer"
+              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-sm flex items-center justify-between px-4 shadow-xs active:scale-98 transition-transform cursor-pointer"
               onPress={handleSendWhatsApp}
             >
-              <IconBrandWhatsapp size={20} stroke={2} className="text-[#2fdc8f]" />
-              <span>Pesan via WhatsApp</span>
+              <div className="flex items-center gap-2">
+                <IconBrandWhatsapp size={19} stroke={2} className="text-[#2fdc8f]" />
+                <span>Pesan via WhatsApp</span>
+              </div>
+              <span className="font-bold">{formatRupiah(total)}</span>
             </Button>
           </div>
         </div>
