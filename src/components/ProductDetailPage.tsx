@@ -201,25 +201,26 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
           </div>
 
-          {/* OPSI VARIAN */}
+          {/* OPSI VARIAN: List Vertikal Bersih dengan Radio Minimalis (GrabFood/GoFood Style) */}
           {item.optionGroups && item.optionGroups.length > 0 && (
-            <div className="space-y-4 mb-6 pt-4 border-t border-stone-100">
+            <div className="space-y-5 mb-6 pt-4 border-t border-stone-100">
               {item.optionGroups.map((group) => (
                 <div key={group.id} className="space-y-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between px-0.5">
                     <span className="text-xs font-bold uppercase tracking-wider text-stone-900">
                       {group.name}
                     </span>
                     {group.required ? (
-                      <span className="text-[10px] font-semibold text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full">
-                        Wajib
+                      <span className="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded-full">
+                        Wajib (Pilih 1)
                       </span>
                     ) : (
                       <span className="text-[10px] text-stone-400">Opsional</span>
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+                  {/* List Vertikal Pilihan Opsi */}
+                  <div className="bg-stone-50/70 rounded-2xl border border-stone-200/70 overflow-hidden divide-y divide-stone-100/90">
                     {group.options.map((opt) => {
                       const isSelected = selectedOptions[group.id]?.optionId === opt.id;
                       return (
@@ -235,18 +236,35 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                               opt.priceDelta
                             )
                           }
-                          className={`px-4 py-2.5 rounded-full text-xs shrink-0 flex items-center gap-1.5 transition-colors ${
+                          className={`w-full flex items-center justify-between px-4 py-3 text-left transition-colors ${
                             isSelected
-                              ? 'bg-stone-900 text-white font-semibold shadow-xs'
-                              : 'bg-stone-100 text-stone-700 font-medium'
+                              ? 'bg-white font-medium shadow-2xs'
+                              : 'hover:bg-white/50 text-stone-700'
                           }`}
                         >
-                          <span>{opt.name}</span>
-                          {opt.priceDelta > 0 && (
-                            <span className={`text-[11px] ${isSelected ? 'text-stone-300' : 'text-stone-400'}`}>
-                              +{formatRupiah(opt.priceDelta)}
+                          <div className="flex flex-col pr-2">
+                            <span className={`text-xs sm:text-sm ${isSelected ? 'font-bold text-stone-900' : 'text-stone-700'}`}>
+                              {opt.name}
                             </span>
-                          )}
+                            {opt.priceDelta > 0 && (
+                              <span className="text-[11px] font-semibold text-stone-500 mt-0.5">
+                                +{formatRupiah(opt.priceDelta)}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Minimalist Radio Indicator */}
+                          <div
+                            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                              isSelected
+                                ? 'border-2 border-stone-900 bg-stone-900'
+                                : 'border-2 border-stone-300 bg-white'
+                            }`}
+                          >
+                            {isSelected && (
+                              <div className="w-2 h-2 rounded-full bg-white" />
+                            )}
+                          </div>
                         </button>
                       );
                     })}
@@ -256,15 +274,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
               {/* Catatan untuk Barista */}
               <div className="space-y-1.5 pt-3 border-t border-stone-100">
-                <label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
-                  Catatan untuk Barista
-                </label>
+                <div className="flex items-center justify-between px-0.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
+                    Catatan untuk Barista
+                  </label>
+                  <span className="text-[10px] text-stone-400">Opsional</span>
+                </div>
                 <input
                   type="text"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Contoh: Kurangi es, tanpa sedotan..."
-                  className="w-full px-4 py-2.5 text-xs bg-stone-100 rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-stone-900/10 placeholder:text-stone-400"
+                  className="w-full px-4 py-3 text-xs bg-stone-50/70 rounded-2xl border border-stone-200/70 focus:outline-none focus:bg-white focus:border-stone-900/30 transition-colors placeholder:text-stone-400 text-stone-800"
                 />
               </div>
             </div>
