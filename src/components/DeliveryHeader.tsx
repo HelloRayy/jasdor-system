@@ -22,9 +22,9 @@ export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
     <div className="flex items-center justify-between py-1.5">
       <div className="flex items-center gap-3 text-left min-w-0">
         {/* Brand Icon / Avatar: Gallery White (#ffffff) & Hairline Silver (#d6d6d6) */}
-        <div className="w-11 h-11 rounded-2xl bg-gallery-white border border-hairline p-2 flex items-center justify-center shrink-0 shadow-2xs">
+        <div className="w-11 h-11 rounded-2xl bg-gallery-white border border-hairline p-1.5 flex items-center justify-center shrink-0 shadow-2xs">
           <img
-            src="/images/kopi-kenangan-cup.png"
+            src={currentOutlet?.logoUrl || '/images/kopi-kenangan-cup.png'}
             alt={displayName}
             className="w-full h-full object-contain"
           />

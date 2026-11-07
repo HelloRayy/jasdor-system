@@ -15,10 +15,11 @@ import {
   IconShoppingBag,
   IconBrandWhatsapp,
 } from '@tabler/icons-react';
-import { mockOutlets } from './data/mockOutlets';
+import { BRANDS, getOutletsByBrand, type BrandInfo } from './data/mockBrands';
 import type { Outlet, MenuItem } from './types/catalog';
 import type { CartItem } from './types/cart';
 import { DeliveryHeader } from './components/DeliveryHeader';
+import { BrandSelector } from './components/BrandSelector';
 import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
 import { ProductDetailPage } from './components/ProductDetailPage';
@@ -27,7 +28,9 @@ import { OutletComboboxModal } from './components/OutletComboboxModal';
 import { formatRupiah } from './utils/whatsapp';
 
 export default function App() {
-  const [currentOutlet, setCurrentOutlet] = useState<Outlet>(mockOutlets[0]);
+  const [currentBrand, setCurrentBrand] = useState<BrandInfo>(BRANDS[0]);
+  const brandOutlets = getOutletsByBrand(currentBrand);
+  const [currentOutlet, setCurrentOutlet] = useState<Outlet>(brandOutlets[0]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc'>('default');
@@ -37,6 +40,7 @@ export default function App() {
   const [detailProduct, setDetailProduct] = useState<MenuItem | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
+  const [pendingBrandChange, setPendingBrandChange] = useState<BrandInfo | null>(null);
   const [pendingOutletChange, setPendingOutletChange] = useState<Outlet | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
 
@@ -90,6 +94,33 @@ export default function App() {
 
   const handleClearCart = () => {
     setCartItems([]);
+  };
+
+  const handleSelectBrand = (newBrand: BrandInfo) => {
+    if (newBrand.id === currentBrand.id) return;
+    if (cartItems.length > 0) {
+      setPendingBrandChange(newBrand);
+      return;
+    }
+    const newOutlets = getOutletsByBrand(newBrand);
+    setCurrentBrand(newBrand);
+    setCurrentOutlet(newOutlets[0]);
+    setSelectedCategory('All');
+    setSearchQuery('');
+    showToast(`Beralih ke ${newBrand.name}`, 'Menu dan gerai telah diperbarui');
+  };
+
+  const confirmChangeBrand = () => {
+    if (pendingBrandChange) {
+      const newOutlets = getOutletsByBrand(pendingBrandChange);
+      setCurrentBrand(pendingBrandChange);
+      setCurrentOutlet(newOutlets[0]);
+      setSelectedCategory('All');
+      setSearchQuery('');
+      setCartItems([]);
+      setPendingBrandChange(null);
+      showToast(`Beralih ke ${pendingBrandChange.name}`, 'Keranjang telah dikosongkan');
+    }
   };
 
   const handleChangeOutlet = (newOutlet: Outlet) => {
@@ -214,9 +245,16 @@ export default function App() {
             </Dropdown>
           </div>
 
-          {/* 3. Horizontal Scrollable Outlet Logo Placeholders */}
+          {/* 2.5. Pilihan Brand Kopi (Kopi Kenangan, Fore, Tomoro) */}
+          <BrandSelector
+            brands={BRANDS}
+            currentBrand={currentBrand}
+            onSelectBrand={handleSelectBrand}
+          />
+
+          {/* 3. Horizontal Scrollable Outlet Gerai Cabang */}
           <OutletScrollList
-            outlets={mockOutlets}
+            outlets={brandOutlets}
             currentOutlet={currentOutlet}
             onSelectOutlet={handleChangeOutlet}
           />
@@ -308,6 +346,42 @@ export default function App() {
           </div>
         )}
 
+        {/* Modal Konfirmasi Pindah Brand */}
+        <Modal isOpen={!!pendingBrandChange} onOpenChange={(open) => !open && setPendingBrandChange(null)}>
+          <Modal.Backdrop variant="blur">
+            <Modal.Container size="sm">
+              <Modal.Dialog className="w-full bg-gallery-white border border-hairline">
+                <Modal.Header>
+                  <Modal.Heading className="text-ink font-semibold">Ganti Brand Kopi?</Modal.Heading>
+                  <Modal.CloseTrigger />
+                </Modal.Header>
+                <Modal.Body>
+                  <p className="text-xs text-slate leading-relaxed">
+                    Keranjangmu saat ini berisi menu dari <strong className="text-ink">{currentBrand.name}</strong>.
+                    Beralih ke <strong className="text-ink">{pendingBrandChange?.name}</strong> akan mengosongkan keranjang belanja.
+                  </p>
+                </Modal.Body>
+                <Modal.Footer className="flex gap-2">
+                  <Button
+                    variant="secondary"
+                    className="flex-1 bg-paper-frost text-ink border border-hairline"
+                    onPress={() => setPendingBrandChange(null)}
+                  >
+                    Batal
+                  </Button>
+                  <Button
+                    variant="primary"
+                    className="flex-1 bg-launch-orange text-gallery-white"
+                    onPress={confirmChangeBrand}
+                  >
+                    Ya, Ganti Brand
+                  </Button>
+                </Modal.Footer>
+              </Modal.Dialog>
+            </Modal.Container>
+          </Modal.Backdrop>
+        </Modal>
+
         {/* Modal Konfirmasi Pindah Outlet */}
         <Modal isOpen={!!pendingOutletChange} onOpenChange={(open) => !open && setPendingOutletChange(null)}>
           <Modal.Backdrop variant="blur">
@@ -348,7 +422,7 @@ export default function App() {
         <OutletComboboxModal
           isOpen={isOutletPickerOpen}
           onClose={() => setIsOutletPickerOpen(false)}
-          outlets={mockOutlets}
+          outlets={brandOutlets}
           currentOutlet={currentOutlet}
           onSelectOutlet={handleChangeOutlet}
         />
