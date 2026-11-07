@@ -5,29 +5,51 @@
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-sans: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
+
+  /* Apple Design System Color Palette */
+  --color-gallery-white: #ffffff;
+  --color-studio-mist: #f5f5f7;
+  --color-paper-frost: #fafafc;
+  --color-hairline: #d6d6d6;
+  --color-control-gray: #e6e6e8;
+  --color-ink: #1d1d1f;
+  --color-slate: #707070;
+  --color-steel: #86868b;
+  --color-apple-blue: #0066cc;
+  --color-pricing-blue: #0071e3;
+  --color-launch-orange: #b64400;
 }
 
 :root {
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
-  /* Soft UI Design System Tokens */
-  --bg-app: #f4f5f8;
+  /* Apple Design System Variables */
+  --bg-app: #f5f5f7;
   --bg-surface: #ffffff;
-  --bg-surface-subtle: #f9fafb;
-  --bg-inset: #eff1f5;
+  --bg-surface-subtle: #fafafc;
+  --bg-inset: #f5f5f7;
   
-  --shadow-soft-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
-  --shadow-soft-md: 0 10px 25px -4px rgba(0, 0, 0, 0.04), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
-  --shadow-soft-lg: 0 20px 35px -8px rgba(0, 0, 0, 0.06), 0 8px 16px -4px rgba(0, 0, 0, 0.03);
-  --shadow-floating: 0 24px 48px -12px rgba(15, 23, 42, 0.08), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
+  --color-ink: #1d1d1f;
+  --color-slate: #707070;
+  --color-steel: #86868b;
+  --color-hairline: #d6d6d6;
+  --color-control-gray: #e6e6e8;
+  --color-pricing-blue: #0071e3;
+  --color-apple-blue: #0066cc;
+  --color-launch-orange: #b64400;
+  
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md: 0 8px 20px -4px rgba(0, 0, 0, 0.04);
+  --shadow-soft-lg: 0 16px 32px -8px rgba(0, 0, 0, 0.06);
+  --shadow-floating: 0 20px 40px -12px rgba(29, 29, 31, 0.08);
 }
 
 body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-app);
-  color: #111827;
+  color: #1d1d1f;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
@@ -62,7 +84,7 @@ select:focus,
 
 .soft-panel {
   background: #ffffff;
-  border-radius: 32px;
+  border-radius: 24px;
   box-shadow: var(--shadow-floating);
 }
 
@@ -74,12 +96,12 @@ select:focus,
 @layer components {
   /* Clean Minimalist White Toast Styling */
   .toast {
-    @apply bg-white border border-stone-200/80 shadow-lg rounded-2xl p-3;
+    @apply bg-gallery-white border border-hairline shadow-md rounded-2xl p-3;
   }
   .toast__title {
-    @apply text-stone-900 font-bold text-xs sm:text-sm leading-tight;
+    @apply text-ink font-semibold text-xs sm:text-sm leading-tight;
   }
   .toast__description {
-    @apply text-stone-500 text-[11px] sm:text-xs leading-tight mt-0.5;
+    @apply text-slate text-[11px] sm:text-xs leading-tight mt-0.5;
   }
 }

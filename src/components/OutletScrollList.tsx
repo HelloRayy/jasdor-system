@@ -16,10 +16,10 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between px-0.5">
-        <h3 className="text-sm font-bold text-stone-900">
+        <h3 className="text-sm font-semibold text-ink">
           Pilihan Gerai
         </h3>
-        <span className="text-xs text-stone-400">Geser untuk pilih cabang</span>
+        <span className="text-xs text-slate">Geser untuk pilih cabang</span>
       </div>
 
       {/* Container horizontal scroll: Clean Minimalist Branch Cards */}
@@ -35,37 +35,37 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
               onClick={() => onSelectOutlet(outlet)}
               className={`shrink-0 text-left cursor-pointer transition-all rounded-2xl p-3 border w-44 flex flex-col justify-between ${
                 isSelected
-                  ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
-                  : 'bg-white text-stone-800 border-stone-200/80 hover:bg-stone-50'
+                  ? 'bg-ink text-gallery-white border-ink shadow-xs'
+                  : 'bg-gallery-white text-ink border-hairline hover:bg-studio-mist'
               }`}
             >
               <div className="flex items-center justify-between w-full mb-2">
                 <div
                   className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 ${
-                    isSelected ? 'bg-white/15 text-white' : 'bg-stone-100 text-stone-600'
+                    isSelected ? 'bg-gallery-white/15 text-gallery-white' : 'bg-studio-mist text-ink'
                   }`}
                 >
                   <IconBuildingStore size={15} stroke={2} />
                 </div>
 
                 {isSelected ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white shadow-2xs">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-pricing-blue text-gallery-white shadow-2xs">
                     Aktif
                   </span>
                 ) : (
-                  <span className="text-[10px] text-stone-400 font-medium">
+                  <span className="text-[10px] text-slate font-medium">
                     {outlet.location.city || 'Semarang'}
                   </span>
                 )}
               </div>
 
               <div>
-                <p className={`text-xs font-bold truncate leading-tight ${isSelected ? 'text-white' : 'text-stone-900'}`}>
+                <p className={`text-xs font-semibold truncate leading-tight ${isSelected ? 'text-gallery-white' : 'text-ink'}`}>
                   {branchShortName}
                 </p>
                 <div className="flex items-center gap-1 mt-1">
-                  <IconMapPin size={12} className={isSelected ? 'text-stone-400' : 'text-stone-400'} />
-                  <p className={`text-[11px] truncate ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
+                  <IconMapPin size={12} className={isSelected ? 'text-control-gray' : 'text-steel'} />
+                  <p className={`text-[11px] truncate ${isSelected ? 'text-control-gray' : 'text-slate'}`}>
                     {outlet.address}
                   </p>
                 </div>
