@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Button,
   Chip,
@@ -39,6 +39,58 @@ export default function App() {
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
   const [pendingOutletChange, setPendingOutletChange] = useState<Outlet | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
+
+  // Integrasi Browser History: Tangani Tombol Back Bawaan HP / Browser
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const state = event.state;
+      if (!state || state.view === 'home') {
+        setDetailProduct(null);
+        setIsCartOpen(false);
+        setIsOutletPickerOpen(false);
+      } else if (state.view === 'cart') {
+        setDetailProduct(null);
+        setIsCartOpen(true);
+        setIsOutletPickerOpen(false);
+      } else if (state.view === 'product') {
+        const found = currentOutlet.menus.find((m) => m.id === state.productId);
+        if (found) {
+          setDetailProduct(found);
+          setIsCartOpen(false);
+          setIsOutletPickerOpen(false);
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [currentOutlet]);
+
+  const openProductDetail = (item: MenuItem) => {
+    window.history.pushState({ view: 'product', productId: item.id }, '', `#product-${item.id}`);
+    setDetailProduct(item);
+  };
+
+  const closeProductDetail = () => {
+    if (window.history.state?.view === 'product') {
+      window.history.back();
+    } else {
+      setDetailProduct(null);
+    }
+  };
+
+  const openCart = () => {
+    window.history.pushState({ view: 'cart' }, '', '#cart');
+    setIsCartOpen(true);
+  };
+
+  const closeCart = () => {
+    if (window.history.state?.view === 'cart') {
+      window.history.back();
+    } else {
+      setIsCartOpen(false);
+    }
+  };
 
   const categories = ['All', ...currentOutlet.categories];
 
@@ -120,7 +172,7 @@ export default function App() {
       <>
         <Toast.Provider placement="top" />
         <CartStandalonePage
-          onBack={() => setIsCartOpen(false)}
+          onBack={closeCart}
           cartItems={cartItems}
           outlet={currentOutlet}
           onSelectOutlet={setCurrentOutlet}
@@ -136,7 +188,7 @@ export default function App() {
         <Toast.Provider placement="top" />
         <ProductDetailPage
           item={detailProduct}
-          onBack={() => setDetailProduct(null)}
+          onBack={closeProductDetail}
           onAddToCart={handleAddToCart}
           isFavorite={favorites.includes(detailProduct.id)}
           onToggleFavorite={handleToggleFavorite}
@@ -271,8 +323,8 @@ export default function App() {
                 item={item}
                 isFavorite={favorites.includes(item.id)}
                 onToggleFavorite={handleToggleFavorite}
-                onSelect={(selected) => setDetailProduct(selected)}
-                onQuickAdd={(selected) => setDetailProduct(selected)}
+                onSelect={(selected) => openProductDetail(selected)}
+                onQuickAdd={(selected) => openProductDetail(selected)}
               />
             ))}
           </div>
@@ -283,7 +335,7 @@ export default function App() {
           <div className="fixed bottom-6 right-6 z-40">
             <button
               type="button"
-              onClick={() => setIsCartOpen(true)}
+              onClick={openCart}
               className="group relative flex items-center gap-3 bg-ink text-gallery-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl border border-hairline hover:bg-black transition-transform active:scale-95 cursor-pointer"
               aria-label="Buka keranjang belanja"
             >
