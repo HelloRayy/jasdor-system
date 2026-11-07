@@ -7,7 +7,7 @@ import {
 } from '@heroui/react';
 import {
   IconSearch,
-  IconScan,
+  IconAdjustmentsHorizontal,
   IconClock,
   IconMapPin,
   IconCheck,
@@ -29,6 +29,8 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeTab, setActiveTab] = useState<string>('home');
+  const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc'>('default');
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   // Modal & Drawer States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -39,14 +41,20 @@ export default function App() {
 
   const categories = ['All', ...currentOutlet.categories];
 
-  const filteredMenus = currentOutlet.menus.filter((item) => {
-    const matchCategory =
-      selectedCategory === 'All' || item.category === selectedCategory;
-    const matchSearch =
-      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchCategory && matchSearch;
-  });
+  const filteredMenus = currentOutlet.menus
+    .filter((item) => {
+      const matchCategory =
+        selectedCategory === 'All' || item.category === selectedCategory;
+      const matchSearch =
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchCategory && matchSearch;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'price-asc') return a.basePrice - b.basePrice;
+      if (sortBy === 'price-desc') return b.basePrice - a.basePrice;
+      return 0;
+    });
 
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const subtotal = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
@@ -106,7 +114,7 @@ export default function App() {
           onOpenOutletPicker={() => setIsOutletPickerOpen(true)}
         />
 
-        {/* 2. Search Bar Bersih dengan Icon Scan QR / Filter */}
+        {/* 2. Search Bar Bersih dengan Tombol Filter & Sortir */}
         <div className="relative flex items-center gap-2">
           <div className="relative flex-1">
             <IconSearch
@@ -124,10 +132,15 @@ export default function App() {
 
           <button
             type="button"
-            className="w-10 h-10 rounded-2xl bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-700 transition-colors shrink-0"
-            aria-label="Scan barcode"
+            onClick={() => setIsFilterModalOpen(true)}
+            className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors shrink-0 ${
+              sortBy !== 'default'
+                ? 'bg-stone-900 text-white'
+                : 'bg-stone-100 text-stone-700'
+            }`}
+            aria-label="Filter dan sortir menu"
           >
-            <IconScan size={18} stroke={1.75} />
+            <IconAdjustmentsHorizontal size={18} stroke={1.75} />
           </button>
         </div>
 
@@ -231,6 +244,64 @@ export default function App() {
         onSelectTab={setActiveTab}
         onOpenCart={() => setIsCartOpen(true)}
       />
+
+      {/* HeroUI Filter & Sort Modal */}
+      <Modal isOpen={isFilterModalOpen} onOpenChange={setIsFilterModalOpen}>
+        <Modal.Backdrop variant="blur">
+          <Modal.Container size="sm">
+            <Modal.Dialog className="w-full">
+              <Modal.Header>
+                <Modal.Heading>Urutkan & Filter Menu</Modal.Heading>
+                <Modal.CloseTrigger />
+              </Modal.Header>
+
+              <Modal.Body className="space-y-4 pt-1">
+                <div className="space-y-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                    Urutan Harga
+                  </span>
+                  <div className="grid grid-cols-1 gap-2">
+                    <Button
+                      variant={sortBy === 'default' ? 'primary' : 'outline'}
+                      className="justify-between"
+                      onPress={() => setSortBy('default')}
+                    >
+                      <span>Rekomendasi (Default)</span>
+                      {sortBy === 'default' && <IconCheck size={16} stroke={2.5} />}
+                    </Button>
+                    <Button
+                      variant={sortBy === 'price-asc' ? 'primary' : 'outline'}
+                      className="justify-between"
+                      onPress={() => setSortBy('price-asc')}
+                    >
+                      <span>Harga Terendah &rarr; Tertinggi</span>
+                      {sortBy === 'price-asc' && <IconCheck size={16} stroke={2.5} />}
+                    </Button>
+                    <Button
+                      variant={sortBy === 'price-desc' ? 'primary' : 'outline'}
+                      className="justify-between"
+                      onPress={() => setSortBy('price-desc')}
+                    >
+                      <span>Harga Tertinggi &rarr; Terendah</span>
+                      {sortBy === 'price-desc' && <IconCheck size={16} stroke={2.5} />}
+                    </Button>
+                  </div>
+                </div>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button
+                  variant="primary"
+                  fullWidth
+                  onPress={() => setIsFilterModalOpen(false)}
+                >
+                  Terapkan
+                </Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
 
       {/* HeroUI Outlet Picker Modal */}
       <Modal isOpen={isOutletPickerOpen} onOpenChange={setIsOutletPickerOpen}>
