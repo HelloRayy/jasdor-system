@@ -41,10 +41,9 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
                     : 'border-transparent hover:border-stone-300'
                 }`}
               >
-                {/* Fallback Icon / Placeholder Logo */}
-                <div className="flex flex-col items-center justify-center text-stone-400 gap-1">
-                  <IconPhoto size={24} stroke={1.5} />
-                  <span className="text-[10px] font-semibold text-stone-500">Logo</span>
+                {/* Fallback Icon Placeholder */}
+                <div className="flex items-center justify-center text-stone-400">
+                  <IconPhoto size={26} stroke={1.5} />
                 </div>
 
                 {isSelected && (
