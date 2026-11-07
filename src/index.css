@@ -45,6 +45,11 @@
   --shadow-floating: 0 20px 40px -12px rgba(29, 29, 31, 0.08);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-bottom: 96px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -52,6 +57,19 @@ body {
   color: #1d1d1f;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* Hindari zoom liar otomatis iOS Safari pada input text */
+input, textarea, select {
+  font-size: 16px !important;
+  scroll-margin-bottom: 96px;
+}
+
+@media (min-width: 640px) {
+  input, textarea, select {
+    font-size: 14px !important;
+  }
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
