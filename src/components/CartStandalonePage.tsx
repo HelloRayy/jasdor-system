@@ -99,7 +99,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
       phone: '',
       address: '',
       landmark: '',
-      deliveryMethod: 'delivery',
+      deliveryMethod: '',
     };
   });
 
@@ -128,6 +128,10 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
     }
     if (!profile.phone.trim()) {
       setErrorMessage('Nomor WhatsApp wajib diisi');
+      return false;
+    }
+    if (!profile.deliveryMethod) {
+      setErrorMessage('Silakan pilih metode penerimaan: Diantar atau Ambil Sendiri');
       return false;
     }
     if (profile.deliveryMethod === 'delivery' && !profile.address?.trim()) {
@@ -534,7 +538,11 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                 <div className="flex items-center justify-between text-slate">
                   <span>Biaya Pengantaran</span>
                   <span className="font-semibold text-pricing-blue">
-                    {profile.deliveryMethod === 'delivery' ? 'Sesuai Jarak (COD/Transfer)' : 'Gratis (Ambil Sendiri)'}
+                    {profile.deliveryMethod === 'delivery'
+                      ? 'Sesuai Jarak (COD/Transfer)'
+                      : profile.deliveryMethod === 'pickup'
+                      ? 'Gratis (Ambil Sendiri)'
+                      : 'Pilih Metode Penerimaan'}
                   </span>
                 </div>
               </div>
