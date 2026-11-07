@@ -31,8 +31,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   // Default varian kosong (zero) agar tidak ada opsi yang terpilih otomatis
   const [selectedOptions, setSelectedOptions] = useState<Record<string, SelectedOption>>({});
 
-  // Default kuantitas 0 (zero) untuk mencegah miss-click
-  const [quantity, setQuantity] = useState(0);
+  // Default kuantitas langsung 1 (bukan 0)
+  const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -302,18 +302,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         {/* Floating Bottom Action: Stepper + Tombol Tambah ke Keranjang */}
         <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
           <div className="bg-gallery-white/95 backdrop-blur-md rounded-[24px] p-2 border border-hairline shadow-lg flex items-center gap-2">
-            {/* Quantity Stepper Ringkas (Bisa mulai dari 0) */}
+            {/* Quantity Stepper Ringkas (Minimal 1) */}
             <div className="flex items-center bg-control-gray rounded-2xl p-1 shrink-0">
               <button
                 type="button"
-                disabled={quantity <= 0}
-                onClick={() => setQuantity((q) => Math.max(0, q - 1))}
+                disabled={quantity <= 1}
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 className="w-9 h-9 rounded-xl flex items-center justify-center text-ink disabled:opacity-30"
                 aria-label="Kurangi"
               >
                 <IconMinus size={16} stroke={2} />
               </button>
-              <span className={`w-7 text-center text-sm font-semibold ${quantity === 0 ? 'text-steel' : 'text-ink'}`}>
+              <span className="w-7 text-center text-sm font-semibold text-ink">
                 {quantity}
               </span>
               <button
@@ -338,7 +338,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               onPress={handleConfirmAddToCart}
             >
               <span className="truncate">
-                {quantity === 0 ? 'Pilih Jumlah' : missingRequired ? 'Pilih Varian' : '+ Keranjang'}
+                {missingRequired ? 'Pilih Varian Wajib' : '+ Keranjang'}
               </span>
               <span className="font-bold shrink-0 ml-1.5">{formatRupiah(totalPrice)}</span>
             </Button>
