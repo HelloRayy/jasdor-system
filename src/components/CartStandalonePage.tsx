@@ -118,37 +118,37 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
   return (
     <div className="min-h-screen bg-stone-50/70 text-stone-900 pb-36 font-sans antialiased">
-      {/* Fixed Header Standalone */}
+      {/* Fixed Header Standalone: Left-aligned with Back Button */}
       <div className="sticky top-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80">
-        <div className="max-w-md mx-auto px-4 h-14 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={onBack}
-            className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-stone-900 active:bg-stone-100 transition-colors"
-            aria-label="Kembali ke Menu"
-          >
-            <IconArrowLeft size={22} stroke={2} />
-          </button>
+        <div className="max-w-md mx-auto px-4 h-15 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+            <button
+              type="button"
+              onClick={onBack}
+              className="w-10 h-10 -ml-1.5 rounded-full flex items-center justify-center text-stone-900 active:bg-stone-100 transition-colors shrink-0"
+              aria-label="Kembali ke Menu"
+            >
+              <IconArrowLeft size={22} stroke={2} />
+            </button>
 
-          <div className="text-center min-w-0 flex-1 px-2">
-            <h1 className="text-sm font-bold text-stone-900 truncate">
-              Keranjang & Checkout
-            </h1>
-            <p className="text-[11px] text-stone-500 truncate">
-              {outlet.name}
-            </p>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-base font-bold text-stone-900 truncate leading-tight">
+                Keranjang & Checkout
+              </h1>
+              <p className="text-xs text-stone-500 truncate leading-tight mt-0.5">
+                {outlet.name}
+              </p>
+            </div>
           </div>
 
-          {cartItems.length > 0 ? (
+          {cartItems.length > 0 && (
             <button
               type="button"
               onClick={onClearCart}
-              className="text-xs font-semibold text-rose-600 active:opacity-70 px-2 py-1"
+              className="text-xs font-semibold text-rose-600 active:opacity-70 px-2 py-1 shrink-0"
             >
               Hapus Semua
             </button>
-          ) : (
-            <div className="w-10" />
           )}
         </div>
       </div>
@@ -189,7 +189,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
             {/* Bagian 1: Daftar Menu yang Dipesan */}
             <div className="space-y-2">
               <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-bold uppercase tracking-wider text-stone-700">
+                <span className="text-sm font-bold text-stone-900">
                   Daftar Pesanan ({cartItems.length} menu)
                 </span>
                 <button
@@ -263,7 +263,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
             {/* Bagian 2: Opsi Pengantaran (Delivery vs Pickup) */}
             <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-3 shadow-2xs">
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-700 block">
+              <span className="text-sm font-bold text-stone-900 block">
                 Metode Penerimaan
               </span>
 
@@ -312,7 +312,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
             {/* Bagian 3: Form Data Pemesan */}
             <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-3.5 shadow-2xs">
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-700 block">
+              <span className="text-sm font-bold text-stone-900 block">
                 Informasi Pemesan
               </span>
 
@@ -391,7 +391,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
             {/* Bagian 4: Rincian Pembayaran */}
             <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-2.5 shadow-2xs">
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-700 block">
+              <span className="text-sm font-bold text-stone-900 block">
                 Ringkasan Pembayaran
               </span>
 

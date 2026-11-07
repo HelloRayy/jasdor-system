@@ -210,7 +210,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               {item.optionGroups.map((group) => (
                 <div key={group.id} className="space-y-2">
                   <div className="flex items-center justify-between px-0.5">
-                    <span className="text-xs font-bold uppercase tracking-wider text-stone-900">
+                    <span className="text-sm font-bold text-stone-900">
                       {group.name}
                     </span>
                     {group.required ? (
@@ -278,7 +278,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               {/* Catatan untuk Barista: HeroUI v3 TextArea */}
               <div className="space-y-1.5 pt-3 border-t border-stone-100">
                 <div className="flex items-center justify-between px-0.5">
-                  <Label className="text-xs font-bold uppercase tracking-wider text-stone-800 block">
+                  <Label className="text-sm font-bold text-stone-800 block">
                     Catatan untuk Barista
                   </Label>
                   <span className="text-xs text-stone-500">Opsional</span>
