@@ -279,7 +279,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               <div className="space-y-1.5 pt-3 border-t border-stone-100">
                 <div className="flex items-center justify-between px-0.5">
                   <Label className="text-sm font-bold text-stone-800 block">
-                    Catatan untuk Barista
+                    Catatan Khusus
                   </Label>
                   <span className="text-xs text-stone-500">Opsional</span>
                 </div>
@@ -289,9 +289,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   variant="secondary"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Contoh: Kurangi es, tanpa sedotan, minta pisah es..."
-                  className="w-full text-sm rounded-2xl bg-stone-50/70 border border-stone-200/70 focus:bg-white"
-                  aria-label="Catatan untuk Barista"
+                  placeholder="Contoh: Es dipisah, kurangi manis, tanpa sedotan..."
+                  className="w-full text-sm rounded-2xl bg-white border border-stone-300 focus:border-stone-900"
+                  aria-label="Catatan Khusus Pesanan"
                 />
               </div>
             </div>

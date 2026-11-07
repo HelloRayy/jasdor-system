@@ -331,7 +331,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   }}
                   onFocus={() => setIsDropdownOpen(true)}
                   placeholder="Ketik nama kota, mall, atau cabang terdekat..."
-                  className="w-full pl-10 pr-4 py-3 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/40 text-stone-900 font-medium placeholder:text-stone-400 transition-colors"
+                  className="w-full pl-10 pr-4 py-3 text-sm bg-white rounded-2xl border border-stone-300 focus:outline-none focus:border-stone-900 text-stone-900 font-medium placeholder:text-stone-400 transition-colors"
                   aria-label="Nama Cabang Pemesanan"
                 />
 
@@ -454,8 +454,8 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   variant="secondary"
                   value={profile.name}
                   onChange={(e) => handleProfileChange('name', e.target.value)}
-                  placeholder="Contoh: Rina Sari"
-                  className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
+                  placeholder="Masukkan nama lengkapmu"
+                  className="w-full text-sm rounded-2xl bg-white border border-stone-300 focus:border-stone-900"
                   aria-label="Nama Pemesan"
                 />
               </div>
@@ -464,7 +464,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
               <div className="space-y-1">
                 <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
                   <IconPhone size={15} className="text-stone-500" />
-                  <span>Nomor WhatsApp</span>
+                  <span>Nomor WhatsApp Aktif</span>
                 </Label>
                 <Input
                   fullWidth
@@ -472,9 +472,9 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   type="tel"
                   value={profile.phone}
                   onChange={(e) => handleProfileChange('phone', e.target.value)}
-                  placeholder="Contoh: 08123456789"
-                  className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
-                  aria-label="Nomor WhatsApp"
+                  placeholder="Contoh: 081234567890"
+                  className="w-full text-sm rounded-2xl bg-white border border-stone-300 focus:border-stone-900"
+                  aria-label="Nomor WhatsApp Aktif"
                 />
               </div>
 
@@ -484,7 +484,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   <div className="space-y-1">
                     <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
                       <IconMapPin size={15} className="text-stone-500" />
-                      <span>Alamat Pengantaran Lengkap</span>
+                      <span>Alamat Tujuan Pengiriman</span>
                     </Label>
                     <TextArea
                       rows={2}
@@ -492,24 +492,27 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                       variant="secondary"
                       value={profile.address || ''}
                       onChange={(e) => handleProfileChange('address', e.target.value)}
-                      placeholder="Jalan, nomor rumah/kantor, RT/RW, kelurahan..."
-                      className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
-                      aria-label="Alamat Pengantaran Lengkap"
+                      placeholder="Tuliskan nama jalan, nomor rumah/kantor, RT/RW, dan patokan..."
+                      className="w-full text-sm rounded-2xl bg-white border border-stone-300 focus:border-stone-900"
+                      aria-label="Alamat Tujuan Pengiriman"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <Label className="text-xs font-semibold text-stone-600 block">
-                      Patokan Lokasi (Opsional)
-                    </Label>
+                    <div className="flex items-center justify-between">
+                      <Label className="text-xs font-semibold text-stone-600 block">
+                        Catatan Lokasi
+                      </Label>
+                      <span className="text-[11px] text-stone-400">Opsional</span>
+                    </div>
                     <Input
                       fullWidth
                       variant="secondary"
                       value={profile.landmark || ''}
                       onChange={(e) => handleProfileChange('landmark', e.target.value)}
-                      placeholder="Contoh: Depan pos satpam pagar hitam"
-                      className="w-full text-sm rounded-2xl bg-stone-50 border border-stone-200/80 focus:bg-white"
-                      aria-label="Patokan Lokasi"
+                      placeholder="Contoh: Pagar hitam samping minimarket / titip pos satpam"
+                      className="w-full text-sm rounded-2xl bg-white border border-stone-300 focus:border-stone-900"
+                      aria-label="Catatan Lokasi Tambahan"
                     />
                   </div>
                 </>

@@ -43,6 +43,23 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   animation-duration: 0s !important;
 }
 
+/* Clean sharp active/focus state for inputs: Simple border only, no thick outline or excessive rings */
+input:focus,
+textarea:focus,
+select:focus,
+[data-focused="true"] {
+  outline: none !important;
+  border-color: #1c1917 !important; /* stone-900 */
+  box-shadow: none !important;
+}
+
+/* HeroUI component input container override */
+[data-slot="input-wrapper"]:focus-within {
+  border-color: #1c1917 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 .soft-panel {
   background: #ffffff;
   border-radius: 32px;
