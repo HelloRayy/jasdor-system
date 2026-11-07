@@ -1,474 +1,119 @@
 [
   {
     "id": "kk-smg-01",
-    "name": "Kopi Kenangan - Mall Paragon",
-    "address": "Pollux Mall Paragon Lt. 2, Jl. Pemuda No. 118, Semarang",
-    "lat": -6.9818,
-    "lng": 110.4137,
-    "city": "Semarang"
-  },
-  {
-    "id": "kk-smg-02",
-    "name": "Kopi Kenangan - Simpang Lima Plaza",
-    "address": "Mall Ciputra Simpang Lima Lt. GF, Semarang",
-    "lat": -6.9904,
+    "name": "Kopi Kenangan - Mall Ciputra Semarang",
+    "googleMapsQuery": "Kopi Kenangan - Mall Ciputra Semarang",
+    "address": "Mall Ciputra Semarang Lt. GF, Jl. Simpang Lima No. 1, Pekunden, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50134",
+    "lat": -6.9902,
     "lng": 110.4229,
     "city": "Semarang"
   },
   {
+    "id": "kk-smg-02",
+    "name": "Kopi Kenangan - Ahmad Yani Semarang",
+    "googleMapsQuery": "Kopi Kenangan - Ahmad Yani Semarang",
+    "address": "Jl. Ahmad Yani No. 168, Karangkidul, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50241",
+    "lat": -6.9932,
+    "lng": 110.4301,
+    "city": "Semarang"
+  },
+  {
     "id": "kk-smg-03",
-    "name": "Kopi Kenangan - DP Mall",
-    "address": "DP Mall Semarang Lt. 1, Jl. Pemuda No. 150, Semarang",
-    "lat": -6.9832,
-    "lng": 110.4102,
+    "name": "Kopi Kenangan - Tentrem Mall Semarang",
+    "googleMapsQuery": "Kopi Kenangan Tentrem Mall Semarang",
+    "address": "Tentrem Mall Semarang Lt. LG Unit LG-07, Jl. Gajahmada No. 123, Pekunden, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50134",
+    "lat": -6.9867,
+    "lng": 110.4218,
     "city": "Semarang"
   },
   {
     "id": "kk-smg-04",
-    "name": "Kopi Kenangan - Java Supermall",
-    "address": "Java Supermall Lt. 2, Jl. MT. Haryono No. 992, Semarang",
-    "lat": -7.0055,
-    "lng": 110.4357,
+    "name": "Kopi Kenangan - DP Mall Semarang",
+    "googleMapsQuery": "Kopi Kenangan DP Mall Semarang",
+    "address": "DP Mall Semarang Lt. 1, Jl. Pemuda No. 150, Sekayu, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50132",
+    "lat": -6.9824,
+    "lng": 110.4113,
     "city": "Semarang"
   },
   {
     "id": "kk-smg-05",
-    "name": "Kopi Kenangan - SPBU Ahmad Yani",
-    "address": "SPBU Ahmad Yani, Jl. Ahmad Yani No. 155, Semarang",
-    "lat": -6.9912,
-    "lng": 110.4308,
+    "name": "Kopi Kenangan - Pollux Mall Paragon Semarang",
+    "googleMapsQuery": "Kopi Kenangan Pollux Mall Paragon Semarang",
+    "address": "Pollux Mall Paragon Lt. 3, Jl. Pemuda No. 118, Sekayu, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50132",
+    "lat": -6.9791,
+    "lng": 110.4159,
     "city": "Semarang"
   },
   {
     "id": "kk-smg-06",
-    "name": "Kopi Kenangan - Ruko Pleburan",
-    "address": "Jl. Hayam Wuruk No. 42, Pleburan, Semarang",
-    "lat": -6.9961,
-    "lng": 110.4241,
+    "name": "Kopi Kenangan - Queen City Mall Semarang",
+    "googleMapsQuery": "Kopi Kenangan Queen City Semarang",
+    "address": "Queen City Mall Lt. GF (Main Lobby), Jl. Pemuda No. 35, Pandansari, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50139",
+    "lat": -6.9725,
+    "lng": 110.4205,
     "city": "Semarang"
   },
   {
     "id": "kk-smg-07",
-    "name": "Kopi Kenangan - Tembalang Undip",
-    "address": "Jl. Prof. Soedarto No. 12, Tembalang, Semarang",
-    "lat": -7.0521,
-    "lng": 110.4382,
+    "name": "Kopi Kenangan - Ruko Tembalang Semarang",
+    "googleMapsQuery": "Kopi Kenangan - Ruko Tembalang Semarang",
+    "address": "Jl. Tembalang Baru No. 11, Tembalang, Kec. Tembalang, Kota Semarang, Jawa Tengah 50275",
+    "lat": -7.0549,
+    "lng": 110.4345,
     "city": "Semarang"
   },
   {
     "id": "kk-smg-08",
-    "name": "Kopi Kenangan - Banyumanik",
-    "address": "Jl. Sukun Raya No. 8, Banyumanik, Semarang",
-    "lat": -7.0674,
-    "lng": 110.4172,
+    "name": "Kopi Kenangan - Banyumanik Semarang",
+    "googleMapsQuery": "Kopi Kenangan Banyumanik Semarang",
+    "address": "Jl. Ngesrep Timur V No. 38, Sumurboto, Kec. Banyumanik, Kota Semarang, Jawa Tengah 50269",
+    "lat": -7.0515,
+    "lng": 110.4265,
     "city": "Semarang"
   },
   {
     "id": "kk-smg-09",
-    "name": "Kopi Kenangan - Ngaliyan Square",
-    "address": "Jl. Prof. Dr. Hamka No. 88, Ngaliyan, Semarang",
-    "lat": -6.9942,
-    "lng": 110.3475,
+    "name": "Kopi Kenangan - Puri Anjasmoro Semarang",
+    "googleMapsQuery": "Kopi Kenangan Anjasmoro Semarang",
+    "address": "Jl. Anjasmoro Raya No. 44, Karangayu, Kec. Semarang Barat, Kota Semarang, Jawa Tengah 50142",
+    "lat": -6.9729,
+    "lng": 110.3845,
     "city": "Semarang"
   },
   {
-    "id": "kk-osm-1",
-    "name": "Kopi Kenangan - Jalan Raya Margonda",
-    "address": "Kopi Kenangan, Jalan Raya Margonda, Pondok Cina",
-    "lat": -6.3741238,
-    "lng": 106.8330769,
-    "city": "Depok"
+    "id": "kk-smg-10",
+    "name": "Kopi Kenangan - SPBU Pertamina Dr. Wahidin Semarang",
+    "googleMapsQuery": "Kopi Kenangan SPBU Dr Wahidin Semarang",
+    "address": "Area SPBU Pertamina 44.502.22, Jl. Dr. Wahidin, Karanganyar Gunung, Kec. Candisari, Kota Semarang, Jawa Tengah 50255",
+    "lat": -7.0168,
+    "lng": 110.4289,
+    "city": "Semarang"
   },
   {
-    "id": "kk-osm-2",
-    "name": "Kopi Kenangan - Jalan Haji Junaedi",
-    "address": "Kopi Kenangan, Jalan Haji Junaedi, RW 03",
-    "lat": -6.2775558,
-    "lng": 106.8005663,
-    "city": "Jakarta Selatan"
+    "id": "kk-smg-11",
+    "name": "Kopi Kenangan - Tentara Pelajar Semarang",
+    "googleMapsQuery": "Kopi Kenangan Tentara Pelajar Semarang",
+    "address": "Jl. Tentara Pelajar No. 52, Jomblang, Kec. Candisari, Kota Semarang, Jawa Tengah 50256",
+    "lat": -7.0125,
+    "lng": 110.4381,
+    "city": "Semarang"
   },
   {
-    "id": "kk-osm-3",
-    "name": "Kopi Kenangan - Jalan Kyai Maja",
-    "address": "Kopi Kenangan, Jalan Kyai Maja, Blok C",
-    "lat": -6.2408256,
-    "lng": 106.793566,
-    "city": "Jakarta Selatan"
+    "id": "kk-smg-12",
+    "name": "Kopi Kenangan - Java Supermall Semarang",
+    "googleMapsQuery": "Kopi Kenangan Java Supermall Semarang",
+    "address": "Java Supermall Lt. 2, Jl. MT. Haryono No. 992-994, Lamper Kidul, Kec. Semarang Selatan, Kota Semarang, Jawa Tengah 50249",
+    "lat": -7.0063,
+    "lng": 110.4325,
+    "city": "Semarang"
   },
   {
-    "id": "kk-osm-4",
-    "name": "Kopi Kenangan - Jalan Alam Indah",
-    "address": "Kopi Kenangan, Jalan Alam Indah, RW 03",
-    "lat": -6.2895382,
-    "lng": 106.8558867,
-    "city": "Jakarta Timur"
-  },
-  {
-    "id": "kk-osm-5",
-    "name": "Kopi Kenangan - Jalan Jenderal Gatot Subroto",
-    "address": "Kopi Kenangan, Jalan Jenderal Gatot Subroto, RW 01",
-    "lat": -6.2319742,
-    "lng": 106.8200886,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-6",
-    "name": "Kopi Kenangan - Jalan Jakarta Garden City",
-    "address": "Kopi Kenangan, Jalan Jakarta Garden City, Jakarta Garden City",
-    "lat": -6.176516,
-    "lng": 106.9548381,
-    "city": "Jakarta Timur"
-  },
-  {
-    "id": "kk-osm-7",
-    "name": "Kopi Kenangan - Jalan Letnan Jenderal Siswondo Parman",
-    "address": "Kopi Kenangan, Jalan Letnan Jenderal Siswondo Parman, RW 03",
-    "lat": -6.1937875,
-    "lng": 106.7978325,
-    "city": "Jakarta Barat"
-  },
-  {
-    "id": "kk-osm-8",
-    "name": "Kopi Kenangan - Jalan Hajjah R. Rasuna Said",
-    "address": "Kopi Kenangan, Jalan Hajjah R. Rasuna Said, RW 02",
-    "lat": -6.2274953,
-    "lng": 106.8328977,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-9",
-    "name": "Kopi Kenangan - Jalan Karet Haji Abdul Jalil",
-    "address": "Kopi Kenangan, Jalan Karet Haji Abdul Jalil, RW 09",
-    "lat": -6.2053811,
-    "lng": 106.8174359,
-    "city": "Jakarta Pusat"
-  },
-  {
-    "id": "kk-osm-10",
-    "name": "Kopi Kenangan - 2",
-    "address": "Kopi Kenangan, 2, Jalan Iskandarsyah II",
-    "lat": -6.2438958,
-    "lng": 106.8027039,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-11",
-    "name": "Kopi Kenangan - 68",
-    "address": "Kopi Kenangan, 68, Jalan Pangeran Antasari",
-    "lat": -6.2653271,
-    "lng": 106.8082843,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-12",
-    "name": "Kopi Kenangan - Jalan A. M. Sangaji",
-    "address": "Kopi kenangan, Jalan A. M. Sangaji, RW 04",
-    "lat": -6.1636173,
-    "lng": 106.8130422,
-    "city": "Jakarta Pusat"
-  },
-  {
-    "id": "kk-osm-13",
-    "name": "Kopi Kenangan - Jalan Kyai Haji Hasyim Ashari",
-    "address": "Kopi Kenangan, Jalan Kyai Haji Hasyim Ashari, RW 04",
-    "lat": -6.1649498,
-    "lng": 106.8126769,
-    "city": "Jakarta Pusat"
-  },
-  {
-    "id": "kk-osm-14",
-    "name": "Kopi Kenangan - RT.1/RW.5",
-    "address": "Kopi Kenangan, RT.1/RW.5, Jalan R. S. Polri",
-    "lat": -6.269127,
-    "lng": 106.8698036,
-    "city": "Jakarta Timur"
-  },
-  {
-    "id": "kk-osm-15",
-    "name": "Kopi Kenangan - Jalan Palmerah Barat",
-    "address": "Kopi Kenangan, Jalan Palmerah Barat, RW 02",
-    "lat": -6.2078465,
-    "lng": 106.7939137,
-    "city": "Jakarta Pusat"
-  },
-  {
-    "id": "kk-osm-16",
-    "name": "Kopi Kenangan - Jalan Palmerah Utara",
-    "address": "Kopi Kenangan, Jalan Palmerah Utara, RW 06",
-    "lat": -6.2035189,
-    "lng": 106.7972089,
-    "city": "Jakarta Barat"
-  },
-  {
-    "id": "kk-osm-17",
-    "name": "Kopi Kenangan - Jalan Ciledug Raya",
-    "address": "Kopi Kenangan, Jalan Ciledug Raya, RW 04",
-    "lat": -6.2369536,
-    "lng": 106.7531527,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-18",
-    "name": "Kopi Kenangan - Jalan Terusan Hang Lekir I",
-    "address": "Kopi Kenangan, Jalan Terusan Hang Lekir I, RW 02",
-    "lat": -6.2289672,
-    "lng": 106.7971449,
-    "city": "Jakarta Pusat"
-  },
-  {
-    "id": "kk-osm-19",
-    "name": "Kopi Kenangan - Jalan Lebak Bulus V",
-    "address": "Kopi Kenangan, Jalan Lebak Bulus V, RW 04",
-    "lat": -6.2988845,
-    "lng": 106.7868234,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-20",
-    "name": "Kopi Kenangan - Jalan Kapten Tendean",
-    "address": "Kopi Kenangan, Jalan Kapten Tendean, RW 03",
-    "lat": -6.2398058,
-    "lng": 106.8244278,
-    "city": "Jakarta Selatan"
-  },
-  {
-    "id": "kk-osm-21",
-    "name": "Kopi Kenangan - Jalan Gerbang Pemuda",
-    "address": "Kopi Kenangan, Jalan Gerbang Pemuda, RW 01",
-    "lat": -6.2122748,
-    "lng": 106.8049682,
-    "city": "Jakarta Pusat"
-  },
-  {
-    "id": "kk-osm-22",
-    "name": "Kopi Kenangan - Jalan Griya Babatan Mukti I",
-    "address": "Kopi Kenangan, Jalan Griya Babatan Mukti I, Griya Babatan Mukti",
-    "lat": -7.3110812,
-    "lng": 112.6789735,
-    "city": "Surabaya"
-  },
-  {
-    "id": "kk-osm-23",
-    "name": "Kopi Kenangan - Jalan Kedung Turi Gang III",
-    "address": "Kopi Kenangan, Jalan Kedung Turi Gang III, RW 10",
-    "lat": -7.2604276,
-    "lng": 112.736239,
-    "city": "Surabaya"
-  },
-  {
-    "id": "kk-osm-24",
-    "name": "Kopi Kenangan - Jalan Burangrang",
-    "address": "Kopi Kenangan, Jalan Burangrang, Karees Kulon",
-    "lat": -6.9231219,
-    "lng": 107.6201724,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-25",
-    "name": "Kopi Kenangan - Jalan Abdul Haris Nasution",
-    "address": "Kopi Kenangan, Jalan Abdul Haris Nasution, Pasirjati",
-    "lat": -6.9154253,
-    "lng": 107.7037555,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-26",
-    "name": "Kopi Kenangan - Jalan Sukaresik 1",
-    "address": "Kopi Kenangan, Jalan Sukaresik 1, Cipedes",
-    "lat": -6.8904932,
-    "lng": 107.5962339,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-27",
-    "name": "Kopi Kenangan - Jalan Dr. Setiabudi",
-    "address": "Kopi Kenangan, Jalan Dr. Setiabudi, Hegarmanah",
-    "lat": -6.8690585,
-    "lng": 107.5937257,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-28",
-    "name": "Kopi Kenangan - Jalan BTR VIII",
-    "address": "Kopi Kenangan, Jalan BTR VIII, Pakemitan",
-    "lat": -6.9158042,
-    "lng": 107.6963546,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-29",
-    "name": "Kopi Kenangan - Skywalk Cihampelas Bandung",
-    "address": "Kopi Kenangan, Skywalk Cihampelas Bandung, Cipaganti",
-    "lat": -6.8936026,
-    "lng": 107.6051072,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-30",
-    "name": "Kopi Kenangan - Jalan Dokter Djundjunan Setiakusumah",
-    "address": "Kopi Kenangan, Jalan Dokter Djundjunan Setiakusumah, Sukabungah",
-    "lat": -6.8949076,
-    "lng": 107.5887755,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-31",
-    "name": "Kopi Kenangan - Jalan Laswi",
-    "address": "Kopi Kenangan, Jalan Laswi, Karees Sapuran",
-    "lat": -6.9236101,
-    "lng": 107.6278801,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-32",
-    "name": "Kopi Kenangan - Jalan Terusan Jakarta",
-    "address": "Kopi Kenangan, Jalan Terusan Jakarta, Antapani Kulon",
-    "lat": -6.9123773,
-    "lng": 107.6525651,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-33",
-    "name": "Kopi Kenangan - 9",
-    "address": "Kopi Kenangan, 9, Jalan Purnawarman",
-    "lat": -6.907439,
-    "lng": 107.6089496,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-34",
-    "name": "Kopi Kenangan - Jalan Sunda",
-    "address": "Kopi Kenangan, Jalan Sunda, Kebon Pisang",
-    "lat": -6.9183441,
-    "lng": 107.6182166,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-35",
-    "name": "Kopi Kenangan - Jalan Pajajaran",
-    "address": "Kopi Kenangan, Jalan Pajajaran, Pamoyanan",
-    "lat": -6.9064704,
-    "lng": 107.5957325,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-36",
-    "name": "Kopi Kenangan - Jalan Banda",
-    "address": "Kopi Kenangan, Jalan Banda, Citarum",
-    "lat": -6.9066586,
-    "lng": 107.6171308,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-37",
-    "name": "Kopi Kenangan - Jalan Abdul Haris Nasution",
-    "address": "Kopi Kenangan, Jalan Abdul Haris Nasution, Palasari",
-    "lat": -6.92656,
-    "lng": 107.7105623,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-38",
-    "name": "Kopi Kenangan - Summarecon Mall Bandung",
-    "address": "Kopi Kenangan, Summarecon Mall Bandung, Cisaranten Kidul",
-    "lat": -6.9557777,
-    "lng": 107.6973994,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-39",
-    "name": "Kopi Kenangan - Jalan Kepatihan",
-    "address": "Kopi Kenangan, Jalan Kepatihan, Balonggede",
-    "lat": -6.9235043,
-    "lng": 107.6058278,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-40",
-    "name": "Kopi Kenangan - Jalan Ciumbuleuit",
-    "address": "Kopi Kenangan, Jalan Ciumbuleuit, Cisitu Dalam",
-    "lat": -6.8756006,
-    "lng": 107.6042621,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-41",
-    "name": "Kopi Kenangan - Jalan Buah Batu",
-    "address": "Kopi Kenangan, Jalan Buah Batu, Turangga",
-    "lat": -6.9411448,
-    "lng": 107.6270712,
-    "city": "Kota Bandung"
-  },
-  {
-    "id": "kk-osm-42",
-    "name": "Kopi Kenangan - Jalan Wahid Hasyim",
-    "address": "Kopi Kenangan, Jalan Wahid Hasyim, RW 01",
-    "lat": -3.0126835,
-    "lng": 104.7564974,
-    "city": "Palembang"
-  },
-  {
-    "id": "kk-osm-43",
-    "name": "Kopi Kenangan - Jalan Sumatra",
-    "address": "Kopi Kenangan, Jalan Sumatra, Belawan II",
-    "lat": 3.7814691,
-    "lng": 98.687723,
-    "city": "Kota Medan"
-  },
-  {
-    "id": "kk-osm-44",
-    "name": "Kopi Kenangan - Jalan Sisingamangaraja",
-    "address": "Kopi Kenangan, Jalan Sisingamangaraja, Harjosari II",
-    "lat": 3.5382419,
-    "lng": 98.7037381,
-    "city": "Kota Medan"
-  },
-  {
-    "id": "kk-osm-45",
-    "name": "Kopi Kenangan - Jalan Aria Surialaga",
-    "address": "Kopi Kenangan, Jalan Aria Surialaga, Pasir Kuda",
-    "lat": -6.6014442,
-    "lng": 106.779712,
-    "city": "Bogor"
-  },
-  {
-    "id": "kk-osm-46",
-    "name": "Kopi Kenangan - Jalan Raya Pajajaran",
-    "address": "Kopi Kenangan, Jalan Raya Pajajaran, Bantarjati",
-    "lat": -6.5788859,
-    "lng": 106.8065648,
-    "city": "Bogor"
-  },
-  {
-    "id": "kk-osm-47",
-    "name": "Kopi Kenangan - Jalan Brigjen Saptaji Hadi Prawira",
-    "address": "Kopi Kenangan, Jalan Brigjen Saptaji Hadi Prawira, Cilendek Barat",
-    "lat": -6.5706424,
-    "lng": 106.7676379,
-    "city": "Bogor"
-  },
-  {
-    "id": "kk-osm-48",
-    "name": "Kopi Kenangan - Jalan Ahmad Adnawijaya",
-    "address": "Kopi Kenangan, Jalan Ahmad Adnawijaya, Tegal Gundil",
-    "lat": -6.5843502,
-    "lng": 106.8169677,
-    "city": "Bogor"
-  },
-  {
-    "id": "kk-osm-49",
-    "name": "Kopi Kenangan - Jalan Jenderal Sudirman",
-    "address": "Kopi Kenangan, Jalan Jenderal Sudirman, Sempur",
-    "lat": -6.5818848,
-    "lng": 106.7968545,
-    "city": "Bogor"
-  },
-  {
-    "id": "kk-osm-50",
-    "name": "Kopi Kenangan - Jalan Mayor Oking Jayaatmaja",
-    "address": "Kopi Kenangan, Jalan Mayor Oking Jayaatmaja, Cibogor",
-    "lat": -6.5954631,
-    "lng": 106.7897084,
-    "city": "Bogor"
+    "id": "kk-smg-13",
+    "name": "Kopi Kenangan - Jl. Majapahit Semarang",
+    "googleMapsQuery": "Kopi Kenangan Jl. Majapahit Semarang",
+    "address": "Jl. Majapahit No. 324, Palebon, Kec. Pedurungan, Kota Semarang, Jawa Tengah 50199",
+    "lat": -7.0165,
+    "lng": 110.4835,
+    "city": "Semarang"
   }
 ]
