@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextArea, Chip, Label } from '@heroui/react';
 import {
   IconArrowLeft,
@@ -47,6 +47,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const requiredGroups = item.optionGroups?.filter((g) => g.required) || [];
   const missingRequired = requiredGroups.some((g) => !selectedOptions[g.id]);
   const canAddToCart = quantity > 0 && !missingRequired;
+
+  // Scroll ke paling atas saat halaman detail dibuka
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, []);
 
   const handleSelectOption = (
     groupId: string,
@@ -284,6 +289,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   placeholder="Contoh: Kurangi es, tanpa sedotan, minta pisah es..."
                   className="w-full text-sm rounded-2xl bg-paper-frost border border-hairline focus:bg-gallery-white text-ink"
                   aria-label="Catatan untuk Barista"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="sentences"
+                  spellCheck={false}
                 />
               </div>
             </div>
