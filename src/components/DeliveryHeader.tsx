@@ -1,49 +1,47 @@
 import React from 'react';
 import { Chip } from '@heroui/react';
-import { IconMapPin, IconChevronDown, IconBell } from '@tabler/icons-react';
+import { IconCoffee, IconBell } from '@tabler/icons-react';
 import type { Outlet } from '../types/catalog';
 
 interface DeliveryHeaderProps {
-  currentOutlet: Outlet;
-  onOpenOutletPicker: () => void;
+  currentOutlet?: Outlet;
+  ownerName?: string;
+  storeName?: string;
 }
 
 export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
   currentOutlet,
-  onOpenOutletPicker,
+  ownerName = 'Jasdor Partner',
+  storeName,
 }) => {
+  const displayName = storeName || currentOutlet?.brand || 'Kopi Kenangan';
+
   return (
     <div className="flex items-center justify-between py-2">
-      <button
-        type="button"
-        onClick={onOpenOutletPicker}
-        className="flex items-start gap-2.5 text-left group"
-      >
-        <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
-          <IconMapPin size={18} stroke={2} />
+      <div className="flex items-center gap-3 text-left">
+        {/* Avatar / Brand Icon */}
+        <div className="w-10 h-10 rounded-2xl bg-stone-900 text-white flex items-center justify-center shrink-0 shadow-xs">
+          <IconCoffee size={20} stroke={2} />
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-semibold text-stone-900 bg-stone-100 px-2 py-0.5 rounded-full">
-              {currentOutlet.location.city || 'Semarang'}
+            <span className="text-[11px] font-medium text-stone-400 uppercase tracking-wider">
+              {ownerName}
             </span>
             <Chip size="sm" variant="soft" color="success" className="h-4 px-1.5 text-[9px] font-semibold">
               Buka
             </Chip>
           </div>
-          <div className="flex items-center gap-1 mt-0.5">
-            <h2 className="font-bold text-stone-900 text-sm tracking-tight truncate max-w-[220px]">
-              {currentOutlet.name}
-            </h2>
-            <IconChevronDown size={14} className="text-stone-400 group-hover:text-stone-700 transition-colors" />
-          </div>
+          <h2 className="font-extrabold text-stone-900 text-base tracking-tight truncate max-w-[230px] leading-tight">
+            {displayName}
+          </h2>
         </div>
-      </button>
+      </div>
 
       {/* Notifikasi Icon */}
       <button
         type="button"
-        className="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-700 transition-colors"
+        className="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-700 transition-colors cursor-pointer"
         aria-label="Notifikasi"
       >
         <IconBell size={18} stroke={1.75} />
@@ -51,3 +49,4 @@ export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
     </div>
   );
 };
+

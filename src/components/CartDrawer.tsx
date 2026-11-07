@@ -16,9 +16,11 @@ import {
   IconPhone,
   IconChevronRight,
   IconCheck,
+  IconBuildingStore,
 } from '@tabler/icons-react';
 import type { CartItem, CustomerProfile, OrderPayload, DeliveryMethod } from '../types/cart';
 import type { Outlet } from '../types/catalog';
+import { mockOutlets } from '../data/mockOutlets';
 import {
   formatRupiah,
   generateOrderId,
@@ -31,6 +33,7 @@ interface CartDrawerProps {
   onClose: () => void;
   cartItems: CartItem[];
   outlet: Outlet;
+  onSelectOutlet?: (outlet: Outlet) => void;
   onRemoveItem: (id: string) => void;
   onClearCart: () => void;
 }
@@ -42,6 +45,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onClose,
   cartItems,
   outlet,
+  onSelectOutlet,
   onRemoveItem,
   onClearCart,
 }) => {
@@ -246,6 +250,36 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     </Alert.Content>
                   </Alert>
                 )}
+
+                {/* Pilihan Kota & Gerai Kopi Kenangan Terdekat */}
+                <div className="space-y-1.5 p-3 rounded-2xl bg-stone-100/70 border border-stone-200/60">
+                  <Label className="text-xs font-semibold text-stone-800 flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <IconBuildingStore size={14} className="text-stone-600" />
+                      <span>Cabang Pembuatan Pesanan</span>
+                    </span>
+                    <span className="text-[10px] text-stone-400 font-normal">Kota {outlet.location.city}</span>
+                  </Label>
+                  <select
+                    value={outlet.id}
+                    onChange={(e) => {
+                      const found = mockOutlets.find((o) => o.id === e.target.value);
+                      if (found && onSelectOutlet) {
+                        onSelectOutlet(found);
+                      }
+                    }}
+                    className="w-full px-3 py-2 text-xs font-medium bg-white rounded-xl border border-stone-200 text-stone-900 focus:outline-none focus:border-stone-900 transition-colors cursor-pointer"
+                  >
+                    {mockOutlets.map((o) => (
+                      <option key={o.id} value={o.id}>
+                        {o.name} ({o.location.city})
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-[10px] text-stone-500 truncate pt-0.5">
+                    {outlet.address}
+                  </p>
+                </div>
 
                 {/* Delivery Method */}
                 <div className="space-y-1.5">

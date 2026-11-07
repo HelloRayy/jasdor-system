@@ -34,6 +34,8 @@ export interface OrderPayload {
   outletId: string;
   outletName: string;
   whatsappNumber: string;
+  outletAddress?: string;
+  outletMapsQuery?: string;
   items: CartItem[];
   subtotal: number;
   deliveryFee: number;

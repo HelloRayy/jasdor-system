@@ -14,9 +14,12 @@ import {
   IconTruck,
   IconBuildingStore,
   IconAlertCircle,
+  IconChevronRight,
 } from '@tabler/icons-react';
 import type { CartItem, CustomerProfile, OrderPayload, DeliveryMethod } from '../types/cart';
 import type { Outlet } from '../types/catalog';
+import { mockOutlets } from '../data/mockOutlets';
+import { OutletComboboxModal } from './OutletComboboxModal';
 import {
   formatRupiah,
   generateOrderId,
@@ -28,6 +31,7 @@ interface CartStandalonePageProps {
   onBack: () => void;
   cartItems: CartItem[];
   outlet: Outlet;
+  onSelectOutlet?: (outlet: Outlet) => void;
   onRemoveItem: (id: string) => void;
   onClearCart: () => void;
 }
@@ -38,9 +42,12 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
   onBack,
   cartItems,
   outlet,
+  onSelectOutlet,
   onRemoveItem,
   onClearCart,
 }) => {
+  const [selectedOutlet, setSelectedOutlet] = useState<Outlet>(outlet);
+  const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
   const [profile, setProfile] = useState<CustomerProfile>(() => {
     try {
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -92,10 +99,12 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
     setErrorMessage('');
 
     const orderPayload: OrderPayload = {
-      orderId: generateOrderId(outlet.slug),
-      outletId: outlet.id,
-      outletName: outlet.name,
-      whatsappNumber: outlet.whatsappNumber,
+      orderId: generateOrderId(selectedOutlet.slug),
+      outletId: selectedOutlet.id,
+      outletName: selectedOutlet.name,
+      whatsappNumber: selectedOutlet.whatsappNumber,
+      outletAddress: selectedOutlet.address,
+      outletMapsQuery: selectedOutlet.googleMapsQuery,
       items: cartItems,
       subtotal,
       deliveryFee: 0,
@@ -108,7 +117,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
     };
 
     const message = constructWhatsAppMessage(orderPayload);
-    const waUrl = buildWhatsAppUrl(outlet.whatsappNumber, message);
+    const waUrl = buildWhatsAppUrl(selectedOutlet.whatsappNumber, message);
 
     window.open(waUrl, '_blank');
   };
@@ -132,7 +141,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
               Keranjang & Checkout
             </h1>
             <p className="text-[11px] text-stone-500 truncate">
-              {outlet.name}
+              {selectedOutlet.name}
             </p>
           </div>
 
@@ -256,6 +265,42 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Bagian 1.5: Pilih Kota & Cabang Gerai Kenangan (Langsung di Form Checkout) */}
+            <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-2.5 shadow-2xs">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-700 block">
+                  Cabang Pemesanan
+                </span>
+                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                  {selectedOutlet.location.city || 'Semarang'}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsOutletPickerOpen(true)}
+                className="w-full p-3 rounded-2xl bg-stone-50 hover:bg-stone-100/80 border border-stone-200/80 flex items-center justify-between gap-3 text-left transition-colors cursor-pointer"
+              >
+                <div className="flex items-start gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-xl bg-stone-900 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <IconBuildingStore size={16} stroke={2} />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs font-bold text-stone-900 block truncate">
+                      {selectedOutlet.name}
+                    </span>
+                    <span className="text-[11px] text-stone-500 block truncate mt-0.5">
+                      {selectedOutlet.address}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 shrink-0 text-stone-400">
+                  <span className="text-xs font-semibold text-stone-700">Ganti</span>
+                  <IconChevronRight size={16} stroke={2} />
+                </div>
+              </button>
             </div>
 
             {/* Bagian 2: Opsi Pengantaran (Delivery vs Pickup) */}
@@ -419,7 +464,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
             <Button
               variant="primary"
-              className="h-12 px-6 rounded-2xl bg-[#0a2e1f] text-white font-bold text-sm flex items-center gap-2 shadow-xs active:scale-95 transition-transform"
+              className="h-12 px-6 rounded-2xl bg-[#0a2e1f] text-white font-bold text-sm flex items-center gap-2 shadow-xs active:scale-95 transition-transform cursor-pointer"
               onPress={handleSendWhatsApp}
             >
               <IconBrandWhatsapp size={20} stroke={2} className="text-[#2fdc8f]" />
@@ -428,6 +473,20 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
           </div>
         </div>
       )}
+
+      {/* Modal Combobox Pilih Kota & Gerai Se-Indonesia */}
+      <OutletComboboxModal
+        isOpen={isOutletPickerOpen}
+        onClose={() => setIsOutletPickerOpen(false)}
+        outlets={mockOutlets}
+        currentOutlet={selectedOutlet}
+        onSelectOutlet={(newOutlet) => {
+          setSelectedOutlet(newOutlet);
+          if (onSelectOutlet) {
+            onSelectOutlet(newOutlet);
+          }
+        }}
+      />
     </div>
   );
 };

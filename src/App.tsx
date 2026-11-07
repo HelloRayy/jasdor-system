@@ -117,6 +117,7 @@ export default function App() {
         onBack={() => setIsCartOpen(false)}
         cartItems={cartItems}
         outlet={currentOutlet}
+        onSelectOutlet={setCurrentOutlet}
         onRemoveItem={handleRemoveItem}
         onClearCart={handleClearCart}
       />
@@ -138,10 +139,9 @@ export default function App() {
     <div className="min-h-screen bg-white text-stone-900 pb-20 font-sans antialiased">
       {/* App Shell Container Maksimal Mobile-First seperti di Referensi */}
       <div className="max-w-md mx-auto px-4 pt-3 space-y-4">
-        {/* 1. Header Lokasi & Notifikasi (Mirip iPhone Top Header) */}
+        {/* 1. Header Brand & Notifikasi */}
         <DeliveryHeader
           currentOutlet={currentOutlet}
-          onOpenOutletPicker={() => setIsOutletPickerOpen(true)}
         />
 
         {/* 2. Search Bar Bersih dengan Dropdown Filter Popover (Bukan Popup Modal) */}

@@ -39,6 +39,7 @@ export interface Outlet {
   bannerUrl: string;
   whatsappNumber: string; // format internasional: 628xxxx
   address: string;
+  googleMapsQuery?: string;
   location: OutletLocation;
   distanceKm?: number;
   openingHours: string;
