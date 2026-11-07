@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip } from '@heroui/react';
-import { IconHeart } from '@tabler/icons-react';
+import { IconHeart, IconPlus } from '@tabler/icons-react';
 import type { MenuItem } from '../types/catalog';
 import { formatRupiah } from '../utils/whatsapp';
 
@@ -17,14 +17,15 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
   isFavorite = false,
   onToggleFavorite,
   onSelect,
+  onQuickAdd,
 }) => {
   return (
     <div
       onClick={() => onSelect(item)}
       className="group cursor-pointer flex flex-col focus:outline-none"
     >
-      {/* Container Gambar Abu-Abu Bersih (Tampak Jelas dengan Border Halus) */}
-      <div className="relative aspect-square w-full rounded-3xl bg-stone-100/90 border border-stone-200/70 flex items-center justify-center p-3 overflow-hidden">
+      {/* Container Gambar Abu-Abu Bersih (WCAG compliant contrast) */}
+      <div className="relative aspect-square w-full rounded-3xl bg-stone-100 border border-stone-200/80 flex items-center justify-center p-3 overflow-hidden">
         {/* Foto Produk */}
         <img
           src={item.imageUrl}
@@ -40,13 +41,13 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
             e.stopPropagation();
             onToggleFavorite?.(item.id);
           }}
-          className="absolute top-2.5 right-2.5 w-7 h-7 flex items-center justify-center text-stone-600"
-          aria-label="Favorit"
+          className="absolute top-2.5 right-2.5 w-7 h-7 flex items-center justify-center text-stone-700 hover:text-rose-600 transition-colors"
+          aria-label={isFavorite ? `Hapus ${item.name} dari favorit` : `Tambah ${item.name} ke favorit`}
         >
           <IconHeart
             size={18}
-            className={isFavorite ? 'fill-rose-500 text-rose-500' : 'text-stone-700'}
-            stroke={1.5}
+            className={isFavorite ? 'fill-rose-600 text-rose-600' : 'text-stone-700'}
+            stroke={1.75}
           />
         </button>
 
@@ -57,17 +58,32 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
           <span className="w-1.5 h-1.5 rounded-full bg-stone-300" />
         </div>
 
+        {/* Tombol Quick Add di Pojok Kiri Bawah (Mempercepat UX) */}
+        {item.isAvailable && onQuickAdd && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onQuickAdd(item);
+            }}
+            className="absolute bottom-2.5 left-2.5 w-7 h-7 rounded-full bg-stone-900 text-white flex items-center justify-center shadow-xs"
+            aria-label={`Tambah cepat ${item.name}`}
+          >
+            <IconPlus size={15} stroke={2.5} />
+          </button>
+        )}
+
         {/* Status Habis */}
         {!item.isAvailable && (
-          <div className="absolute inset-0 bg-stone-950/40 backdrop-blur-xs flex items-center justify-center rounded-3xl">
-            <Chip size="sm" variant="primary" color="danger" className="text-[10px]">
+          <div className="absolute inset-0 bg-stone-950/60 backdrop-blur-xs flex items-center justify-center rounded-3xl">
+            <Chip size="sm" variant="primary" color="danger" className="text-[10px] font-bold">
               Habis
             </Chip>
           </div>
         )}
       </div>
 
-      {/* Info Minimalis di Bawah Kartu: Nama & Harga Bold */}
+      {/* Info Minimalis di Bawah Kartu: Nama & Harga */}
       <div className="mt-2 px-0.5 space-y-0.5">
         <h4 className="font-semibold text-stone-900 text-sm leading-tight truncate">
           {item.name}

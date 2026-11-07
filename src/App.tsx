@@ -39,6 +39,8 @@ export default function App() {
   const [detailProduct, setDetailProduct] = useState<MenuItem | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
+  const [pendingOutletChange, setPendingOutletChange] = useState<Outlet | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
 
   const categories = ['All', ...currentOutlet.categories];
@@ -61,8 +63,16 @@ export default function App() {
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const subtotal = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
 
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 2200);
+  };
+
   const handleAddToCart = (item: CartItem) => {
     setCartItems((prev) => [...prev, item]);
+    showToast(`1x ${item.menuItem.name} ditambahkan`);
   };
 
   const handleQuickAdd = (menuItem: MenuItem) => {
@@ -103,12 +113,24 @@ export default function App() {
 
   const handleChangeOutlet = (newOutlet: Outlet) => {
     if (newOutlet.id !== currentOutlet.id) {
+      if (cartItems.length > 0) {
+        setPendingOutletChange(newOutlet);
+        return;
+      }
       setCurrentOutlet(newOutlet);
       setSelectedCategory('All');
       setSearchQuery('');
-      if (cartItems.length > 0) {
-        setCartItems([]);
-      }
+    }
+  };
+
+  const confirmChangeOutlet = () => {
+    if (pendingOutletChange) {
+      setCurrentOutlet(pendingOutletChange);
+      setSelectedCategory('All');
+      setSearchQuery('');
+      setCartItems([]);
+      setPendingOutletChange(null);
+      showToast(`Beralih ke ${pendingOutletChange.brand}`);
     }
   };
 
@@ -263,6 +285,16 @@ export default function App() {
         </div>
       </div>
 
+      {/* Toast Feedback Instan */}
+      {toastMessage && (
+        <div className="fixed top-4 inset-x-4 max-w-sm mx-auto z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="bg-[#0a2e1f] text-[#2fdc8f] px-4 py-2.5 rounded-2xl shadow-lg border border-[#144732] flex items-center justify-between text-xs font-semibold">
+            <span>{toastMessage}</span>
+            <span className="w-2 h-2 rounded-full bg-[#2fdc8f]" />
+          </div>
+        </div>
+      )}
+
       {/* Floating Bottom Cart Bar (Muncul pas ada item di keranjang) */}
       {cartItems.length > 0 && (
         <div className="fixed bottom-4 inset-x-4 max-w-md mx-auto z-40">
@@ -357,6 +389,42 @@ export default function App() {
                   onPress={() => setIsOutletPickerOpen(false)}
                 >
                   Tutup
+                </Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
+
+      {/* Modal Konfirmasi Pindah Outlet Saat Keranjang Ada Item (UX Protection) */}
+      <Modal isOpen={!!pendingOutletChange} onOpenChange={(open) => !open && setPendingOutletChange(null)}>
+        <Modal.Backdrop variant="blur">
+          <Modal.Container size="sm">
+            <Modal.Dialog className="w-full">
+              <Modal.Header>
+                <Modal.Heading>Pindah Outlet?</Modal.Heading>
+                <Modal.CloseTrigger />
+              </Modal.Header>
+              <Modal.Body>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Keranjangmu saat ini berisi item dari <strong>{currentOutlet.name}</strong>.
+                  Pindah ke <strong>{pendingOutletChange?.name}</strong> akan mengosongkan keranjangmu.
+                </p>
+              </Modal.Body>
+              <Modal.Footer className="flex gap-2">
+                <Button
+                  variant="secondary"
+                  className="flex-1"
+                  onPress={() => setPendingOutletChange(null)}
+                >
+                  Batal
+                </Button>
+                <Button
+                  variant="primary"
+                  className="flex-1 bg-rose-600 text-white"
+                  onPress={confirmChangeOutlet}
+                >
+                  Ya, Ganti Outlet
                 </Button>
               </Modal.Footer>
             </Modal.Dialog>

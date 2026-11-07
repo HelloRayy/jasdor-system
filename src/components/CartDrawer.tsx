@@ -15,6 +15,7 @@ import {
   IconUser,
   IconPhone,
   IconChevronRight,
+  IconCheck,
 } from '@tabler/icons-react';
 import type { CartItem, CustomerProfile, OrderPayload, DeliveryMethod } from '../types/cart';
 import type { Outlet } from '../types/catalog';
@@ -61,7 +62,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     };
   });
 
-  const [step, setStep] = useState<'cart' | 'checkout'>('cart');
+  const hasSavedProfile = Boolean(profile.name && profile.phone);
+  const [step, setStep] = useState<'cart' | 'checkout'>(() => (hasSavedProfile ? 'cart' : 'cart'));
   const [errorMessage, setErrorMessage] = useState('');
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
@@ -120,14 +122,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   return (
     <Drawer isOpen={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Drawer.Backdrop variant="blur" />
-      <Drawer.Content placement="right" className="max-w-md w-full">
+      <Drawer.Content placement="right" className="max-w-md w-full bg-white">
         <Drawer.Dialog>
-          <Drawer.Header>
+          <Drawer.Header className="border-b border-stone-100">
             <div>
-              <Drawer.Heading>
+              <Drawer.Heading className="text-base font-bold text-stone-900">
                 {step === 'cart' ? 'Keranjang Pesanan' : 'Data Pemesan'}
               </Drawer.Heading>
-              <p className="text-xs text-muted truncate max-w-[260px]">
+              <p className="text-xs text-stone-500 truncate max-w-[260px]">
                 {outlet.name}
               </p>
             </div>
@@ -136,38 +138,65 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
           <Drawer.Body className="space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto">
             {cartItems.length === 0 ? (
-              <div className="text-center py-12 text-muted">
+              <div className="text-center py-12 text-stone-400">
                 <p className="text-sm">Keranjangmu masih kosong.</p>
                 <p className="text-xs mt-1">Pilih menu favoritmu untuk mulai memesan.</p>
               </div>
             ) : step === 'cart' ? (
               <div className="space-y-3">
+                {/* Info Profil Tersimpan untuk Repeat Customer */}
+                {hasSavedProfile && (
+                  <div className="p-3 bg-emerald-50/60 rounded-2xl border border-emerald-200/80 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center">
+                        <IconCheck size={14} stroke={2.5} />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-xs font-semibold text-stone-900">
+                          Data Pemesan: {profile.name}
+                        </p>
+                        <p className="text-[11px] text-stone-500">
+                          {profile.phone} • {profile.deliveryMethod === 'delivery' ? 'Diantar' : 'Ambil Sendiri'}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setStep('checkout')}
+                      className="text-xs font-semibold text-emerald-800 underline"
+                    >
+                      Ubah
+                    </button>
+                  </div>
+                )}
+
+                {/* Daftar Item Pesanan */}
                 {cartItems.map((item) => (
-                  <Card key={item.id} variant="secondary" className="p-3">
+                  <Card key={item.id} variant="secondary" className="p-3 bg-stone-50 border border-stone-200/60">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <Chip size="sm" variant="primary" color="default" className="text-[10px]">
+                          <Chip size="sm" variant="primary" color="default" className="text-[10px] font-bold">
                             {item.quantity}x
                           </Chip>
-                          <h4 className="font-semibold text-foreground text-xs sm:text-sm truncate">
+                          <h4 className="font-semibold text-stone-900 text-xs sm:text-sm truncate">
                             {item.menuItem.name}
                           </h4>
                         </div>
 
                         {item.selectedOptions.length > 0 && (
-                          <p className="text-[11px] text-muted mt-1">
+                          <p className="text-[11px] text-stone-500 mt-1">
                             {item.selectedOptions.map((o) => o.optionName).join(', ')}
                           </p>
                         )}
 
                         {item.notes && (
-                          <p className="text-[11px] text-accent mt-1 italic">
+                          <p className="text-[11px] text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md mt-1 italic font-medium">
                             Catatan: {item.notes}
                           </p>
                         )}
 
-                        <span className="text-xs font-bold text-foreground mt-1.5 block">
+                        <span className="text-xs font-bold text-stone-900 mt-1.5 block">
                           {formatRupiah(item.totalPrice)}
                         </span>
                       </div>
@@ -189,7 +218,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   variant="ghost"
                   size="sm"
                   fullWidth
-                  className="text-muted hover:text-foreground text-xs"
+                  className="text-stone-400 hover:text-stone-700 text-xs"
                   onPress={onClearCart}
                 >
                   Kosongkan Keranjang
@@ -207,13 +236,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Delivery Method */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-semibold uppercase tracking-wider text-muted block">
+                  <Label className="text-xs font-semibold uppercase tracking-wider text-stone-500 block">
                     Metode Pemesanan
                   </Label>
                   <div className="grid grid-cols-2 gap-2">
                     <Button
                       variant={profile.deliveryMethod === 'delivery' ? 'primary' : 'outline'}
                       size="sm"
+                      className={profile.deliveryMethod === 'delivery' ? 'bg-[#0a2e1f] text-[#2fdc8f]' : ''}
                       onPress={() => handleProfileChange('deliveryMethod', 'delivery')}
                     >
                       Diantar (Delivery)
@@ -221,6 +251,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <Button
                       variant={profile.deliveryMethod === 'pickup' ? 'primary' : 'outline'}
                       size="sm"
+                      className={profile.deliveryMethod === 'pickup' ? 'bg-[#0a2e1f] text-[#2fdc8f]' : ''}
                       onPress={() => handleProfileChange('deliveryMethod', 'pickup')}
                     >
                       Ambil Sendiri (Pickup)
@@ -230,8 +261,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Nama Pemesan */}
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                    <IconUser size={14} className="text-muted" />
+                  <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
+                    <IconUser size={14} className="text-stone-500" />
                     <span>Nama Lengkap</span>
                   </Label>
                   <Input
@@ -246,8 +277,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Nomor WhatsApp */}
                 <div className="space-y-1">
-                  <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                    <IconPhone size={14} className="text-muted" />
+                  <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
+                    <IconPhone size={14} className="text-stone-500" />
                     <span>Nomor WhatsApp</span>
                   </Label>
                   <Input
@@ -265,8 +296,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 {profile.deliveryMethod === 'delivery' && (
                   <>
                     <div className="space-y-1">
-                      <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                        <IconMapPin size={14} className="text-muted" />
+                      <Label className="text-xs font-semibold text-stone-800 flex items-center gap-1.5">
+                        <IconMapPin size={14} className="text-stone-500" />
                         <span>Alamat Lengkap</span>
                       </Label>
                       <Input
@@ -280,7 +311,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     </div>
 
                     <div className="space-y-1">
-                      <Label className="text-xs font-semibold text-muted block">
+                      <Label className="text-xs font-semibold text-stone-600 block">
                         Patokan Lokasi (Opsional)
                       </Label>
                       <Input
@@ -299,24 +330,45 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           </Drawer.Body>
 
           {cartItems.length > 0 && (
-            <Drawer.Footer className="border-t border-separator bg-surface flex flex-col gap-3">
+            <Drawer.Footer className="border-t border-stone-100 bg-stone-50/80 flex flex-col gap-3">
               <div className="flex items-center justify-between w-full">
-                <span className="text-xs text-muted">Subtotal Item</span>
-                <span className="text-sm font-bold text-foreground">
+                <span className="text-xs text-stone-500">Subtotal Item</span>
+                <span className="text-base font-bold text-stone-900">
                   {formatRupiah(subtotal)}
                 </span>
               </div>
 
               {step === 'cart' ? (
-                <Button
-                  variant="primary"
-                  fullWidth
-                  onPress={() => setStep('checkout')}
-                  className="justify-center gap-2"
-                >
-                  <span>Lanjut Isi Data Pengiriman</span>
-                  <IconChevronRight size={16} stroke={2} />
-                </Button>
+                hasSavedProfile ? (
+                  /* Repeat Customer Langsung Kirim 1 Klik */
+                  <div className="flex gap-2 w-full">
+                    <Button
+                      variant="secondary"
+                      onPress={() => setStep('checkout')}
+                      className="px-3"
+                    >
+                      Ubah Data
+                    </Button>
+                    <Button
+                      variant="primary"
+                      className="flex-1 justify-center gap-2 bg-[#0a2e1f] text-[#2fdc8f] border border-[#144732]"
+                      onPress={handleSendWhatsApp}
+                    >
+                      <IconBrandWhatsapp size={18} stroke={2} />
+                      <span>Kirim ke WhatsApp</span>
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="primary"
+                    fullWidth
+                    onPress={() => setStep('checkout')}
+                    className="justify-center gap-2 bg-[#0a2e1f] text-[#2fdc8f]"
+                  >
+                    <span>Lanjut Isi Data Pengiriman</span>
+                    <IconChevronRight size={16} stroke={2} />
+                  </Button>
+                )
               ) : (
                 <div className="flex gap-2 w-full">
                   <Button
@@ -327,7 +379,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   </Button>
                   <Button
                     variant="primary"
-                    className="flex-1 justify-center gap-2"
+                    className="flex-1 justify-center gap-2 bg-[#0a2e1f] text-[#2fdc8f] border border-[#144732]"
                     onPress={handleSendWhatsApp}
                   >
                     <IconBrandWhatsapp size={18} stroke={2} />
