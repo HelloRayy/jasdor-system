@@ -172,11 +172,23 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Daftar Item Pesanan */}
                 {cartItems.map((item) => (
-                  <Card key={item.id} variant="secondary" className="p-3 bg-stone-50 border border-stone-200/60">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <Chip size="sm" variant="primary" color="default" className="text-[10px] font-bold">
+                  <Card key={item.id} variant="secondary" className="p-3 bg-white border border-stone-200/70 shadow-2xs">
+                    <div className="flex items-start gap-3">
+                      {/* Product Thumbnail */}
+                      <div className="w-12 h-12 rounded-xl bg-white border border-stone-200/60 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                        <img
+                          src={item.menuItem.imageUrl || '/images/kopi-kenangan-cup.png'}
+                          alt={item.menuItem.name}
+                          onError={(e) => {
+                            e.currentTarget.src = '/images/kopi-kenangan-cup.png';
+                          }}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <Chip size="sm" variant="primary" color="default" className="text-[10px] font-bold shrink-0">
                             {item.quantity}x
                           </Chip>
                           <h4 className="font-semibold text-stone-900 text-xs sm:text-sm truncate">
@@ -185,18 +197,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         </div>
 
                         {item.selectedOptions.length > 0 && (
-                          <p className="text-[11px] text-stone-500 mt-1">
+                          <p className="text-[11px] text-stone-500 mt-0.5">
                             {item.selectedOptions.map((o) => o.optionName).join(', ')}
                           </p>
                         )}
 
                         {item.notes && (
-                          <p className="text-[11px] text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md mt-1 italic font-medium">
+                          <p className="text-[11px] text-stone-600 bg-stone-100 px-2 py-0.5 rounded-md mt-1 italic font-medium">
                             Catatan: {item.notes}
                           </p>
                         )}
 
-                        <span className="text-xs font-bold text-stone-900 mt-1.5 block">
+                        <span className="text-xs font-bold text-stone-900 mt-1 block">
                           {formatRupiah(item.totalPrice)}
                         </span>
                       </div>
@@ -207,6 +219,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         variant="ghost"
                         onPress={() => onRemoveItem(item.id)}
                         aria-label="Hapus item"
+                        className="text-stone-400 hover:text-rose-600 shrink-0"
                       >
                         <IconTrash size={16} stroke={1.5} />
                       </Button>
