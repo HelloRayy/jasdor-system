@@ -24,7 +24,7 @@ import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { CartDrawer } from './components/CartDrawer';
-import { OutletMapStandalonePage } from './components/OutletMapStandalonePage';
+import { OutletComboboxModal } from './components/OutletComboboxModal';
 import { formatRupiah } from './utils/whatsapp';
 
 export default function App() {
@@ -110,17 +110,6 @@ export default function App() {
       showToast(`Beralih ke ${pendingOutletChange.brand}`);
     }
   };
-
-  if (isOutletPickerOpen) {
-    return (
-      <OutletMapStandalonePage
-        outlets={mockOutlets}
-        currentOutlet={currentOutlet}
-        onSelectOutlet={handleChangeOutlet}
-        onBack={() => setIsOutletPickerOpen(false)}
-      />
-    );
-  }
 
   if (detailProduct) {
     return (
@@ -417,6 +406,15 @@ export default function App() {
         outlet={currentOutlet}
         onRemoveItem={handleRemoveItem}
         onClearCart={handleClearCart}
+      />
+
+      {/* Modern Combobox Modal: Pilih Kota & Cabang Kopi Kenangan Se-Indonesia */}
+      <OutletComboboxModal
+        isOpen={isOutletPickerOpen}
+        onClose={() => setIsOutletPickerOpen(false)}
+        outlets={mockOutlets}
+        currentOutlet={currentOutlet}
+        onSelectOutlet={handleChangeOutlet}
       />
     </div>
   );

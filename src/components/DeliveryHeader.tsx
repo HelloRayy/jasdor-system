@@ -24,7 +24,9 @@ export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-medium text-stone-500">Express delivery</span>
+            <span className="text-xs font-semibold text-stone-900 bg-stone-100 px-2 py-0.5 rounded-full">
+              {currentOutlet.location.city || 'Semarang'}
+            </span>
             <Chip size="sm" variant="soft" color="success" className="h-4 px-1.5 text-[9px] font-semibold">
               Buka
             </Chip>

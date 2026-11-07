@@ -1,119 +1,263 @@
 [
   {
     "id": "kk-smg-01",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Mall Ciputra Semarang",
     "googleMapsQuery": "Kopi Kenangan - Mall Ciputra Semarang",
-    "address": "Mall Ciputra Semarang Lt. GF, Jl. Simpang Lima No. 1, Pekunden, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50134",
+    "address": "Mall Ciputra Semarang Lt. GF, Jl. Simpang Lima No. 1, Pekunden, Semarang Tengah",
     "lat": -6.9902,
-    "lng": 110.4229,
-    "city": "Semarang"
+    "lng": 110.4229
   },
   {
     "id": "kk-smg-02",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Ahmad Yani Semarang",
     "googleMapsQuery": "Kopi Kenangan - Ahmad Yani Semarang",
-    "address": "Jl. Ahmad Yani No. 168, Karangkidul, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50241",
+    "address": "Jl. Ahmad Yani No. 168, Karangkidul, Semarang Tengah",
     "lat": -6.9932,
-    "lng": 110.4301,
-    "city": "Semarang"
+    "lng": 110.4301
   },
   {
     "id": "kk-smg-03",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Tentrem Mall Semarang",
     "googleMapsQuery": "Kopi Kenangan Tentrem Mall Semarang",
-    "address": "Tentrem Mall Semarang Lt. LG Unit LG-07, Jl. Gajahmada No. 123, Pekunden, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50134",
+    "address": "Tentrem Mall Semarang Lt. LG Unit LG-07, Jl. Gajahmada No. 123",
     "lat": -6.9867,
-    "lng": 110.4218,
-    "city": "Semarang"
+    "lng": 110.4218
   },
   {
     "id": "kk-smg-04",
+    "city": "Semarang",
     "name": "Kopi Kenangan - DP Mall Semarang",
     "googleMapsQuery": "Kopi Kenangan DP Mall Semarang",
-    "address": "DP Mall Semarang Lt. 1, Jl. Pemuda No. 150, Sekayu, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50132",
+    "address": "DP Mall Semarang Lt. 1, Jl. Pemuda No. 150, Sekayu",
     "lat": -6.9824,
-    "lng": 110.4113,
-    "city": "Semarang"
+    "lng": 110.4113
   },
   {
     "id": "kk-smg-05",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Pollux Mall Paragon Semarang",
     "googleMapsQuery": "Kopi Kenangan Pollux Mall Paragon Semarang",
-    "address": "Pollux Mall Paragon Lt. 3, Jl. Pemuda No. 118, Sekayu, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50132",
+    "address": "Pollux Mall Paragon Lt. 3, Jl. Pemuda No. 118, Sekayu",
     "lat": -6.9791,
-    "lng": 110.4159,
-    "city": "Semarang"
+    "lng": 110.4159
   },
   {
     "id": "kk-smg-06",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Queen City Mall Semarang",
     "googleMapsQuery": "Kopi Kenangan Queen City Semarang",
-    "address": "Queen City Mall Lt. GF (Main Lobby), Jl. Pemuda No. 35, Pandansari, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50139",
+    "address": "Queen City Mall Lt. GF (Main Lobby), Jl. Pemuda No. 35",
     "lat": -6.9725,
-    "lng": 110.4205,
-    "city": "Semarang"
+    "lng": 110.4205
   },
   {
     "id": "kk-smg-07",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Ruko Tembalang Semarang",
     "googleMapsQuery": "Kopi Kenangan - Ruko Tembalang Semarang",
-    "address": "Jl. Tembalang Baru No. 11, Tembalang, Kec. Tembalang, Kota Semarang, Jawa Tengah 50275",
+    "address": "Jl. Tembalang Baru No. 11, Tembalang, Kec. Tembalang",
     "lat": -7.0549,
-    "lng": 110.4345,
-    "city": "Semarang"
+    "lng": 110.4345
   },
   {
     "id": "kk-smg-08",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Banyumanik Semarang",
     "googleMapsQuery": "Kopi Kenangan Banyumanik Semarang",
-    "address": "Jl. Ngesrep Timur V No. 38, Sumurboto, Kec. Banyumanik, Kota Semarang, Jawa Tengah 50269",
+    "address": "Jl. Ngesrep Timur V No. 38, Sumurboto, Banyumanik",
     "lat": -7.0515,
-    "lng": 110.4265,
-    "city": "Semarang"
+    "lng": 110.4265
   },
   {
     "id": "kk-smg-09",
+    "city": "Semarang",
     "name": "Kopi Kenangan - Puri Anjasmoro Semarang",
     "googleMapsQuery": "Kopi Kenangan Anjasmoro Semarang",
-    "address": "Jl. Anjasmoro Raya No. 44, Karangayu, Kec. Semarang Barat, Kota Semarang, Jawa Tengah 50142",
+    "address": "Jl. Anjasmoro Raya No. 44, Karangayu, Semarang Barat",
     "lat": -6.9729,
-    "lng": 110.3845,
-    "city": "Semarang"
+    "lng": 110.3845
   },
   {
     "id": "kk-smg-10",
-    "name": "Kopi Kenangan - SPBU Pertamina Dr. Wahidin Semarang",
-    "googleMapsQuery": "Kopi Kenangan SPBU Dr Wahidin Semarang",
-    "address": "Area SPBU Pertamina 44.502.22, Jl. Dr. Wahidin, Karanganyar Gunung, Kec. Candisari, Kota Semarang, Jawa Tengah 50255",
-    "lat": -7.0168,
-    "lng": 110.4289,
-    "city": "Semarang"
+    "city": "Semarang",
+    "name": "Kopi Kenangan - Java Supermall Semarang",
+    "googleMapsQuery": "Kopi Kenangan Java Supermall Semarang",
+    "address": "Java Supermall Lt. 2, Jl. MT. Haryono No. 992-994",
+    "lat": -7.0063,
+    "lng": 110.4325
   },
   {
     "id": "kk-smg-11",
-    "name": "Kopi Kenangan - Tentara Pelajar Semarang",
-    "googleMapsQuery": "Kopi Kenangan Tentara Pelajar Semarang",
-    "address": "Jl. Tentara Pelajar No. 52, Jomblang, Kec. Candisari, Kota Semarang, Jawa Tengah 50256",
-    "lat": -7.0125,
-    "lng": 110.4381,
-    "city": "Semarang"
+    "city": "Semarang",
+    "name": "Kopi Kenangan - SPBU Pertamina Pamularsih",
+    "googleMapsQuery": "Kopi Kenangan SPBU Pamularsih Semarang",
+    "address": "SPBU Pertamina 44.501.19, Jl. Pamularsih Raya No. 50, Semarang Barat",
+    "lat": -6.9887,
+    "lng": 110.3941
   },
   {
     "id": "kk-smg-12",
-    "name": "Kopi Kenangan - Java Supermall Semarang",
-    "googleMapsQuery": "Kopi Kenangan Java Supermall Semarang",
-    "address": "Java Supermall Lt. 2, Jl. MT. Haryono No. 992-994, Lamper Kidul, Kec. Semarang Selatan, Kota Semarang, Jawa Tengah 50249",
-    "lat": -7.0063,
-    "lng": 110.4325,
-    "city": "Semarang"
+    "city": "Semarang",
+    "name": "Kopi Kenangan - Menoreh Semarang",
+    "googleMapsQuery": "Kopi Kenangan Menoreh Semarang",
+    "address": "Jl. Menoreh Raya No. 67, Sampangan, Gajahmungkur",
+    "lat": -7.0117,
+    "lng": 110.3910
   },
   {
     "id": "kk-smg-13",
-    "name": "Kopi Kenangan - Jl. Majapahit Semarang",
-    "googleMapsQuery": "Kopi Kenangan Jl. Majapahit Semarang",
-    "address": "Jl. Majapahit No. 324, Palebon, Kec. Pedurungan, Kota Semarang, Jawa Tengah 50199",
-    "lat": -7.0165,
-    "lng": 110.4835,
-    "city": "Semarang"
+    "city": "Semarang",
+    "name": "Kopi Kenangan - Ruko Telagamas Semarang",
+    "googleMapsQuery": "Kopi Kenangan Ruko Telagamas Semarang",
+    "address": "Ruko Telagamas Raya, Panggung Lor, Semarang Utara",
+    "lat": -6.9580,
+    "lng": 110.4020
+  },
+  {
+    "id": "kk-jkt-01",
+    "city": "Jakarta",
+    "name": "Kopi Kenangan - Grand Indonesia",
+    "googleMapsQuery": "Kopi Kenangan Grand Indonesia",
+    "address": "Grand Indonesia West Mall Lt. LG, Jl. M.H. Thamrin No. 1, Jakarta Pusat",
+    "lat": -6.1954,
+    "lng": 106.8219
+  },
+  {
+    "id": "kk-jkt-02",
+    "city": "Jakarta",
+    "name": "Kopi Kenangan - Kota Kasablanka",
+    "googleMapsQuery": "Kopi Kenangan Kota Kasablanka",
+    "address": "Kota Kasablanka Mall Lt. LG, Jl. Casablanca No. 88, Jakarta Selatan",
+    "lat": -6.2238,
+    "lng": 106.8428
+  },
+  {
+    "id": "kk-jkt-03",
+    "city": "Jakarta",
+    "name": "Kopi Kenangan - Central Park Mall",
+    "googleMapsQuery": "Kopi Kenangan Central Park",
+    "address": "Central Park Mall Lt. LG, Jl. Letjen S. Parman No. 28, Jakarta Barat",
+    "lat": -6.1774,
+    "lng": 106.7907
+  },
+  {
+    "id": "kk-jkt-04",
+    "city": "Jakarta",
+    "name": "Kopi Kenangan - Senayan City",
+    "googleMapsQuery": "Kopi Kenangan Senayan City",
+    "address": "Senayan City Lt. LG, Jl. Asia Afrika No. 19, Jakarta Pusat",
+    "lat": -6.2272,
+    "lng": 106.7974
+  },
+  {
+    "id": "kk-jkt-05",
+    "city": "Jakarta",
+    "name": "Kopi Kenangan - Mal Kelapa Gading 3",
+    "googleMapsQuery": "Kopi Kenangan Mal Kelapa Gading",
+    "address": "MKG 3 Lt. G, Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara",
+    "lat": -6.1578,
+    "lng": 106.9088
+  },
+  {
+    "id": "kk-sby-01",
+    "city": "Surabaya",
+    "name": "Kopi Kenangan - Tunjungan Plaza 3",
+    "googleMapsQuery": "Kopi Kenangan Tunjungan Plaza 3",
+    "address": "Mall Tunjungan Plaza 3 Lt. LG, Jl. Embong Malang No. 7-21, Surabaya",
+    "lat": -7.2625,
+    "lng": 112.7394
+  },
+  {
+    "id": "kk-sby-02",
+    "city": "Surabaya",
+    "name": "Kopi Kenangan - Pakuwon Mall",
+    "googleMapsQuery": "Kopi Kenangan Pakuwon Mall Surabaya",
+    "address": "Pakuwon Mall Lt. B1, Jl. Mayjen Yono Suwoyo No. 2, Surabaya Barat",
+    "lat": -7.2891,
+    "lng": 112.6756
+  },
+  {
+    "id": "kk-sby-03",
+    "city": "Surabaya",
+    "name": "Kopi Kenangan - Ruko Galaxy Kertajaya",
+    "googleMapsQuery": "Kopi Kenangan Ruko Galaxy Kertajaya",
+    "address": "Jl. Kertajaya Indah No. 45, Manyar Sabrangan, Mulyorejo, Surabaya",
+    "lat": -7.2758,
+    "lng": 112.7845
+  },
+  {
+    "id": "kk-bdg-01",
+    "city": "Bandung",
+    "name": "Kopi Kenangan - Paris Van Java (PVJ)",
+    "googleMapsQuery": "Kopi Kenangan Paris Van Java",
+    "address": "PVJ Mall Resort Level, Jl. Sukajadi No. 131-139, Bandung",
+    "lat": -6.8893,
+    "lng": 107.5959
+  },
+  {
+    "id": "kk-bdg-02",
+    "city": "Bandung",
+    "name": "Kopi Kenangan - 23 Paskal Shopping Center",
+    "googleMapsQuery": "Kopi Kenangan 23 Paskal",
+    "address": "23 Paskal Hypersquare Lt. 2, Jl. Pasir Kaliki No. 25-27, Bandung",
+    "lat": -6.9157,
+    "lng": 107.5958
+  },
+  {
+    "id": "kk-jog-01",
+    "city": "Yogyakarta",
+    "name": "Kopi Kenangan - Pakuwon Mall Jogja",
+    "googleMapsQuery": "Kopi Kenangan Pakuwon Mall Jogja",
+    "address": "Pakuwon Mall Jogja Lt. LG, Jl. Ring Road Utara, Depok, Sleman",
+    "lat": -7.7592,
+    "lng": 110.3995
+  },
+  {
+    "id": "kk-jog-02",
+    "city": "Yogyakarta",
+    "name": "Kopi Kenangan - Malioboro Mall",
+    "googleMapsQuery": "Kopi Kenangan Malioboro Mall",
+    "address": "Plaza Malioboro Lt. GF, Jl. Malioboro No. 52-58, Danurejan, Yogyakarta",
+    "lat": -7.7924,
+    "lng": 110.3664
+  },
+  {
+    "id": "kk-slo-01",
+    "city": "Solo",
+    "name": "Kopi Kenangan - Solo Paragon Mall",
+    "googleMapsQuery": "Kopi Kenangan Solo Paragon",
+    "address": "Solo Paragon Lifestyle Mall Lt. GF, Jl. Yosodipuro No. 133, Surakarta",
+    "lat": -7.5615,
+    "lng": 110.8122
+  },
+  {
+    "id": "kk-dps-01",
+    "city": "Bali",
+    "name": "Kopi Kenangan - Beachwalk Shopping Center",
+    "googleMapsQuery": "Kopi Kenangan Beachwalk Bali",
+    "address": "Beachwalk Bali Lt. 1, Jl. Pantai Kuta, Badung, Bali",
+    "lat": -8.7183,
+    "lng": 115.1691
+  },
+  {
+    "id": "kk-dps-02",
+    "city": "Bali",
+    "name": "Kopi Kenangan - Living World Denpasar",
+    "googleMapsQuery": "Kopi Kenangan Living World Denpasar",
+    "address": "Living World Denpasar Lt. LG, Jl. Gatot Subroto Timur, Denpasar",
+    "lat": -8.6345,
+    "lng": 115.2418
+  },
+  {
+    "id": "kk-mdn-01",
+    "city": "Medan",
+    "name": "Kopi Kenangan - Sun Plaza Medan",
+    "googleMapsQuery": "Kopi Kenangan Sun Plaza Medan",
+    "address": "Sun Plaza Medan Lt. LG, Jl. KH. Zainul Arifin No. 7, Medan",
+    "lat": 3.5857,
+    "lng": 98.6706
   }
 ]
