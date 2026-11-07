@@ -172,7 +172,7 @@ export default function App() {
 
         {/* 5. Sub-filter Tab ("For you", "Best Seller", Kategori Menu) */}
         <div className="flex items-center justify-between pt-1 overflow-x-auto no-scrollbar gap-2">
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 py-0.5">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
@@ -180,10 +180,10 @@ export default function App() {
                   key={cat}
                   type="button"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1 rounded-full text-xs transition-colors ${
+                  className={`px-4 py-2.5 rounded-full text-xs transition-all duration-200 cursor-pointer min-h-[38px] flex items-center justify-center ${
                     isActive
                       ? 'bg-stone-900 text-white font-semibold shadow-xs'
-                      : 'bg-stone-100 text-stone-600 font-medium hover:bg-stone-200'
+                      : 'bg-stone-100/90 text-stone-600 font-medium hover:bg-stone-200 hover:text-stone-900'
                   }`}
                 >
                   {cat === 'All' ? 'Semua Menu' : cat}
