@@ -7,6 +7,8 @@ import {
   Label,
   Modal,
   SearchField,
+  Toast,
+  toast,
 } from '@heroui/react';
 import {
   IconAdjustmentsHorizontal,
@@ -39,7 +41,6 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
   const [pendingOutletChange, setPendingOutletChange] = useState<Outlet | null>(null);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
 
   const categories = ['All', ...currentOutlet.categories];
@@ -62,16 +63,22 @@ export default function App() {
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const subtotal = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
 
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 2200);
+  const showToast = (title: string, description?: string) => {
+    toast(title, {
+      description,
+      indicator: (
+        <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <IconShoppingBag size={17} stroke={2} />
+        </div>
+      ),
+      variant: 'default',
+      timeout: 2500,
+    });
   };
 
   const handleAddToCart = (item: CartItem) => {
     setCartItems((prev) => [...prev, item]);
-    showToast(`1x ${item.menuItem.name} ditambahkan`);
+    showToast(`1x ${item.menuItem.name}`, 'Ditambahkan ke keranjang belanja');
   };
 
   const handleToggleFavorite = (id: string) => {
@@ -113,30 +120,38 @@ export default function App() {
 
   if (isCartOpen) {
     return (
-      <CartStandalonePage
-        onBack={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        outlet={currentOutlet}
-        onSelectOutlet={setCurrentOutlet}
-        onRemoveItem={handleRemoveItem}
-        onClearCart={handleClearCart}
-      />
+      <>
+        <Toast.Provider placement="top" />
+        <CartStandalonePage
+          onBack={() => setIsCartOpen(false)}
+          cartItems={cartItems}
+          outlet={currentOutlet}
+          onSelectOutlet={setCurrentOutlet}
+          onRemoveItem={handleRemoveItem}
+          onClearCart={handleClearCart}
+        />
+      </>
     );
   }
   if (detailProduct) {
     return (
-      <ProductDetailPage
-        item={detailProduct}
-        onBack={() => setDetailProduct(null)}
-        onAddToCart={handleAddToCart}
-        isFavorite={favorites.includes(detailProduct.id)}
-        onToggleFavorite={handleToggleFavorite}
-      />
+      <>
+        <Toast.Provider placement="top" />
+        <ProductDetailPage
+          item={detailProduct}
+          onBack={() => setDetailProduct(null)}
+          onAddToCart={handleAddToCart}
+          isFavorite={favorites.includes(detailProduct.id)}
+          onToggleFavorite={handleToggleFavorite}
+        />
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white text-stone-900 pb-20 font-sans antialiased">
+    <>
+      <Toast.Provider placement="top" />
+      <div className="min-h-screen bg-white text-stone-900 pb-20 font-sans antialiased">
       {/* App Shell Container Maksimal Mobile-First seperti di Referensi */}
       <div className="max-w-md mx-auto px-4 pt-3 space-y-4">
         {/* 1. Header Brand & Notifikasi */}
@@ -265,16 +280,6 @@ export default function App() {
           ))}
         </div>
       </div>
-
-      {/* Toast Feedback Instan */}
-      {toastMessage && (
-        <div className="fixed top-4 inset-x-4 max-w-sm mx-auto z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="bg-stone-900 text-white px-4 py-2.5 rounded-2xl shadow-lg border border-stone-800 flex items-center justify-between text-xs font-semibold">
-            <span>{toastMessage}</span>
-            <span className="w-2 h-2 rounded-full bg-blue-500" />
-          </div>
-        </div>
-      )}
 
       {/* FAB Floating Cart Button (Floating Action Button di Home saat ada item) */}
       {cartItems.length > 0 && (
@@ -422,5 +427,6 @@ export default function App() {
         onSelectOutlet={handleChangeOutlet}
       />
     </div>
+    </>
   );
 }
