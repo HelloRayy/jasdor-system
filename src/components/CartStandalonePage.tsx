@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Button,
   Input,
@@ -17,12 +17,11 @@ import {
   IconTruck,
   IconBuildingStore,
   IconAlertCircle,
-  IconChevronRight,
+  IconCheck,
 } from '@tabler/icons-react';
 import type { CartItem, CustomerProfile, OrderPayload, DeliveryMethod } from '../types/cart';
 import type { Outlet } from '../types/catalog';
 import { mockOutlets } from '../data/mockOutlets';
-import { OutletComboboxModal } from './OutletComboboxModal';
 import {
   formatRupiah,
   generateOrderId,
@@ -51,7 +50,41 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 }) => {
   const [selectedOutlet, setSelectedOutlet] = useState<Outlet>(outlet);
   const [customBranchName, setCustomBranchName] = useState<string>(outlet.name);
-  const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
+  const [debouncedQuery, setDebouncedQuery] = useState<string>('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Debounce input pencarian cabang (300ms)
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(customBranchName.trim());
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [customBranchName]);
+
+  // Tutup dropdown saat klik di luar
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Filter cabang berdasarkan input debounced
+  const matchingOutlets = debouncedQuery.length >= 2
+    ? mockOutlets.filter((o) => {
+        const q = debouncedQuery.toLowerCase();
+        return (
+          o.name.toLowerCase().includes(q) ||
+          o.address.toLowerCase().includes(q) ||
+          o.location.city.toLowerCase().includes(q)
+        );
+      })
+    : [];
+
   const [profile, setProfile] = useState<CustomerProfile>(() => {
     try {
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -273,18 +306,18 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
               </div>
             </div>
 
-            {/* Bagian 1.5: Pilih Kota & Cabang Gerai Kenangan (Hybrid: Bebas Ketik + Tombol Cepat Pilihan) */}
-            <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-3 shadow-2xs">
+            {/* Bagian 1.5: Input Field Cabang Simpel dengan Debounce Live Dropdown */}
+            <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-2 shadow-2xs" ref={dropdownRef}>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold text-stone-900 block">
-                  Cabang Pemesanan Kopi Kenangan
+                  Cabang Pemesanan
                 </span>
                 <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
                   {selectedOutlet.location.city || 'Semarang'}
                 </span>
               </div>
 
-              {/* Input Text Bebas Ketik */}
+              {/* Input Text Bersih & Minimalis */}
               <div className="relative">
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400">
                   <IconBuildingStore size={18} stroke={1.75} />
@@ -292,46 +325,66 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                 <input
                   type="text"
                   value={customBranchName}
-                  onChange={(e) => setCustomBranchName(e.target.value)}
-                  placeholder="Ketik nama cabang/mall/area terdekatmu..."
-                  className="w-full pl-10 pr-24 py-2.5 text-xs bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/40 text-stone-900 font-medium placeholder:text-stone-400 transition-colors"
+                  onChange={(e) => {
+                    setCustomBranchName(e.target.value);
+                    setIsDropdownOpen(true);
+                  }}
+                  onFocus={() => setIsDropdownOpen(true)}
+                  placeholder="Ketik cabang/mall (contoh: anjasmoro, ciputra)..."
+                  className="w-full pl-10 pr-4 py-3 text-sm bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/40 text-stone-900 font-medium placeholder:text-stone-400 transition-colors"
                 />
-                <button
-                  type="button"
-                  onClick={() => setIsOutletPickerOpen(true)}
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-[11px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
-                >
-                  <span>Pilih</span>
-                  <IconChevronRight size={13} stroke={2} />
-                </button>
+
+                {/* Live Dropdown Hasil Debounce */}
+                {isDropdownOpen && matchingOutlets.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-2xl border border-stone-200/90 shadow-xl overflow-hidden z-50 max-h-56 overflow-y-auto">
+                    <div className="px-3 py-1.5 bg-stone-50/80 border-b border-stone-100 flex items-center justify-between text-[11px] font-semibold text-stone-500">
+                      <span>Pilihan Cabang Resmi</span>
+                      <span>{matchingOutlets.length} lokasi</span>
+                    </div>
+                    {matchingOutlets.map((item) => {
+                      const isSelected = selectedOutlet.id === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedOutlet(item);
+                            setCustomBranchName(item.name);
+                            setIsDropdownOpen(false);
+                            if (onSelectOutlet) onSelectOutlet(item);
+                          }}
+                          className={`w-full px-3.5 py-2.5 text-left border-b border-stone-100 last:border-0 flex items-start justify-between gap-2.5 transition-colors cursor-pointer ${
+                            isSelected ? 'bg-stone-50' : 'hover:bg-stone-50/60'
+                          }`}
+                        >
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-xs font-bold text-stone-900 truncate">
+                                {item.name}
+                              </span>
+                              <span className="text-[9px] font-semibold uppercase px-1.5 py-0.2 rounded bg-stone-100 text-stone-600 shrink-0">
+                                {item.location.city}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-stone-500 truncate mt-0.5">
+                              {item.address}
+                            </p>
+                          </div>
+                          {isSelected && (
+                            <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                              <IconCheck size={12} stroke={3} />
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              {/* Quick Pills Rekomendasi Cabang Terdekat */}
-              <div className="pt-0.5">
-                <span className="text-[10px] text-stone-400 font-medium block mb-1.5">
-                  Rekomendasi Cepat:
-                </span>
-                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5 -mx-1 px-1">
-                  {mockOutlets.slice(0, 5).map((outletItem) => (
-                    <button
-                      key={outletItem.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedOutlet(outletItem);
-                        setCustomBranchName(outletItem.name);
-                        if (onSelectOutlet) onSelectOutlet(outletItem);
-                      }}
-                      className={`text-[11px] px-2.5 py-1 rounded-full border whitespace-nowrap transition-colors cursor-pointer ${
-                        customBranchName === outletItem.name
-                          ? 'border-stone-900 bg-stone-900 text-white font-semibold'
-                          : 'border-stone-200 bg-stone-50 text-stone-600 hover:bg-stone-100'
-                      }`}
-                    >
-                      {outletItem.name.replace('Kopi Kenangan - ', '')}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <p className="text-[11px] text-stone-400 px-0.5">
+                Bisa pilih dari saran di atas atau ketik bebas nama gerai terdekatmu.
+              </p>
             </div>
 
             {/* Bagian 2: Opsi Pengantaran (Delivery vs Pickup) */}
@@ -516,21 +569,6 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
           </div>
         </div>
       )}
-
-      {/* Modal Combobox Pilih Kota & Gerai Se-Indonesia */}
-      <OutletComboboxModal
-        isOpen={isOutletPickerOpen}
-        onClose={() => setIsOutletPickerOpen(false)}
-        outlets={mockOutlets}
-        currentOutlet={selectedOutlet}
-        onSelectOutlet={(newOutlet) => {
-          setSelectedOutlet(newOutlet);
-          setCustomBranchName(newOutlet.name);
-          if (onSelectOutlet) {
-            onSelectOutlet(newOutlet);
-          }
-        }}
-      />
     </div>
   );
 };
