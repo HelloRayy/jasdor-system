@@ -23,7 +23,6 @@ import { DeliveryHeader } from './components/DeliveryHeader';
 import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
 import { ProductDetailPage } from './components/ProductDetailPage';
-import { VariantModal } from './components/VariantModal';
 import { CartDrawer } from './components/CartDrawer';
 import { OutletMapStandalonePage } from './components/OutletMapStandalonePage';
 import { formatRupiah } from './utils/whatsapp';
@@ -36,7 +35,6 @@ export default function App() {
 
   // Modal & Drawer States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<MenuItem | null>(null);
   const [detailProduct, setDetailProduct] = useState<MenuItem | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
@@ -74,22 +72,6 @@ export default function App() {
   const handleAddToCart = (item: CartItem) => {
     setCartItems((prev) => [...prev, item]);
     showToast(`1x ${item.menuItem.name} ditambahkan`);
-  };
-
-  const handleQuickAdd = (menuItem: MenuItem) => {
-    if (menuItem.optionGroups && menuItem.optionGroups.length > 0) {
-      setSelectedProduct(menuItem);
-      return;
-    }
-    const cartItem: CartItem = {
-      id: `${menuItem.id}-${Date.now()}`,
-      menuItem,
-      quantity: 1,
-      selectedOptions: [],
-      unitPrice: menuItem.basePrice,
-      totalPrice: menuItem.basePrice,
-    };
-    handleAddToCart(cartItem);
   };
 
   const handleToggleFavorite = (id: string) => {
@@ -273,7 +255,7 @@ export default function App() {
               isFavorite={favorites.includes(item.id)}
               onToggleFavorite={handleToggleFavorite}
               onSelect={(selected) => setDetailProduct(selected)}
-              onQuickAdd={handleQuickAdd}
+              onQuickAdd={(selected) => setDetailProduct(selected)}
             />
           ))}
         </div>
@@ -426,13 +408,6 @@ export default function App() {
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
-
-      {/* HeroUI Variant Modal */}
-      <VariantModal
-        item={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        onAddToCart={handleAddToCart}
-      />
 
       {/* HeroUI Cart Drawer & WhatsApp Form */}
       <CartDrawer
