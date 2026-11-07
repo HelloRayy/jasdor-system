@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+:root {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Soft UI Design System Tokens */
+  --bg-app: #f4f5f8;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #f9fafb;
+  --bg-inset: #eff1f5;
+  
+  --shadow-soft-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-soft-md: 0 10px 25px -4px rgba(0, 0, 0, 0.04), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
+  --shadow-soft-lg: 0 20px 35px -8px rgba(0, 0, 0, 0.06), 0 8px 16px -4px rgba(0, 0, 0, 0.03);
+  --shadow-floating: 0 24px 48px -12px rgba(15, 23, 42, 0.08), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-app);
+  color: #111827;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Soft UI utility classes */
+.soft-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: var(--shadow-soft-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.soft-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft-lg);
+}
+
+.soft-panel {
+  background: #ffffff;
+  border-radius: 32px;
+  box-shadow: var(--shadow-floating);
+}
+
+.soft-chip {
+  border-radius: 9999px;
+  box-shadow: var(--shadow-soft-sm);
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+}
