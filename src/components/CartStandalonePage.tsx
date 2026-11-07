@@ -50,6 +50,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
   onClearCart,
 }) => {
   const [selectedOutlet, setSelectedOutlet] = useState<Outlet>(outlet);
+  const [customBranchName, setCustomBranchName] = useState<string>(outlet.name);
   const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
   const [profile, setProfile] = useState<CustomerProfile>(() => {
     try {
@@ -101,13 +102,15 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
 
     setErrorMessage('');
 
+    const finalBranchName = customBranchName.trim() || selectedOutlet.name;
+
     const orderPayload: OrderPayload = {
       orderId: generateOrderId(selectedOutlet.slug),
       outletId: selectedOutlet.id,
-      outletName: selectedOutlet.name,
+      outletName: finalBranchName,
       whatsappNumber: selectedOutlet.whatsappNumber,
       outletAddress: selectedOutlet.address,
-      outletMapsQuery: selectedOutlet.googleMapsQuery,
+      outletMapsQuery: selectedOutlet.googleMapsQuery || finalBranchName,
       items: cartItems,
       subtotal,
       deliveryFee: 0,
@@ -270,40 +273,65 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
               </div>
             </div>
 
-            {/* Bagian 1.5: Pilih Kota & Cabang Gerai Kenangan (Langsung di Form Checkout) */}
-            <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-2.5 shadow-2xs">
+            {/* Bagian 1.5: Pilih Kota & Cabang Gerai Kenangan (Hybrid: Bebas Ketik + Tombol Cepat Pilihan) */}
+            <div className="p-4 bg-white rounded-3xl border border-stone-200/80 space-y-3 shadow-2xs">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold text-stone-900 block">
-                  Cabang Pemesanan
+                  Cabang Pemesanan Kopi Kenangan
                 </span>
                 <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
                   {selectedOutlet.location.city || 'Semarang'}
                 </span>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setIsOutletPickerOpen(true)}
-                className="w-full p-3 rounded-2xl bg-stone-50 hover:bg-stone-100/80 border border-stone-200/80 flex items-center justify-between gap-3 text-left transition-colors cursor-pointer"
-              >
-                <div className="flex items-start gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-stone-900 text-white flex items-center justify-center shrink-0 mt-0.5">
-                    <IconBuildingStore size={16} stroke={2} />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-xs font-bold text-stone-900 block truncate">
-                      {selectedOutlet.name}
-                    </span>
-                    <span className="text-[11px] text-stone-500 block truncate mt-0.5">
-                      {selectedOutlet.address}
-                    </span>
-                  </div>
+              {/* Input Text Bebas Ketik */}
+              <div className="relative">
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400">
+                  <IconBuildingStore size={18} stroke={1.75} />
                 </div>
-                <div className="flex items-center gap-1 shrink-0 text-stone-400">
-                  <span className="text-xs font-semibold text-stone-700">Ganti</span>
-                  <IconChevronRight size={16} stroke={2} />
+                <input
+                  type="text"
+                  value={customBranchName}
+                  onChange={(e) => setCustomBranchName(e.target.value)}
+                  placeholder="Ketik nama cabang/mall/area terdekatmu..."
+                  className="w-full pl-10 pr-24 py-2.5 text-xs bg-stone-50 rounded-2xl border border-stone-200/80 focus:outline-none focus:bg-white focus:border-stone-900/40 text-stone-900 font-medium placeholder:text-stone-400 transition-colors"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsOutletPickerOpen(true)}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-[11px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                >
+                  <span>Pilih</span>
+                  <IconChevronRight size={13} stroke={2} />
+                </button>
+              </div>
+
+              {/* Quick Pills Rekomendasi Cabang Terdekat */}
+              <div className="pt-0.5">
+                <span className="text-[10px] text-stone-400 font-medium block mb-1.5">
+                  Rekomendasi Cepat:
+                </span>
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5 -mx-1 px-1">
+                  {mockOutlets.slice(0, 5).map((outletItem) => (
+                    <button
+                      key={outletItem.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedOutlet(outletItem);
+                        setCustomBranchName(outletItem.name);
+                        if (onSelectOutlet) onSelectOutlet(outletItem);
+                      }}
+                      className={`text-[11px] px-2.5 py-1 rounded-full border whitespace-nowrap transition-colors cursor-pointer ${
+                        customBranchName === outletItem.name
+                          ? 'border-stone-900 bg-stone-900 text-white font-semibold'
+                          : 'border-stone-200 bg-stone-50 text-stone-600 hover:bg-stone-100'
+                      }`}
+                    >
+                      {outletItem.name.replace('Kopi Kenangan - ', '')}
+                    </button>
+                  ))}
                 </div>
-              </button>
+              </div>
             </div>
 
             {/* Bagian 2: Opsi Pengantaran (Delivery vs Pickup) */}
@@ -495,6 +523,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
         currentOutlet={selectedOutlet}
         onSelectOutlet={(newOutlet) => {
           setSelectedOutlet(newOutlet);
+          setCustomBranchName(newOutlet.name);
           if (onSelectOutlet) {
             onSelectOutlet(newOutlet);
           }
