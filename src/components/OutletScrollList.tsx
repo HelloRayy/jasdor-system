@@ -16,7 +16,7 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between px-0.5">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-stone-900">
+        <h3 className="text-sm font-bold text-stone-900">
           Pilihan Gerai
         </h3>
         <span className="text-[11px] text-stone-400">Geser untuk pilih</span>
