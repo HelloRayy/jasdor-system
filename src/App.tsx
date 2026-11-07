@@ -14,6 +14,7 @@ import {
   IconMapPin,
   IconCheck,
   IconSparkles,
+  IconShoppingBag,
 } from '@tabler/icons-react';
 import { mockOutlets } from './data/mockOutlets';
 import type { Outlet, MenuItem } from './types/catalog';
@@ -91,12 +92,6 @@ export default function App() {
     handleAddToCart(cartItem);
   };
 
-  const handleBuyNow = (cartItem: CartItem) => {
-    handleAddToCart(cartItem);
-    setDetailProduct(null);
-    setIsCartOpen(true);
-  };
-
   const handleToggleFavorite = (id: string) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
@@ -151,7 +146,6 @@ export default function App() {
         item={detailProduct}
         onBack={() => setDetailProduct(null)}
         onAddToCart={handleAddToCart}
-        onBuyNow={handleBuyNow}
         isFavorite={favorites.includes(detailProduct.id)}
         onToggleFavorite={handleToggleFavorite}
       />
@@ -295,31 +289,32 @@ export default function App() {
         </div>
       )}
 
-      {/* Floating Bottom Cart Bar (Muncul pas ada item di keranjang) */}
+      {/* FAB Floating Cart Button (Floating Action Button di Home saat ada item) */}
       {cartItems.length > 0 && (
-        <div className="fixed bottom-4 inset-x-4 max-w-md mx-auto z-40">
+        <div className="fixed bottom-6 right-6 z-40">
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="w-full bg-[#0a2e1f] text-white p-3.5 rounded-2xl shadow-xl flex items-center justify-between border border-[#144732]/60"
+            className="group relative flex items-center gap-3 bg-stone-900 text-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl border border-stone-800 hover:bg-stone-950 transition-transform active:scale-95"
+            aria-label="Buka keranjang belanja"
           >
-            <div className="flex items-center gap-2.5">
-              <span className="w-6 h-6 rounded-lg bg-[#2fdc8f] text-[#0a2e1f] font-bold text-xs flex items-center justify-center">
+            {/* Bag Icon dengan Badge Counter */}
+            <div className="relative">
+              <IconShoppingBag size={22} stroke={2} />
+              <span className="absolute -top-2 -right-2.5 min-w-[20px] h-5 rounded-full bg-[#2fdc8f] text-[#0a2e1f] text-[11px] font-extrabold flex items-center justify-center px-1">
                 {totalQuantity}
               </span>
-              <div className="text-left">
-                <span className="text-[11px] text-[#2fdc8f]/80 block font-normal leading-tight">
-                  Total Pesanan
-                </span>
-                <span className="text-sm font-bold leading-tight text-white">
-                  {formatRupiah(subtotal)}
-                </span>
-              </div>
             </div>
 
-            <span className="text-xs font-semibold text-[#2fdc8f]">
-              Lihat Keranjang &gt;
-            </span>
+            {/* Total Belanja */}
+            <div className="text-left border-l border-stone-700 pl-3">
+              <span className="text-[10px] text-stone-400 block font-normal leading-none mb-0.5">
+                Total
+              </span>
+              <span className="text-sm font-bold leading-none text-white">
+                {formatRupiah(subtotal)}
+              </span>
+            </div>
           </button>
         </div>
       )}

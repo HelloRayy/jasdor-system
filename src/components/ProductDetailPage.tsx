@@ -8,7 +8,6 @@ import {
   IconMaximize,
   IconPlus,
   IconMinus,
-  IconShoppingBag,
 } from '@tabler/icons-react';
 import type { MenuItem } from '../types/catalog';
 import type { CartItem, SelectedOption } from '../types/cart';
@@ -18,7 +17,6 @@ interface ProductDetailPageProps {
   item: MenuItem;
   onBack: () => void;
   onAddToCart: (cartItem: CartItem) => void;
-  onBuyNow: (cartItem: CartItem) => void;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
 }
@@ -27,7 +25,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   item,
   onBack,
   onAddToCart,
-  onBuyNow,
   isFavorite,
   onToggleFavorite,
 }) => {
@@ -89,6 +86,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       unitPrice,
       totalPrice,
     };
+  };
+
+  const handleConfirmAddToCart = () => {
+    onAddToCart(createCartItem());
+    onBack(); // Otomatis fallback ke Home
   };
 
   return (
@@ -269,7 +271,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           )}
         </div>
 
-        {/* Floating Bottom Action Dock: Ringan, Tanpa Container Tebal Memenuhi Layar */}
+        {/* Floating Bottom Action: Stepper + Tombol Tambah ke Keranjang Langsung */}
         <div className="fixed bottom-3 inset-x-4 max-w-md mx-auto z-40">
           <div className="bg-white/95 backdrop-blur-md rounded-[24px] p-2 border border-stone-200/80 shadow-lg flex items-center gap-2">
             {/* Quantity Stepper Ringkas */}
@@ -296,27 +298,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </button>
             </div>
 
-            {/* Icon Button: Tambah ke Keranjang Saja (Less is more) */}
-            <button
-              type="button"
-              onClick={() => {
-                onAddToCart(createCartItem());
-                onBack();
-              }}
-              className="w-12 h-12 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-800 flex items-center justify-center shrink-0 transition-colors"
-              aria-label="Tambah ke keranjang"
-              title="Tambah ke keranjang"
-            >
-              <IconShoppingBag size={20} stroke={1.75} />
-            </button>
-
-            {/* Primary Action Button: Beli / Pesan Sekarang */}
+            {/* Tombol Utama: Masukkan ke Keranjang -> Fallback ke Home */}
             <Button
               variant="primary"
-              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-xs sm:text-sm flex items-center justify-between px-4 shadow-xs"
-              onPress={() => onBuyNow(createCartItem())}
+              className="flex-1 h-12 rounded-2xl bg-stone-900 text-white font-semibold text-xs sm:text-sm flex items-center justify-between px-5 shadow-xs"
+              onPress={handleConfirmAddToCart}
             >
-              <span>Pesan Sekarang</span>
+              <span>Tambah ke Keranjang</span>
               <span className="font-bold">{formatRupiah(totalPrice)}</span>
             </Button>
           </div>
