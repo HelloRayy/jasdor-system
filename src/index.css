@@ -1,9 +1,15 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+@theme {
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
 :root {
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
   /* Soft UI Design System Tokens */
   --bg-app: #f4f5f8;
@@ -26,6 +32,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+}
+
 /* Disable all transitions and hover animations globally for ultra-fast response */
 *, *::before, *::after {
   transition-property: none !important;
@@ -42,8 +52,4 @@ body {
 .soft-chip {
   border-radius: 9999px;
   box-shadow: var(--shadow-soft-sm);
-}
-
-.font-editorial {
-  font-family: var(--font-serif);
 }
