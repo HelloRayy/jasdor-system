@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
   Button,
-  Chip,
   Dropdown,
   Label,
   Modal,
@@ -13,18 +12,15 @@ import {
   IconAdjustmentsHorizontal,
   IconCheck,
   IconShoppingBag,
-  IconBrandWhatsapp,
 } from '@tabler/icons-react';
 import { BRANDS, getOutletsByBrand, type BrandInfo } from './data/mockBrands';
 import type { Outlet, MenuItem } from './types/catalog';
 import type { CartItem } from './types/cart';
 import { DeliveryHeader } from './components/DeliveryHeader';
 import { BrandSelector } from './components/BrandSelector';
-import { OutletScrollList } from './components/OutletScrollList';
 import { CleanProductCard } from './components/CleanProductCard';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { CartStandalonePage } from './components/CartStandalonePage';
-import { OutletComboboxModal } from './components/OutletComboboxModal';
 import { formatRupiah } from './utils/whatsapp';
 
 export default function App() {
@@ -39,9 +35,7 @@ export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [detailProduct, setDetailProduct] = useState<MenuItem | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isOutletPickerOpen, setIsOutletPickerOpen] = useState(false);
   const [pendingBrandChange, setPendingBrandChange] = useState<BrandInfo | null>(null);
-  const [pendingOutletChange, setPendingOutletChange] = useState<Outlet | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
 
   const categories = ['All', ...currentOutlet.categories];
@@ -123,29 +117,6 @@ export default function App() {
     }
   };
 
-  const handleChangeOutlet = (newOutlet: Outlet) => {
-    if (newOutlet.id !== currentOutlet.id) {
-      if (cartItems.length > 0) {
-        setPendingOutletChange(newOutlet);
-        return;
-      }
-      setCurrentOutlet(newOutlet);
-      setSelectedCategory('All');
-      setSearchQuery('');
-    }
-  };
-
-  const confirmChangeOutlet = () => {
-    if (pendingOutletChange) {
-      setCurrentOutlet(pendingOutletChange);
-      setSelectedCategory('All');
-      setSearchQuery('');
-      setCartItems([]);
-      setPendingOutletChange(null);
-      showToast(`Beralih ke ${pendingOutletChange.brand}`);
-    }
-  };
-
   if (isCartOpen) {
     return (
       <>
@@ -185,7 +156,6 @@ export default function App() {
           {/* 1. Header Brand & Notifikasi */}
           <DeliveryHeader
             currentOutlet={currentOutlet}
-            onOpenOutletPicker={() => setIsOutletPickerOpen(true)}
           />
 
           {/* 2. Search Bar Bersih: Paper Frost, Hairline & Dropdown Popover */}
@@ -245,42 +215,14 @@ export default function App() {
             </Dropdown>
           </div>
 
-          {/* 2.5. Pilihan Brand Kopi (Kopi Kenangan, Fore, Tomoro) */}
+          {/* Pilihan Brand Kopi (Kopi Kenangan, Fore, Tomoro) */}
           <BrandSelector
             brands={BRANDS}
             currentBrand={currentBrand}
             onSelectBrand={handleSelectBrand}
           />
 
-          {/* 3. Horizontal Scrollable Outlet Gerai Cabang */}
-          <OutletScrollList
-            outlets={brandOutlets}
-            currentOutlet={currentOutlet}
-            onSelectOutlet={handleChangeOutlet}
-          />
-
-          {/* 4. Minimalist Highlight Card: Studio Mist & Hairline */}
-          <div className="rounded-2xl bg-studio-mist border border-hairline p-3.5 flex items-center justify-between gap-3 shadow-2xs">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-pricing-blue text-gallery-white flex items-center justify-center shrink-0 shadow-xs">
-                <IconBrandWhatsapp size={20} stroke={2} />
-              </div>
-              <div className="min-w-0">
-                <h4 className="text-xs font-semibold text-ink truncate">
-                  Pesan Cepat via WhatsApp
-                </h4>
-                <p className="text-[11px] text-slate truncate mt-0.5">
-                  Format otomatis terisi rapi ke kasir resmi
-                </p>
-              </div>
-            </div>
-
-            <Chip size="sm" variant="secondary" className="text-[10px] font-semibold text-ink bg-gallery-white border border-hairline shrink-0">
-              {currentOutlet.brand}
-            </Chip>
-          </div>
-
-          {/* 5. Clean Horizontal Scrollable Category Pills */}
+          {/* Clean Horizontal Scrollable Category Pills */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
@@ -381,51 +323,6 @@ export default function App() {
             </Modal.Container>
           </Modal.Backdrop>
         </Modal>
-
-        {/* Modal Konfirmasi Pindah Outlet */}
-        <Modal isOpen={!!pendingOutletChange} onOpenChange={(open) => !open && setPendingOutletChange(null)}>
-          <Modal.Backdrop variant="blur">
-            <Modal.Container size="sm">
-              <Modal.Dialog className="w-full bg-gallery-white border border-hairline">
-                <Modal.Header>
-                  <Modal.Heading className="text-ink font-semibold">Pindah Outlet?</Modal.Heading>
-                  <Modal.CloseTrigger />
-                </Modal.Header>
-                <Modal.Body>
-                  <p className="text-xs text-slate leading-relaxed">
-                    Keranjangmu saat ini berisi item dari <strong className="text-ink">{currentOutlet.name}</strong>.
-                    Pindah ke <strong className="text-ink">{pendingOutletChange?.name}</strong> akan mengosongkan keranjangmu.
-                  </p>
-                </Modal.Body>
-                <Modal.Footer className="flex gap-2">
-                  <Button
-                    variant="secondary"
-                    className="flex-1 bg-paper-frost text-ink border border-hairline"
-                    onPress={() => setPendingOutletChange(null)}
-                  >
-                    Batal
-                  </Button>
-                  <Button
-                    variant="primary"
-                    className="flex-1 bg-launch-orange text-gallery-white"
-                    onPress={confirmChangeOutlet}
-                  >
-                    Ya, Ganti Outlet
-                  </Button>
-                </Modal.Footer>
-              </Modal.Dialog>
-            </Modal.Container>
-          </Modal.Backdrop>
-        </Modal>
-
-        {/* Modern Combobox Modal */}
-        <OutletComboboxModal
-          isOpen={isOutletPickerOpen}
-          onClose={() => setIsOutletPickerOpen(false)}
-          outlets={brandOutlets}
-          currentOutlet={currentOutlet}
-          onSelectOutlet={handleChangeOutlet}
-        />
       </div>
     </>
   );

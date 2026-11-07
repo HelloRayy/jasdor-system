@@ -1,20 +1,17 @@
 import React from 'react';
 import { Chip } from '@heroui/react';
-import { IconBuildingStore } from '@tabler/icons-react';
 import type { Outlet } from '../types/catalog';
 
 interface DeliveryHeaderProps {
   currentOutlet?: Outlet;
   ownerName?: string;
   storeName?: string;
-  onOpenOutletPicker?: () => void;
 }
 
 export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
   currentOutlet,
   ownerName = 'Jasdor Partner',
   storeName,
-  onOpenOutletPicker,
 }) => {
   const displayName = storeName || currentOutlet?.brand || 'Kopi Kenangan';
 
@@ -44,16 +41,6 @@ export const DeliveryHeader: React.FC<DeliveryHeaderProps> = ({
           </h2>
         </div>
       </div>
-
-      {/* Button Pilih Gerai Minimalis */}
-      <button
-        type="button"
-        onClick={onOpenOutletPicker}
-        className="w-10 h-10 rounded-2xl bg-gallery-white border border-hairline hover:bg-studio-mist flex items-center justify-center text-ink transition-colors cursor-pointer shrink-0 shadow-2xs"
-        aria-label="Pilih cabang gerai"
-      >
-        <IconBuildingStore size={19} stroke={1.75} />
-      </button>
     </div>
   );
 };
