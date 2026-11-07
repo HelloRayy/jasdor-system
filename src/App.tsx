@@ -138,19 +138,21 @@ export default function App() {
           onSelectOutlet={handleChangeOutlet}
         />
 
-        {/* 4. Promo Dark Banner (Contoh: Down payment 0% LokkeStore di Referensi) */}
-        <div className="relative rounded-3xl overflow-hidden bg-emerald-950 text-white p-4.5 flex items-center justify-between shadow-xs">
-          <div className="space-y-0.5">
+        {/* 4. Promo Dark Banner (Presisi Banner di Gambar Referensi: Hijau Tua Elegan #0d3826 + Pill Button) */}
+        <div className="relative rounded-[20px] overflow-hidden bg-[#0a2e1f] text-white px-5 py-4 flex items-center justify-between border border-[#144732]/40 shadow-xs">
+          <div className="space-y-1">
             <div className="flex items-center gap-1.5">
-              <span className="font-bold text-sm tracking-tight">Pesan Cepat via WhatsApp</span>
-              <IconSparkles size={14} className="text-amber-300" />
+              <span className="font-semibold text-[15px] tracking-tight text-white">
+                Pesan Cepat via WhatsApp
+              </span>
+              <IconSparkles size={15} className="text-amber-300 shrink-0" />
             </div>
-            <p className="text-[11px] text-emerald-300/90 font-medium">
+            <p className="text-xs text-[#2fdc8f] font-normal tracking-tight">
               Otomatis rapi tanpa ngetik manual
             </p>
           </div>
 
-          <div className="px-3 py-1.5 rounded-xl bg-white text-stone-950 text-xs font-bold tracking-tight">
+          <div className="px-4 py-2 rounded-full bg-white text-stone-900 text-xs font-semibold tracking-tight shadow-xs shrink-0 ml-3">
             {currentOutlet.brand}
           </div>
         </div>
