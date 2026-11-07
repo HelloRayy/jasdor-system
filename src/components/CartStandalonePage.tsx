@@ -312,7 +312,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                 <span className="text-sm font-bold text-stone-900 block">
                   Cabang Pemesanan
                 </span>
-                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200/60">
                   {selectedOutlet.location.city || 'Semarang'}
                 </span>
               </div>
@@ -372,7 +372,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                             </p>
                           </div>
                           {isSelected && (
-                            <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                            <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 mt-0.5">
                               <IconCheck size={12} stroke={3} />
                             </div>
                           )}
@@ -532,7 +532,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
                 </div>
                 <div className="flex items-center justify-between text-stone-600">
                   <span>Biaya Pengantaran</span>
-                  <span className="font-semibold text-emerald-700">
+                  <span className="font-semibold text-blue-600">
                     {profile.deliveryMethod === 'delivery' ? 'Sesuai Jarak (COD/Transfer)' : 'Gratis (Ambil Sendiri)'}
                   </span>
                 </div>
@@ -565,7 +565,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
               className="h-12 px-6 rounded-2xl bg-stone-900 text-white font-semibold text-sm flex items-center gap-2 shadow-xs active:scale-95 transition-transform cursor-pointer"
               onPress={handleSendWhatsApp}
             >
-              <IconBrandWhatsapp size={19} stroke={2} className="text-[#2fdc8f]" />
+              <IconBrandWhatsapp size={19} stroke={2} className="text-blue-400" />
               <span>Pesan via WhatsApp</span>
             </Button>
           </div>

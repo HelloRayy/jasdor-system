@@ -175,7 +175,7 @@ export const OutletComboboxModal: React.FC<OutletComboboxModalProps> = ({
 
                       <div className="shrink-0 mt-0.5">
                         {isSelected ? (
-                          <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
+                          <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs">
                             <IconCheck size={14} stroke={3} />
                           </div>
                         ) : (
@@ -193,7 +193,7 @@ export const OutletComboboxModal: React.FC<OutletComboboxModalProps> = ({
             {/* Footer Modal */}
             <Modal.Footer className="px-4 py-3 border-t border-stone-100 bg-stone-50/50 flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-[11px] text-stone-500">
-                <IconNavigation size={13} className="text-emerald-600" />
+                <IconNavigation size={13} className="text-blue-600" />
                 <span>Format nama resmi siap copy ke Google Maps</span>
               </div>
               <button

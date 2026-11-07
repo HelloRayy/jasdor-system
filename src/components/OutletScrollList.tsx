@@ -49,7 +49,7 @@ export const OutletScrollList: React.FC<OutletScrollListProps> = ({
                 </div>
 
                 {isSelected ? (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#2fdc8f] text-[#0a2e1f]">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white shadow-2xs">
                     Aktif
                   </span>
                 ) : (
