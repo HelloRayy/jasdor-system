@@ -2,13 +2,15 @@ import type { Outlet, MenuItem } from '../types/catalog';
 import kopiKenanganRaw from './kopiKenanganBranches.json';
 
 // Menu resmi standar Kopi Kenangan
+const KOPI_KENANGAN_PLACEHOLDER = '/images/kopi-kenangan-cup.png';
+
 const STANDARD_KOPI_KENANGAN_MENUS: MenuItem[] = [
   {
     id: 'kk-01',
     name: 'Kopi Kenangan Mantan',
     description: 'Espresso dengan susu segar dan gula aren asli pilihan nusantara.',
     basePrice: 19000,
-    imageUrl: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&auto=format&fit=crop&q=80',
+    imageUrl: KOPI_KENANGAN_PLACEHOLDER,
     category: 'Coffee',
     isAvailable: true,
     optionGroups: [
@@ -51,7 +53,7 @@ const STANDARD_KOPI_KENANGAN_MENUS: MenuItem[] = [
     name: 'Avocado Coffee',
     description: 'Paduan alpukat gurih dengan espresso pekat dan susu kental manis.',
     basePrice: 28000,
-    imageUrl: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=400&auto=format&fit=crop&q=80',
+    imageUrl: KOPI_KENANGAN_PLACEHOLDER,
     category: 'Coffee',
     isAvailable: true,
     optionGroups: [
@@ -72,7 +74,7 @@ const STANDARD_KOPI_KENANGAN_MENUS: MenuItem[] = [
     name: 'Dua Shot Iced Shaken',
     description: 'Espresso double shot dikocok dingin dengan susu kental creamy.',
     basePrice: 22000,
-    imageUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&auto=format&fit=crop&q=80',
+    imageUrl: KOPI_KENANGAN_PLACEHOLDER,
     category: 'Coffee',
     isAvailable: true,
   },
@@ -81,7 +83,7 @@ const STANDARD_KOPI_KENANGAN_MENUS: MenuItem[] = [
     name: 'Milo Dinosaurus Kenangan',
     description: 'Susu cokelat Milo kental bertabur bubuk Milo melimpah di atasnya.',
     basePrice: 20000,
-    imageUrl: 'https://images.unsplash.com/photo-1572442388796-11668ba67e53?w=400&auto=format&fit=crop&q=80',
+    imageUrl: KOPI_KENANGAN_PLACEHOLDER,
     category: 'Non-Coffee',
     isAvailable: true,
   },

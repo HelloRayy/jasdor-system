@@ -131,12 +131,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
       <div className="max-w-md mx-auto px-4 pt-14 flex flex-col justify-between min-h-screen">
         <div>
-          {/* Large Hero Product Image Container */}
-          <div className="relative aspect-square w-full rounded-3xl bg-stone-100 border border-stone-200/80 flex items-center justify-center p-6 overflow-hidden mb-3">
+          {/* Large Hero Product Image Container: Bersih Putih Tanpa BG Abu-abu */}
+          <div className="relative aspect-square w-full rounded-3xl bg-white border border-stone-200/80 flex items-center justify-center p-4 overflow-hidden mb-3">
             <img
-              src={item.imageUrl}
+              src={item.imageUrl || '/images/kopi-kenangan-cup.png'}
               alt={item.name}
-              className="w-full h-full object-contain mix-blend-multiply"
+              onError={(e) => {
+                e.currentTarget.src = '/images/kopi-kenangan-cup.png';
+              }}
+              className="w-full h-full object-contain"
             />
 
             <div className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-stone-900/60 backdrop-blur-md flex items-center justify-center text-white">

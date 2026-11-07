@@ -24,13 +24,16 @@ export const CleanProductCard: React.FC<CleanProductCardProps> = ({
       onClick={() => onSelect(item)}
       className="group cursor-pointer flex flex-col focus:outline-none"
     >
-      {/* Container Gambar Abu-Abu Bersih (WCAG compliant contrast) */}
-      <div className="relative aspect-square w-full rounded-3xl bg-stone-100 border border-stone-200/80 flex items-center justify-center p-3 overflow-hidden">
-        {/* Foto Produk */}
+      {/* Container Gambar: Bersih Putih Tanpa Background Abu-abu */}
+      <div className="relative aspect-square w-full rounded-3xl bg-white border border-stone-200/80 flex items-center justify-center p-2.5 overflow-hidden">
+        {/* Foto Produk dengan Default Placeholder Cup Kopi Kenangan */}
         <img
-          src={item.imageUrl}
+          src={item.imageUrl || '/images/kopi-kenangan-cup.png'}
           alt={item.name}
-          className="w-full h-full object-contain mix-blend-multiply"
+          onError={(e) => {
+            e.currentTarget.src = '/images/kopi-kenangan-cup.png';
+          }}
+          className="w-full h-full object-contain"
           loading="lazy"
         />
 
