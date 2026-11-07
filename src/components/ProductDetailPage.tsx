@@ -86,7 +86,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gallery-white text-ink pb-28 font-sans antialiased">
+    <div className="min-h-screen bg-gallery-white text-ink pb-40 font-sans antialiased">
       {/* Fixed Top Bar */}
       <div className="fixed top-0 inset-x-0 z-50 max-w-md mx-auto px-4 py-2.5 flex items-center justify-between pointer-events-none">
         <button

@@ -171,7 +171,7 @@ export const CartStandalonePage: React.FC<CartStandalonePageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-studio-mist text-ink pb-32 font-sans antialiased">
+    <div className="min-h-screen bg-studio-mist text-ink pb-48 font-sans antialiased">
       {/* Top Bar Header Minimalis */}
       <div className="sticky top-0 z-40 bg-gallery-white/95 backdrop-blur-md border-b border-hairline">
         <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
